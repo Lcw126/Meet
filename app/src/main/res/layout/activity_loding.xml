@@ -7,11 +7,12 @@
 
 
     <TextView
+        android:id="@+id/title"
         android:layout_width="200dp"
         android:layout_height="wrap_content"
         android:text="MEET"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="220dp"
         android:textStyle="bold|italic"
         android:fontFamily="@font/aaa"
         android:textSize="80sp"
@@ -20,6 +21,13 @@
         android:shadowRadius="5.0"
         android:shadowDx="5.0"
         android:shadowDy="5.0"/>
+
+    <View
+        android:layout_width="300dp"
+        android:layout_height="10dp"
+        android:background="#ffffff"
+        android:layout_below="@id/title"
+        android:layout_centerHorizontal="true"/>
 
 
 
