@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="16dp"
+    tools:context=".AccountActivity">
+
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:id="@+id/iv_01"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"/>
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_toRightOf="@id/iv_01"
+        android:layout_marginLeft="22dp"
+        android:id="@+id/iv_02"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@mipmap/ic_launcher"/>
+    <ImageView
+        android:layout_marginTop="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_marginLeft="4dp"
+        android:id="@+id/iv_03"
+        android:layout_width="110dp"
+        android:layout_height="110dp"
+        android:src="@mipmap/ic_launcher"/>
+
+    <TextView
+        android:id="@+id/tv_NickName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/iv_03"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_NickName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="상대방에게 보여지는 이름입니다."
+        android:layout_toRightOf="@id/tv_NickName"
+        android:layout_alignBaseline="@id/tv_NickName"/>
+    <TextView
+        android:id="@+id/tv_gender"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    성별 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/tv_NickName"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_gender"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_gender"
+        android:layout_alignBaseline="@id/tv_gender"/>
+    <TextView
+        android:id="@+id/tv_birthday"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    생일 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/tv_gender"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_birthday"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_birthday"
+        android:layout_alignBaseline="@id/tv_birthday"/>
+
+
+</RelativeLayout>
