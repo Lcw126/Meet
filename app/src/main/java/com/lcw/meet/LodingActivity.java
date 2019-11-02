@@ -1,10 +1,14 @@
 package com.lcw.meet;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.widget.Toast;
 
 import androidx.annotation.Nullable;
+
+import com.kakao.auth.Session;
 
 public class LodingActivity extends Activity {
     @Override
@@ -12,6 +16,7 @@ public class LodingActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_loding);
         startLoading();
+
     }
     private void startLoading() {
         Handler handler = new Handler();

@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
@@ -48,7 +49,7 @@ public class MainActivity extends AppCompatActivity {
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         //키값 알아내기(알아냈으면 등록하고 지워도 상관없다)
-        //getAppKeyHash();
+        getAppKeyHash();
 
         //자기 카카오톡 프로필 정보 및 디비정보 쉐어드에 저장해놨던거 불러오기
         //loadShared();
@@ -57,9 +58,11 @@ public class MainActivity extends AppCompatActivity {
             // 로그인 상태
             Intent intentIsLogon=new Intent(MainActivity.this, AccountActivity.class);
             startActivity(intentIsLogon);
+            Toast.makeText(MainActivity.this, "이미 로그인 성공", Toast.LENGTH_SHORT).show();
             finish();
         } else {
             // 로그인되어있지 않은 상태
+            Toast.makeText(MainActivity.this, "로그인 안되있음", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -95,10 +98,8 @@ public class MainActivity extends AppCompatActivity {
         Session.getCurrentSession().removeCallback(callback);
     }
 
-    public void clickLogOut(View view) {
-        onClickLogout();
-    }
-    private void onClickLogout() {
+
+    public void click_LogOut(View view) {
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
             public void onCompleteLogout() {
@@ -112,6 +113,7 @@ public class MainActivity extends AppCompatActivity {
         @Override
         public void onSessionOpened() {
             requestMe();
+            Toast.makeText(MainActivity.this, "세션 연결 성공", Toast.LENGTH_SHORT).show();
             //redirectSignupActivity();  // 세션 연결성공 시 redirectSignupActivity() 호출
 
         }
@@ -122,7 +124,9 @@ public class MainActivity extends AppCompatActivity {
                 Logger.e(exception);
             }
             //////// setContentView(R.layout.activity_login); // 세션 연결이 실패했을때
+            Toast.makeText(MainActivity.this, "세션 연결이 실패했을때", Toast.LENGTH_SHORT).show();
         }                                            // 로그인화면을 다시 불러옴
+
     }
 
 
@@ -132,6 +136,7 @@ public class MainActivity extends AppCompatActivity {
             public void onFailure(ErrorResult errorResult) {
                 String message = "failed to get user info. msg=" + errorResult;
                 Logger.d(message);
+                Toast.makeText(MainActivity.this, "로그인 실패", Toast.LENGTH_SHORT).show();
 
                 ErrorCode result = ErrorCode.valueOf(errorResult.getErrorCode());
                 if (result == ErrorCode.CLIENT_ERROR_CODE) {
@@ -174,6 +179,7 @@ public class MainActivity extends AppCompatActivity {
                 Intent intent=new Intent(MainActivity.this, AccountActivity.class);
                 startActivity(intent);
                 finish();
+                Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
             }
         });
@@ -191,6 +197,8 @@ public class MainActivity extends AppCompatActivity {
         startActivity(intent);
         finish();
     }
+
+
 //
 //    /*쉐어드에 입력값 저장*/
 //    private void saveShared( String id, String name) {

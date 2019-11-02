@@ -13,7 +13,8 @@
         android:layout_width="110dp"
         android:layout_height="110dp"
         android:src="@mipmap/ic_launcher"
-        android:scaleType="centerCrop"/>
+        android:scaleType="centerCrop"
+        android:tag="iv_01"/>
     <ImageView
         android:layout_marginTop="30dp"
         android:layout_toRightOf="@id/iv_01"
@@ -21,7 +22,9 @@
         android:id="@+id/iv_02"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        android:tag="iv_02"/>
     <ImageView
         android:layout_marginTop="30dp"
         android:layout_alignParentRight="true"
@@ -29,7 +32,9 @@
         android:id="@+id/iv_03"
         android:layout_width="110dp"
         android:layout_height="110dp"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@mipmap/ic_launcher"
+        android:scaleType="centerCrop"
+        android:tag="iv_03"/>
 
     <TextView
         android:id="@+id/tv_NickName"
@@ -77,6 +82,66 @@
         android:layout_height="wrap_content"
         android:layout_toRightOf="@id/tv_birthday"
         android:layout_alignBaseline="@id/tv_birthday"/>
+
+    <TextView
+        android:id="@+id/tv_loation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    위치 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/tv_birthday"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_loation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_loation"
+        android:layout_alignBaseline="@id/tv_loation"/>
+
+    <TextView
+        android:id="@+id/tv_intro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    소개 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/tv_loation"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_intro"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_intro"
+        android:layout_alignBaseline="@id/tv_intro"
+        android:inputType="textMultiLine"
+        android:lines="5"
+      android:gravity="top"/>
+
+    <TextView
+        android:id="@+id/tv_hobby"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="    취미 : "
+        android:textStyle="bold"
+        android:textSize="16sp"
+        android:layout_below="@id/et_intro"
+        android:layout_marginTop="16dp"/>
+    <EditText
+        android:id="@+id/et_hobby"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@id/tv_hobby"
+        android:layout_alignBaseline="@id/tv_hobby"/>
+
+    <Button
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="완 료"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"/>
+
 
 
 </RelativeLayout>
