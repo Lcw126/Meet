@@ -31,9 +31,9 @@ import java.util.Calendar;
 
 public class AccountActivity extends AppCompatActivity implements  ImageView.OnClickListener{
     EditText et_nickName, et_gender, et_birthday, et_loation, et_intro, et_hobby ;
-    AlertDialog alertDialog1;
 
     ImageView iv_01, iv_02, iv_03;
+
 
     private static final int IMG_1 = 1, IMG_2=2, IMG_3=3;
     private static final int STORAGE_REQUEST_CODE = 1;
@@ -70,35 +70,24 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         et_gender.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
-                Toast.makeText(AccountActivity.this, "성별을 선택하세요.", Toast.LENGTH_SHORT).show();
-                final CharSequence[] values = {"남성","여성"};
                 AlertDialog.Builder builder = new AlertDialog.Builder(AccountActivity.this);
+                builder.setTitle("자신의 성별을 선택해주시요.");
+                builder.setItems(R.array.GENFER, new DialogInterface.OnClickListener(){
 
-                builder.setTitle("Select Your Choice");
+                    @Override
+                    public void onClick(DialogInterface dialog, int pos)
+                    {
+                        String[] items = getResources().getStringArray(R.array.GENFER);
+                        et_gender.setText(items[pos]);
+                        //Toast.makeText(getApplicationContext(),items[pos],Toast.LENGTH_LONG).show();
+                        dialog.dismiss();
 
-                builder.setSingleChoiceItems(values, -1, new DialogInterface.OnClickListener() {
-
-                    public void onClick(DialogInterface dialog, int item) {
-
-                        switch(item)
-                        {
-                            case 0:
-
-                                Toast.makeText(AccountActivity.this, "First Item Clicked", Toast.LENGTH_LONG).show();
-                                et_gender.setText(values[item]);
-                                break;
-                            case 1:
-
-                                Toast.makeText(AccountActivity.this, "Second Item Clicked", Toast.LENGTH_LONG).show();
-                                et_gender.setText(values[item]);
-                                break;
-
-                        }
-                        alertDialog1.dismiss();
                     }
+
                 });
-                alertDialog1 = builder.create();
-                alertDialog1.show();
+                AlertDialog alertDialog= builder.create();
+                alertDialog.show();
+
                 return false;
 
             }
@@ -107,6 +96,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         et_birthday.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
+
 
                 return false;
             }
@@ -117,6 +107,10 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         iv_03.setOnClickListener(this);
 
     }//onCreate ..
+
+
+
+
 
     // 사진을 넣으려고 이미지뷰 클릭시 갤러리앱 실행 시키는 역할
     @Override

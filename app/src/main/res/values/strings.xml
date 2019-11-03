@@ -1,5 +1,13 @@
 <resources>
     <string name="app_name">MEET</string>
     <string name="kakao_app_key">1f8ee5099ea298d1974245f6f6067b2a</string>
+
+
+    <string-array name="GENFER">
+        <item>"남성</item>
+        <item>"여성</item>
+    </string-array>
+
 </resources>
+
 
