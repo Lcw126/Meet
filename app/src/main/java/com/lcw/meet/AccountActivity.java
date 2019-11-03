@@ -27,6 +27,7 @@ import android.text.Html;
 import android.text.SpannableString;
 import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -37,6 +38,13 @@ import android.widget.ImageView;
 import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -49,16 +57,19 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
     ImageView iv_01, iv_02, iv_03;
 
+    String s_nickname, s_gender, s_year,s_local,s_intro, s_character;
 
     private static final int IMG_1 = 1, IMG_2=2, IMG_3=3;
     private static final int STORAGE_REQUEST_CODE = 1;
 
-    String imgPath;
+    String imgPath01, imgPath02, imgPath03;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+
+        Log.e("카카오 ID",""+MainActivity.kakaoIDNUM);
 
         et_nickName=findViewById(R.id.et_nickName);
 
@@ -139,12 +150,12 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                     public void onClick(DialogInterface dialog,
                                         int id) {
 
-                        // 프로그램을 종료한다
-                        Toast.makeText(getApplicationContext(),
-                                items[id] + " 선택했습니다.",
-                                Toast.LENGTH_SHORT).show();
-
+//                        // 프로그램을 종료한다
+//                        Toast.makeText(getApplicationContext(),
+//                                items[id] + " 선택했습니다.",
+//                                Toast.LENGTH_SHORT).show();
                         tv_gender_choice.setText(items[id]);
+                        s_gender=(String) items[id];
                         dialog.dismiss();
                     }
                 });
@@ -183,6 +194,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             @Override
             public void onClick(View v) {
                 tv_birthday_choice.setText(String.valueOf(np.getValue()));
+                s_year=String.valueOf(np.getValue());
                 birthdayDialog.dismiss();
             }
         });
@@ -230,12 +242,12 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                     public void onClick(DialogInterface dialog,
                                         int id) {
 
-                        // 프로그램을 종료한다
-                        Toast.makeText(getApplicationContext(),
-                                items[id] + " 선택했습니다.",
-                                Toast.LENGTH_SHORT).show();
-
+//                        // 프로그램을 종료한다
+//                        Toast.makeText(getApplicationContext(),
+//                                items[id] + " 선택했습니다.",
+//                                Toast.LENGTH_SHORT).show();
                         tv_location_choice.setText(items[id]);
+                        s_local=(String) items[id];
                         dialog.dismiss();
                     }
                 });
@@ -285,6 +297,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
                 }
                 tv_character_choice.setText( SeletedItemsString);
+                s_character=SeletedItemsString;
                 //Toast.makeText(AccountActivity.this, "선택 된 항목은 :" + SeletedItemsString, Toast.LENGTH_SHORT).show();
                 dialog.dismiss();
             }
@@ -308,15 +321,15 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         switch (tag){
             case "iv_01":
                 startActivityForResult(intent, IMG_1);
-                Toast.makeText(this, "switch iv_01", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "switch iv_01", Toast.LENGTH_SHORT).show();
                 break;
             case "iv_02":
                 startActivityForResult(intent, IMG_2);
-                Toast.makeText(this, "switch iv_02", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(this, "switch iv_02", Toast.LENGTH_SHORT).show();
                 break;
             case "iv_03":
                 startActivityForResult(intent, IMG_3);
-                Toast.makeText(this, "switch iv_03", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this, "switch iv_03", Toast.LENGTH_SHORT).show();
                 break;
         }
     }
@@ -332,7 +345,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                         InputStream in = getContentResolver().openInputStream(data.getData());
                         in.close();
                         Uri uri = data.getData();
-                        imgPath = getRealPathFromUri(uri);
+                        imgPath01 = getRealPathFromUri(uri);
                         iv_01.setImageURI(uri);
 
                     } catch (Exception e) {
@@ -349,7 +362,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                         InputStream in = getContentResolver().openInputStream(data.getData());
                         in.close();
                         Uri uri = data.getData();
-                        imgPath = getRealPathFromUri(uri);
+                        imgPath02 = getRealPathFromUri(uri);
                         iv_02.setImageURI(uri);
 
                     } catch (Exception e) {
@@ -366,7 +379,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                         InputStream in = getContentResolver().openInputStream(data.getData());
                         in.close();
                         Uri uri = data.getData();
-                        imgPath = getRealPathFromUri(uri);
+                        imgPath03 = getRealPathFromUri(uri);
                         iv_03.setImageURI(uri);
 
                     } catch (Exception e) {
@@ -408,6 +421,49 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
         //완료 버튼을 눌렀을 때
     public void click_finish(View view) {
+
+       // s_nickname, s_gender, s_year,s_local,s_intro, s_character;
+        s_nickname=et_nickName.getText().toString();
+        s_intro=et_intro.getText().toString();
+        if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null ){
+            // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
+            Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n", Toast.LENGTH_SHORT).show();
+
+            String serverUrl="http://umul.dothome.co.kr/Meet/insertDB.php";
+
+            SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                @Override
+                public void onResponse(String response) {
+                    new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    Toast.makeText(AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                }
+            });
+
+            //요청 객체에 보낼 데이터를 추가
+            smpr.addStringParam("kakaoID", MainActivity.kakaoIDNUM+"");
+            smpr.addStringParam("s_nickname", s_nickname);
+            smpr.addStringParam("s_gender", s_gender);
+            smpr.addStringParam("s_year", s_year);
+            smpr.addStringParam("s_local", s_local);
+            smpr.addStringParam("s_intro", s_intro);
+            smpr.addStringParam("s_character", s_character);
+            //이미지 파일 추가
+            smpr.addFile("img01", imgPath01);
+            smpr.addFile("img02", imgPath02);
+            smpr.addFile("img03", imgPath03);
+
+            //요청객체를 서버로 보낼 우체통 같은 객체 생성
+            RequestQueue requestQueue= Volley.newRequestQueue(this);
+            requestQueue.add(smpr);
+
+
+        }else{
+            Toast.makeText(this, "모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
+        }
 
     }
 
