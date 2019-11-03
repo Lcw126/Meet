@@ -52,14 +52,14 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         iv_03=findViewById(R.id.iv_03);
 
 
-//        // 외부 메모리 읽기/쓰기 사용 묵시적 권한 허용 ( 이미지를 가져올려면 필요)
-//        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
-//            int permissionResult= checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
-//            if(permissionResult== PackageManager.PERMISSION_DENIED){
-//                String[] permissions= new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
-//                requestPermissions(permissions,STORAGE_REQUEST_CODE);
-//            }
-//        }
+        // 외부 메모리 읽기/쓰기 사용 묵시적 권한 허용 ( 이미지를 가져올려면 필요)
+        if(Build.VERSION.SDK_INT>=Build.VERSION_CODES.M){
+            int permissionResult= checkSelfPermission(Manifest.permission.WRITE_EXTERNAL_STORAGE);
+            if(permissionResult== PackageManager.PERMISSION_DENIED){
+                String[] permissions= new String[]{Manifest.permission.WRITE_EXTERNAL_STORAGE};
+                requestPermissions(permissions,STORAGE_REQUEST_CODE);
+            }
+        }
 
         //성별을 터치했을 때 반응하는 리스너
         et_gender.setOnTouchListener(new View.OnTouchListener() {
@@ -95,7 +95,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 alertDialog1 = builder.create();
                 alertDialog1.show();
                 return false;
-                
+
             }
         });// et_gender.setOnTouchListener ..
 
@@ -195,20 +195,20 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         }
     }
         // onCreate에 묵시적 권한과 연관되는 코드
-//    @Override
-//    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
-//        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-//        switch(requestCode) {
-//            case STORAGE_REQUEST_CODE:
-//                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-//                    Toast.makeText(this, "외부 메모리 읽기/쓰기 사용 가능", Toast.LENGTH_SHORT).show();
-//                } else {
-//                    Toast.makeText(this, "외부 메모리 읽기/쓰기 제한", Toast.LENGTH_SHORT).show();
-//                }
-//                break;
-//        }
-//
-//    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch(requestCode) {
+            case STORAGE_REQUEST_CODE:
+                if (grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    Toast.makeText(this, "외부 메모리 읽기/쓰기 사용 가능", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(this, "외부 메모리 읽기/쓰기 제한", Toast.LENGTH_SHORT).show();
+                }
+                break;
+        }
+
+    }
         //Uri -- > 절대경로로 바꿔서 리턴시켜주는 메소드
         String getRealPathFromUri(Uri uri){
             String[] proj= {MediaStore.Images.Media.DATA};
@@ -220,4 +220,9 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             cursor.close();
             return  result;
         }
+
+        //완료 버튼을 눌렀을 때
+    public void click_finish(View view) {
+
+    }
 }
