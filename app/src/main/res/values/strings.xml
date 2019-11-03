@@ -3,9 +3,16 @@
     <string name="kakao_app_key">1f8ee5099ea298d1974245f6f6067b2a</string>
 
 
-    <string-array name="GENFER">
-        <item>"남성</item>
-        <item>"여성</item>
+    <string-array name="CHARACTER">
+        <item>"낙천적"</item>
+        <item>"활발한"</item>
+        <item>"애교있는"</item>
+        <item>"단순한"</item>
+        <item>"친절한"</item>
+        <item>"웃긴"</item>
+        <item>"도도한"</item>
+        <item>"성실한"</item>
+        <item>"주도적인"</item>
     </string-array>
 
 </resources>

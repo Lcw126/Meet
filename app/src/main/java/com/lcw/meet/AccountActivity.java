@@ -22,8 +22,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.text.Editable;
 import android.text.Html;
 import android.text.SpannableString;
+import android.text.TextWatcher;
 import android.text.style.UnderlineSpan;
 import android.view.MotionEvent;
 import android.view.View;
@@ -37,12 +39,13 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class AccountActivity extends AppCompatActivity implements  ImageView.OnClickListener{
-    EditText et_nickName,  et_loation, et_intro, et_hobby ;
+    EditText et_nickName,  et_intro ;
 
-    TextView tv_gender, tv_birthday, tv_location;
+    TextView tv_gender_choice, tv_birthday_choice, tv_location_choice, tv_character_choice;
 
     ImageView iv_01, iv_02, iv_03;
 
@@ -59,18 +62,17 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
         et_nickName=findViewById(R.id.et_nickName);
 
-        //et_loation=findViewById(R.id.et_loation);
         et_intro=findViewById(R.id.et_intro);
-        et_hobby=findViewById(R.id.et_hobby);
+
 
         iv_01=findViewById(R.id.iv_01);
         iv_02=findViewById(R.id.iv_02);
         iv_03=findViewById(R.id.iv_03);
 
-        tv_gender=findViewById(R.id.tv_gender);
-        tv_birthday=findViewById(R.id.tv_birthday);
-        tv_location=findViewById(R.id.tv_location);
-
+        tv_gender_choice=findViewById(R.id.tv_gender_choice);
+        tv_birthday_choice=findViewById(R.id.tv_birthday_choice);
+        tv_location_choice=findViewById(R.id.tv_location_choice);
+        tv_character_choice=findViewById(R.id.tv_character_choice);
 
 
         // 외부 메모리 읽기/쓰기 사용 묵시적 권한 허용 ( 이미지를 가져올려면 필요)
@@ -82,7 +84,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             }
         }
         //성별 Textview 터치 했을 때, 다이얼로그 띄우기
-        tv_gender.setOnTouchListener(new View.OnTouchListener() {
+        tv_gender_choice.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 showGenderPicker();
@@ -91,21 +93,31 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         });
 
         //년도 선택 시 다이얼로그 뛰우기
-        tv_birthday.setOnTouchListener(new View.OnTouchListener() {
+        tv_birthday_choice.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 showBirthDayPicker();
                 return false;
             }
         });
-        //지역 선택 시 타이얼로그 뛰우기
-        tv_location.setOnTouchListener(new View.OnTouchListener() {
+        //지역 선택 시 다이얼로그 뛰우기
+        tv_location_choice.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View view, MotionEvent motionEvent) {
                 showLocationPicker();
                 return false;
             }
         });
+        //성격 선택 시 다이얼로그 뛰우기
+        tv_character_choice.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View view, MotionEvent motionEvent) {
+                showCharacterPicker();
+                return false;
+            }
+        });
+
+
 
 
         iv_01.setOnClickListener(this);
@@ -132,7 +144,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                                 items[id] + " 선택했습니다.",
                                 Toast.LENGTH_SHORT).show();
 
-                        tv_gender.setText("  성  별 : "+items[id]);
+                        tv_gender_choice.setText(items[id]);
                         dialog.dismiss();
                     }
                 });
@@ -142,7 +154,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         alertDialog.show();
     }
 
-    //생일 선택하는 다이얼로그 메소드
+    //년도 선택하는 다이얼로그 메소드
     private void showBirthDayPicker() {
         Calendar calender = Calendar.getInstance();
         int year = calender.get(Calendar.YEAR);
@@ -170,9 +182,8 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         okBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-               tv_birthday.setText("  생  일 : "+String.valueOf(np.getValue()));
+                tv_birthday_choice.setText(String.valueOf(np.getValue()));
                 birthdayDialog.dismiss();
-                Toast.makeText(AccountActivity.this, "확인 버튼 클릭 시", Toast.LENGTH_SHORT).show();
             }
         });
         cancelBtn.setOnClickListener(new View.OnClickListener() {
@@ -185,7 +196,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         birthdayDialog.show();
     }
 
-    //생일 선택하는 다이얼로그 메소드에 쓰이는 메소드
+    //년도 선택하는 다이얼로그 메소드에 쓰이는 메소드
     private void setDividerColor(NumberPicker picker, int color) {
         java.lang.reflect.Field[] pickerFields = NumberPicker.class.getDeclaredFields();
         for (java.lang.reflect.Field pf : pickerFields) {
@@ -206,7 +217,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         }
     }
 
-    //
+    //지역 선택하는 다이얼로그 메소드
     private void showLocationPicker(){
         final CharSequence[] items = { "서울", "경기","인천","대전","충북","충남","강원","부산","경북","경남","대구","울산","광주","전북","전남","제주"};
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
@@ -224,7 +235,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                                 items[id] + " 선택했습니다.",
                                 Toast.LENGTH_SHORT).show();
 
-                        tv_location.setText("  지  역 : "+items[id]);
+                        tv_location_choice.setText(items[id]);
                         dialog.dismiss();
                     }
                 });
@@ -234,7 +245,56 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         alertDialog.show();
     }
 
+    //성격 선택하는 다이얼로그 메소드
+    private void showCharacterPicker(){
 
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        final ArrayList<String> selectedItems = new ArrayList<String>();
+        final String[] items = getResources().getStringArray(R.array.CHARACTER);
+
+        builder.setTitle("성격");
+
+        builder.setMultiChoiceItems(R.array.CHARACTER, null, new DialogInterface.OnMultiChoiceClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int pos, boolean isChecked)
+            {
+
+                    if (isChecked == true) // Checked 상태일 때 추가
+                    {
+                        if(selectedItems.size()>2) {
+                            Toast.makeText(AccountActivity.this, "최대 3개까지 선택 가능합니다.", Toast.LENGTH_SHORT).show();
+                           ((AlertDialog) dialog).getListView().setItemChecked(pos, false);
+
+                        }else { selectedItems.add(items[pos]);}
+
+                    } else                  // Check 해제 되었을 때 제거
+                    { selectedItems.remove(items[pos]); }
+            }
+        });
+
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener(){
+            @Override
+            public void onClick(DialogInterface dialog, int pos)
+            {
+                String SeletedItemsString = "";
+
+                for(int i =0; i<selectedItems.size();i++)
+                {
+                    if(i==0) SeletedItemsString =  SeletedItemsString  + selectedItems.get(i);
+                    else{ SeletedItemsString =  SeletedItemsString + "," + selectedItems.get(i);}
+
+                }
+                tv_character_choice.setText( SeletedItemsString);
+                //Toast.makeText(AccountActivity.this, "선택 된 항목은 :" + SeletedItemsString, Toast.LENGTH_SHORT).show();
+                dialog.dismiss();
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+
+
+    }
 
 
 
@@ -351,29 +411,4 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
     }
 
-    public void click_test(View view) {
-        final CharSequence[] items = { "사과", "딸기", "오렌지", "수박" };
-        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(
-                AccountActivity.this);
-
-        // 제목셋팅
-        alertDialogBuilder.setTitle("선택 목록 대화 상자");
-        alertDialogBuilder.setItems(items,
-                new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog,
-                                        int id) {
-
-                        // 프로그램을 종료한다
-                        Toast.makeText(getApplicationContext(),
-                                items[id] + " 선택했습니다.",
-                                Toast.LENGTH_SHORT).show();
-                        dialog.dismiss();
-                    }
-                });
-        // 다이얼로그 생성
-        AlertDialog alertDialog = alertDialogBuilder.create();
-        // 다이얼로그 보여주기
-        alertDialog.show();
-
-    }
 }
