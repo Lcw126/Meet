@@ -37,7 +37,7 @@
         android:tag="iv_03"/>
 
     <TextView
-        android:id="@+id/tv_NickName"
+        android:id="@+id/tv_nickName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="닉네임 : "
@@ -46,12 +46,12 @@
         android:layout_below="@id/iv_03"
         android:layout_marginTop="16dp"/>
     <EditText
-        android:id="@+id/et_NickName"
+        android:id="@+id/et_nickName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="상대방에게 보여지는 이름입니다."
-        android:layout_toRightOf="@id/tv_NickName"
-        android:layout_alignBaseline="@id/tv_NickName"/>
+        android:layout_toRightOf="@id/tv_nickName"
+        android:layout_alignBaseline="@id/tv_nickName"/>
     <TextView
         android:id="@+id/tv_gender"
         android:layout_width="wrap_content"
@@ -59,7 +59,7 @@
         android:text="    성별 : "
         android:textStyle="bold"
         android:textSize="16sp"
-        android:layout_below="@id/tv_NickName"
+        android:layout_below="@id/et_nickName"
         android:layout_marginTop="16dp"/>
     <EditText
         android:id="@+id/et_gender"

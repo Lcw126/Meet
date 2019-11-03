@@ -30,7 +30,7 @@ import java.io.InputStream;
 import java.util.Calendar;
 
 public class AccountActivity extends AppCompatActivity implements  ImageView.OnClickListener{
-    EditText et_gender, et_birthday;
+    EditText et_nickName, et_gender, et_birthday, et_loation, et_intro, et_hobby ;
     AlertDialog alertDialog1;
 
     ImageView iv_01, iv_02, iv_03;
@@ -45,8 +45,13 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        et_nickName=findViewById(R.id.et_nickName);
         et_gender=findViewById(R.id.et_gender);
         et_birthday=findViewById(R.id.et_birthday);
+        et_loation=findViewById(R.id.et_loation);
+        et_intro=findViewById(R.id.et_intro);
+        et_hobby=findViewById(R.id.et_hobby);
+
         iv_01=findViewById(R.id.iv_01);
         iv_02=findViewById(R.id.iv_02);
         iv_03=findViewById(R.id.iv_03);
