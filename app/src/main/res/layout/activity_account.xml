@@ -37,6 +37,23 @@
         android:tag="iv_03"/>
 
     <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="프로필 사진은 선명하게 나온 사진을 사용해야합니다."
+        android:layout_below="@+id/iv_01"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="5dp"
+        android:textColor="#727272"/>
+    <!--회색 구분선-->
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_below="@+id/iv_01"
+        android:layout_marginTop="30dp"/>
+
+<!--    닉네임-->
+    <TextView
         android:id="@+id/tv_nickName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,70 +61,90 @@
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_below="@id/iv_03"
-        android:layout_marginTop="16dp"/>
+        android:layout_marginTop="50dp"/>
     <EditText
         android:id="@+id/et_nickName"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="상대방에게 보여지는 이름입니다."
+        android:hint=" 상대방에게 보여지는 이름입니다."
         android:layout_toRightOf="@id/tv_nickName"
-        android:layout_alignBaseline="@id/tv_nickName"/>
+        android:layout_alignBaseline="@id/tv_nickName"
+        android:maxLength="10"
+        android:background="@null"/>
+    <View
+        android:layout_width="320dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/et_nickName"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true"/>
+<!--    성별-->
     <TextView
         android:id="@+id/tv_gender"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    성별 : "
+        android:text="  성  별 : "
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_below="@id/et_nickName"
-        android:layout_marginTop="16dp"/>
-    <EditText
-        android:id="@+id/et_gender"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_gender"
-        android:layout_alignBaseline="@id/tv_gender"/>
+        android:layout_marginTop="20dp"/>
+    <View
+        android:layout_width="320dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/tv_gender"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true"/>
+
+<!--    생일-->
     <TextView
         android:id="@+id/tv_birthday"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="    생일 : "
+        android:text="  생  일 : "
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_below="@id/tv_gender"
-        android:layout_marginTop="16dp"/>
-    <EditText
-        android:id="@+id/et_birthday"
+        android:layout_marginTop="20dp"/>
+    <View
+        android:layout_width="320dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/tv_birthday"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true"/>
+
+<!--    지역-->
+    <TextView
+        android:id="@+id/tv_location"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_birthday"
-        android:layout_alignBaseline="@id/tv_birthday"/>
-
-    <TextView
-        android:id="@+id/tv_loation"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="    위치 : "
+        android:text="  지  역 : "
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_below="@id/tv_birthday"
-        android:layout_marginTop="16dp"/>
-    <EditText
-        android:id="@+id/et_loation"
+        android:layout_marginTop="20dp"/>
+    <View
+        android:layout_width="320dp"
+        android:layout_height="2dp"
+        android:layout_below="@id/tv_location"
+        android:background="@color/colorAccent"
+        android:layout_alignParentRight="true"/>
+<!--회색 구분선-->
+    <View
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_toRightOf="@id/tv_loation"
-        android:layout_alignBaseline="@id/tv_loation"/>
+        android:layout_height="1dp"
+        android:background="#DDDDDD"
+        android:layout_below="@+id/tv_location"
+        android:layout_marginTop="24dp"/>
 
+<!--    소개-->
     <TextView
         android:id="@+id/tv_intro"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="    소개 : "
+        android:text="  소  개 : "
         android:textStyle="bold"
         android:textSize="16sp"
-        android:layout_below="@id/tv_loation"
-        android:layout_marginTop="16dp"/>
+        android:layout_below="@id/tv_location"
+        android:layout_marginTop="56dp"/>
     <EditText
         android:id="@+id/et_intro"
         android:layout_width="match_parent"
@@ -116,13 +153,15 @@
         android:layout_alignBaseline="@id/tv_intro"
         android:inputType="textMultiLine"
         android:lines="5"
-      android:gravity="top"/>
+        android:gravity="top"
+        android:background="@drawable/introbox"
+        />
 
     <TextView
         android:id="@+id/tv_hobby"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="    취미 : "
+        android:text="  취  미 : "
         android:textStyle="bold"
         android:textSize="16sp"
         android:layout_below="@id/et_intro"
@@ -135,6 +174,13 @@
         android:layout_alignBaseline="@id/tv_hobby"/>
 
     <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="다이얼그 테스트"
+        android:layout_above="@id/btn_ficish"
+        android:onClick="click_test"/>
+    <Button
+        android:id="@+id/btn_ficish"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:text="완 료"

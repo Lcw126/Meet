@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content" android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/birthday_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:baselineAligned="false"
+        android:orientation="vertical"
+        android:visibility="visible" >
+
+        <TextView
+            android:id="@+id/birthday_dialog_title"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_alignParentTop="true"
+            android:gravity="center"
+            android:minHeight="42dp"
+            android:text="출생년도를 선택해주세요."
+            android:visibility="visible"
+            android:textSize="16sp"
+            android:textColor="#000000" />
+
+        <NumberPicker
+            android:id="@+id/birthdayPicker"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_centerHorizontal="true"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:layout_height="wrap_content">
+
+            <Button
+                android:id="@+id/birthday_btn_cancel"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/birthdayPicker"
+                android:text="취소"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
+
+            <Button
+                android:id="@+id/birthday_btn_ok"
+                android:layout_weight="1"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="확인"
+                android:layout_marginLeft="4dp"
+                android:layout_marginRight="4dp"/>
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</RelativeLayout>
