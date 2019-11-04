@@ -56,10 +56,13 @@ public class MainActivity extends AppCompatActivity {
 
         if (Session.getCurrentSession().isOpened()) {
             // 로그인 상태
-            Intent intentIsLogon=new Intent(MainActivity.this, AccountActivity.class);
-            startActivity(intentIsLogon);
-            Toast.makeText(MainActivity.this, "이미 로그인 성공", Toast.LENGTH_SHORT).show();
-            finish();
+//            Intent intentIsLogon=new Intent(MainActivity.this, AccountActivity.class);
+//            startActivity(intentIsLogon);
+//            Toast.makeText(MainActivity.this, "이미 로그인 성공 "+kakaoIDNUM, Toast.LENGTH_SHORT).show();
+//            finish();
+            Toast.makeText(this, "이미 로그인 되어 있음.", Toast.LENGTH_SHORT).show();
+            requestMe();
+
         } else {
             // 로그인되어있지 않은 상태
             Toast.makeText(MainActivity.this, "로그인 안되있음", Toast.LENGTH_SHORT).show();
@@ -98,7 +101,7 @@ public class MainActivity extends AppCompatActivity {
         Session.getCurrentSession().removeCallback(callback);
     }
 
-
+    //로그아웃
     public void click_LogOut(View view) {
         UserManagement.requestLogout(new LogoutResponseCallback() {
             @Override
@@ -157,8 +160,8 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(final UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
-                Logger.d("UserProfile : " + userProfile);
-                Log.d(TAG, "유저가입성공");
+//                Logger.d("UserProfile : " + userProfile);
+//                Log.d(TAG, "유저가입성공");
                 // Create a new user with a first and last name
                 // 유저 카카오톡 아이디 디비에 넣음(첫가입인 경우에만 디비에저장)
 

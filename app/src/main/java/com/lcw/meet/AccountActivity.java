@@ -69,6 +69,16 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
+        if(MainActivity.kakaoIDNUM!=0)   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
+        {
+            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+            startActivity(intentMain2);
+            Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
+            finish();
+
+        }
+
+
         Log.e("카카오 ID",""+MainActivity.kakaoIDNUM);
 
         et_nickName=findViewById(R.id.et_nickName);
@@ -127,8 +137,6 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 return false;
             }
         });
-
-
 
 
         iv_01.setOnClickListener(this);
@@ -425,16 +433,17 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
        // s_nickname, s_gender, s_year,s_local,s_intro, s_character;
         s_nickname=et_nickName.getText().toString();
         s_intro=et_intro.getText().toString();
-        if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null ){
+        if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
             // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
-            Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n"+imgPath01, Toast.LENGTH_SHORT).show();
 
             String serverUrl="http://umul.dothome.co.kr/Meet/insertDB.php";
 
             SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
+                    //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
+                    Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -453,13 +462,19 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             smpr.addStringParam("s_character", s_character);
             //이미지 파일 추가
             smpr.addFile("img01", imgPath01);
-            smpr.addFile("img02", imgPath02);
-            smpr.addFile("img03", imgPath03);
+            if(imgPath02!=null) smpr.addFile("img02", imgPath02);
+            if(imgPath03!=null) smpr.addFile("img03", imgPath03);
+
 
             //요청객체를 서버로 보낼 우체통 같은 객체 생성
             RequestQueue requestQueue= Volley.newRequestQueue(this);
             requestQueue.add(smpr);
 
+            //다음 화면으로 이동
+            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+            startActivity(intentMain2);
+            Toast.makeText(AccountActivity.this, "프로필 생성 완료", Toast.LENGTH_SHORT).show();
+            finish();
 
         }else{
             Toast.makeText(this, "모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
