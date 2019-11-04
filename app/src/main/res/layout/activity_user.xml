@@ -12,5 +12,99 @@
         android:layout_height="300dp">
     </androidx.viewpager.widget.ViewPager>
 
+    <TextView
+        android:id="@+id/tv_userNickname"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="닉네임"
+        android:layout_below="@id/pager"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="16dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000"/>
+    <TextView
+        android:id="@+id/tv_userYear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="25"
+        android:layout_alignBaseline="@id/tv_userNickname"
+        android:layout_toRightOf="@id/tv_userNickname"
+        android:layout_marginLeft="8dp"
+        android:textStyle="bold"
+        android:textSize="18sp"
+        android:textColor="#000000"/>
+
+    <TextView
+        android:id="@+id/tv_userLocal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="지역"
+        android:layout_below="@+id/tv_userYear"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"/>
+    <View
+        android:id="@+id/v_userLine01"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C4C4C4"
+        android:layout_below="@+id/tv_userLocal"
+        android:layout_marginTop="10dp"/>
+
+    <TextView
+        android:id="@+id/tv_userInt"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="소개글"
+        android:layout_below="@+id/v_userLine01"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_userIntro"
+        android:layout_width="310dp"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:text="내용"
+        android:layout_toRightOf="@+id/tv_userInt"
+        android:layout_alignBaseline="@id/tv_userInt"
+        android:layout_marginLeft="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_userchar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="성격"
+        android:layout_below="@+id/tv_userIntro"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"/>
+
+    <TextView
+        android:id="@+id/tv_usercharac"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="활발한"
+        android:layout_toRightOf="@id/tv_userchar"
+        android:layout_alignBaseline="@id/tv_userchar"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="8dp"
+        android:textColor="#000000"/>
+
+    <Button
+        android:id="@+id/btn_userLike"
+        android:layout_width="300dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"/>
+    <Button
+        android:layout_width="60dp"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/btn_userLike"/>
+
 
 </RelativeLayout>
