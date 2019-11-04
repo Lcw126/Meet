@@ -29,4 +29,6 @@ dependencies {
     implementation group: project.KAKAO_SDK_GROUP, name: 'usermgmt', version: project.KAKAO_SDK_VERSION
     implementation 'com.google.android.material:material:1.2.0-alpha01'
     implementation 'dev.dworks.libs:volleyplus:+'
+    implementation 'androidx.cardview:cardview:1.0.0'
+    implementation 'com.github.bumptech.glide:glide:4.10.0'
 }
