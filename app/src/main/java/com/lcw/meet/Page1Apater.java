@@ -2,11 +2,13 @@ package com.lcw.meet;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -46,7 +48,7 @@ public class Page1Apater extends RecyclerView.Adapter {
         vh.tvLocal.setText(item.getLocal());
         vh.tvLocal.setText(item.getLocal());
 
-        Glide.with(context).load(item.getImgPath()).into(vh.ivImg);
+        Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
 
     }
 
@@ -69,6 +71,40 @@ public class Page1Apater extends RecyclerView.Adapter {
             tvYear=itemView.findViewById(R.id.tv_year);
             tvLocal=itemView.findViewById(R.id.tv_local);
             ivImg=itemView.findViewById(R.id.iv);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position= getLayoutPosition();
+
+                    //넘겨줄 데이터
+                    String userNickname= datas.get(position).getNickname();
+                    String userYear= datas.get(position).getYear();
+                    String userLocal= datas.get(position).getLocal();
+                    String userIntro= datas.get(position).getIntro();
+                    String userCharac= datas.get(position).getCahrac();
+
+                    String userImg01= datas.get(position).getImgPath01();
+                    String userImg02= datas.get(position).getImgPath02();
+                    String userImg03= datas.get(position).getImgPath03();
+                    Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
+
+                    //유저 프로필 상세 화면(UserActivity)로 전환
+                    Intent intent= new Intent(context, UserActivity.class);
+
+                    intent.putExtra("userNickname",userNickname);
+                    intent.putExtra("userYear",userYear);
+                    intent.putExtra("userLocal",userLocal);
+                    intent.putExtra("userIntro",userIntro);
+                    intent.putExtra("userCharac",userCharac);
+                    intent.putExtra("userImg01",userImg01);
+                    intent.putExtra("userImg02",userImg02);
+                    intent.putExtra("userImg03",userImg03);
+
+                    context.startActivity(intent);
+
+                }
+            });
 
         }
     }

@@ -101,7 +101,7 @@ public class Page1FragHome extends Fragment {
                     for(String row : rows){
                         //한줄 데이터에서 한 칸씩 분리
                         String[] datas=row.split("&");
-                        if(datas.length!=9) continue;
+                        if(datas.length!=11) continue;
 
                         int db_no= Integer.parseInt(datas[0]);
                         String db_kakakoID=datas[1];
@@ -111,11 +111,15 @@ public class Page1FragHome extends Fragment {
                         String db_local=datas[5];
                         String db_intro=datas[6];
                         String db_charac=datas[7];
-                        String imgPath= "http://umul.dothome.co.kr/Meet/"+datas[8];   //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
+                        String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+datas[8];   //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
+                        String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+datas[9];
+                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+datas[10];
 
+                        
 
                         //대량의 데이터 ArrayList에 추가
-                        page1Items.add(new Page1Item(db_nickname,db_year,db_local,imgPath));
+                       // page1Items.add(0,new Page1Item(db_nickname,db_year,db_local,db_imgPath01));
+                        page1Items.add(0,new Page1Item(db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
 
 
                         //리스트뷰 갱신
