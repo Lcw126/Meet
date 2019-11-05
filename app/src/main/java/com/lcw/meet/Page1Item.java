@@ -11,6 +11,19 @@ public class Page1Item {
     String ImgPath02;
     String ImgPath03;
 
+    /////////////////////test용 트래픽을 사용하지 않기 위해
+    int testimg;
+
+    public int getTestimg() {
+        return testimg;
+    }
+
+    public void setTestimg(int testimg) {
+        this.testimg = testimg;
+    }
+    /////////////////////////////////////////////////////
+
+
     public Page1Item() {
     }
 
@@ -26,12 +39,14 @@ public class Page1Item {
         ImgPath03 = imgPath03;
     }
 
-    public Page1Item(String nickname, String year, String local, String ImgPath01) {
+    /////////////////////test용 트래픽을 사용하지 않기 위해
+    public Page1Item(String nickname, String year, String local, int testimg) {
         this.nickname = nickname;
         this.year = year;
         this.local = local;
-        this.ImgPath01= ImgPath01;
+        this.testimg= testimg;
     }
+    /////////////////////////////////////////////////////
 
     public String getGender() {
         return gender;

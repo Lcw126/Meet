@@ -38,7 +38,16 @@ public class Page1FragHome extends Fragment {
 
 
         //데이터를 서버에서 읽어오기
-        loadDB();
+        //Test 끝나면 나중에 주석 풀기
+        //loadDB();
+
+        /////////////////////test용 트래픽을 사용하지 않기 위해
+
+
+                        //대량의 데이터 ArrayList에 추가
+                        page1Items.add(new Page1Item("BOB","22","SEOUL",R.drawable.img01));
+                        page1Items.add(new Page1Item("ROBIN","22","SEOUL",R.drawable.img01));
+        /////////////////////////
 
         recyclerView=view.findViewById(R.id.recycler);
         page1Apater= new Page1Apater(page1Items, getContext());

@@ -3,6 +3,7 @@ package com.lcw.meet;
 
 import android.content.Context;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -48,7 +49,12 @@ public class Page1Apater extends RecyclerView.Adapter {
         vh.tvLocal.setText(item.getLocal());
         vh.tvLocal.setText(item.getLocal());
 
-        Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
+
+        //Test용
+        Glide.with(context).load(item.getTestimg()).into(vh.ivImg);
+
+        //       Test 끝나면 나중에 주석 풀기
+        //Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
 
     }
 
@@ -72,6 +78,8 @@ public class Page1Apater extends RecyclerView.Adapter {
             tvLocal=itemView.findViewById(R.id.tv_local);
             ivImg=itemView.findViewById(R.id.iv);
 
+
+            //여러 사용자 사진중 한명을 터치 했을때
             itemView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -81,13 +89,14 @@ public class Page1Apater extends RecyclerView.Adapter {
                     String userNickname= datas.get(position).getNickname();
                     String userYear= datas.get(position).getYear();
                     String userLocal= datas.get(position).getLocal();
-                    String userIntro= datas.get(position).getIntro();
-                    String userCharac= datas.get(position).getCahrac();
-
-                    String userImg01= datas.get(position).getImgPath01();
-                    String userImg02= datas.get(position).getImgPath02();
-                    String userImg03= datas.get(position).getImgPath03();
-                    Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
+                    //       Test 끝나면 나중에 주석 풀기
+//                    String userIntro= datas.get(position).getIntro();
+//                    String userCharac= datas.get(position).getCahrac();
+//
+//                    String userImg01= datas.get(position).getImgPath01();
+//                    String userImg02= datas.get(position).getImgPath02();
+//                    String userImg03= datas.get(position).getImgPath03();
+//                    Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
 
                     //유저 프로필 상세 화면(UserActivity)로 전환
                     Intent intent= new Intent(context, UserActivity.class);
@@ -95,11 +104,20 @@ public class Page1Apater extends RecyclerView.Adapter {
                     intent.putExtra("userNickname",userNickname);
                     intent.putExtra("userYear",userYear);
                     intent.putExtra("userLocal",userLocal);
-                    intent.putExtra("userIntro",userIntro);
-                    intent.putExtra("userCharac",userCharac);
-                    intent.putExtra("userImg01",userImg01);
-                    intent.putExtra("userImg02",userImg02);
-                    intent.putExtra("userImg03",userImg03);
+                    //       Test 끝나면 나중에 주석 풀기
+//                    intent.putExtra("userIntro",userIntro);
+//                    intent.putExtra("userCharac",userCharac);
+//                    intent.putExtra("userImg01",userImg01);
+//                    intent.putExtra("userImg02",userImg02);
+//                    intent.putExtra("userImg03",userImg03);
+
+
+                    /////////////////////test용 트래픽을 사용하지 않기 위해
+                    int userTestImg01= datas.get(position).getTestimg();
+                    String s=userTestImg01+"";
+                    Log.e("userTestImg01 : ",""+userTestImg01);
+                    intent.putExtra("userTestImg01",s);
+                    /////////////////
 
                     context.startActivity(intent);
 
