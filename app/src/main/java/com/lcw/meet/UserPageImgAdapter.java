@@ -19,9 +19,11 @@ public class UserPageImgAdapter extends PagerAdapter {
     ArrayList<String> datas;
     LayoutInflater inflater;
     Context context;
-    int a;
 
-    ArrayList<Integer> Tdatas;
+
+    /////////////////////test용
+//    int a;
+//    ArrayList<Integer> Tdatas;
 
     public UserPageImgAdapter(ArrayList<String> datas, LayoutInflater inflater, Context context) {
         this.datas = datas;
@@ -30,24 +32,24 @@ public class UserPageImgAdapter extends PagerAdapter {
     }
 
 
-    /////////////////////test용 트래픽을 사용하지 않기 위해
-    public UserPageImgAdapter(ArrayList<Integer> Tdatas, LayoutInflater inflater, Context context,int a) {
-        Toast.makeText(context, "UserPageImgAdapter TEST용 생성자로 받음", Toast.LENGTH_SHORT).show();
-        this.Tdatas = Tdatas;
-        this.inflater = inflater;
-        this.context= context;
-        this.a=a;
-    }
-///////////////////////////////////////////////////////////////////
+//    /////////////////////test용 트래픽을 사용하지 않기 위해
+//    public UserPageImgAdapter(ArrayList<Integer> Tdatas, LayoutInflater inflater, Context context,int a) {
+//        Toast.makeText(context, "UserPageImgAdapter TEST용 생성자로 받음", Toast.LENGTH_SHORT).show();
+//        this.Tdatas = Tdatas;
+//        this.inflater = inflater;
+//        this.context= context;
+//        this.a=a;
+//    }
+/////////////////////////////////////////////////////////////////////
 
 
     @Override
     public int getCount() {
 //       Test 끝나면 나중에 주석 풀기
-//        return datas.size();
+        return datas.size();
 
         //Test용
-        return Tdatas.size();
+//        return Tdatas.size();
     }
 
     //아답터가 만들어낼 Page(View)객체를
@@ -64,11 +66,11 @@ public class UserPageImgAdapter extends PagerAdapter {
 
 
         //Test용
-        Glide.with(context).load(Tdatas.get(position)).into(iv);
+//        Glide.with(context).load(Tdatas.get(position)).into(iv);
 
 
         //       Test 끝나면 나중에 주석 풀기
-        //Glide.with(context).load(datas.get(position)).into(iv);
+        Glide.with(context).load(datas.get(position)).into(iv);
 
 
         //기존 ListView는 return View를 해줬었다. 하지만 PagerView는 다름

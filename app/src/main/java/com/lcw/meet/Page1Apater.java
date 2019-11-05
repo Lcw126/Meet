@@ -51,10 +51,10 @@ public class Page1Apater extends RecyclerView.Adapter {
 
 
         //Test용
-        Glide.with(context).load(item.getTestimg()).into(vh.ivImg);
+//        Glide.with(context).load(item.getTestimg()).into(vh.ivImg);
 
         //       Test 끝나면 나중에 주석 풀기
-        //Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
+        Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
 
     }
 
@@ -100,39 +100,41 @@ public class Page1Apater extends RecyclerView.Adapter {
                     int position= getLayoutPosition();
 
                     //넘겨줄 데이터
-//                    String userkakaoID= datas.get(position).getKakakoID();
+                    String userkakaoID= datas.get(position).getKakakoID();
                     String userNickname= datas.get(position).getNickname();
                     String userYear= datas.get(position).getYear();
                     String userLocal= datas.get(position).getLocal();
                     //       Test 끝나면 나중에 주석 풀기
-//                    String userIntro= datas.get(position).getIntro();
-//                    String userCharac= datas.get(position).getCahrac();
-//
-//                    String userImg01= datas.get(position).getImgPath01();
-//                    String userImg02= datas.get(position).getImgPath02();
-//                    String userImg03= datas.get(position).getImgPath03();
-//                    Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
+                    String userIntro= datas.get(position).getIntro();
+                    String userCharac= datas.get(position).getCahrac();
+
+                    String userImg01= datas.get(position).getImgPath01();
+                    String userImg02= datas.get(position).getImgPath02();
+                    String userImg03= datas.get(position).getImgPath03();
+                    Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
 
                     //유저 프로필 상세 화면(UserActivity)로 전환
                     Intent intent= new Intent(context, UserActivity.class);
-//                    intent.putExtra("userkakaoID",userkakaoID);
+                    intent.putExtra("userkakaoID",userkakaoID);
                     intent.putExtra("userNickname",userNickname);
                     intent.putExtra("userYear",userYear);
                     intent.putExtra("userLocal",userLocal);
                     //       Test 끝나면 나중에 주석 풀기
-//                    intent.putExtra("userIntro",userIntro);
-//                    intent.putExtra("userCharac",userCharac);
-//                    intent.putExtra("userImg01",userImg01);
-//                    intent.putExtra("userImg02",userImg02);
-//                    intent.putExtra("userImg03",userImg03);
+                    intent.putExtra("userIntro",userIntro);
+                    intent.putExtra("userCharac",userCharac);
+                    intent.putExtra("userImg01",userImg01);
 
 
-                    /////////////////////test용 트래픽을 사용하지 않기 위해
-                    int userTestImg01= datas.get(position).getTestimg();
-                    String s=userTestImg01+"";
-                    Log.e("userTestImg01 : ",""+userTestImg01);
-                    intent.putExtra("userTestImg01",s);
-                    /////////////////
+                    intent.putExtra("userImg02",userImg02);
+                    intent.putExtra("userImg03",userImg03);
+                    Toast.makeText(context, "DB에서 받아온 이미지 2 : "+userImg02+"\n DB에서 받아온 이미지 3 :"+userImg03, Toast.LENGTH_SHORT).show();
+
+//                    /////////////////////test용 트래픽을 사용하지 않기 위해
+//                    int userTestImg01= datas.get(position).getTestimg();
+//                    String s=userTestImg01+"";
+//                    Log.e("userTestImg01 : ",""+userTestImg01);
+//                    intent.putExtra("userTestImg01",s);
+//                    /////////////////
 
                     context.startActivity(intent);
 

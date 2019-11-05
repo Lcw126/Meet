@@ -63,28 +63,28 @@ public class UserActivity extends AppCompatActivity {
         String userImg03= intent.getStringExtra("userImg03");
 
 
-        /////////////////////test용 트래픽을 사용하지 않기 위해
-
-        String s= intent.getStringExtra("userTestImg01");
-        Log.e("받은 s 값 :",s);
-        int userTestImg01=Integer.parseInt(s);
-
-        Tdatas.add(userTestImg01);
-        //////////////////////////////////////////////////
+//        /////////////////////test용 트래픽을 사용하지 않기 위해
+//
+//        String s= intent.getStringExtra("userTestImg01");
+//        Log.e("받은 s 값 :",s);
+//        int userTestImg01=Integer.parseInt(s);
+//
+//        Tdatas.add(userTestImg01);
+//        //////////////////////////////////////////////////
 
 //       Test 끝나면 나중에 주석 풀기
-//        datas.add(userImg01);
-//        datas.add(userImg02);
-//        datas.add(userImg03);
+        datas.add(userImg01);
+        datas.add(userImg02);
+        datas.add(userImg03);
 
 
         pager=findViewById(R.id.pager);
         //Test 끝나면 나중에 주석 풀기
-//        userPageImgAdapter= new UserPageImgAdapter(datas, getLayoutInflater(),this);
+        userPageImgAdapter= new UserPageImgAdapter(datas, getLayoutInflater(),this);
 
-        /////////////////////test용 트래픽을 사용하지 않기 위해
-        userPageImgAdapter= new UserPageImgAdapter(Tdatas, getLayoutInflater(),this,1);
-        ////////////////////////////////
+//        /////////////////////test용 트래픽을 사용하지 않기 위해
+//        userPageImgAdapter= new UserPageImgAdapter(Tdatas, getLayoutInflater(),this,1);
+//        ////////////////////////////////
 
         pager.setAdapter(userPageImgAdapter);
 
