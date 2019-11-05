@@ -1,11 +1,15 @@
 package com.lcw.meet;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import java.util.ArrayList;
@@ -59,7 +63,7 @@ public class UserActivity extends AppCompatActivity {
         int userTestImg01=Integer.parseInt(s);
 
         Tdatas.add(userTestImg01);
-        ////////////////////////////////
+        //////////////////////////////////////////////////
 
 //       Test 끝나면 나중에 주석 풀기
 //        datas.add(userImg01);
@@ -76,5 +80,33 @@ public class UserActivity extends AppCompatActivity {
         ////////////////////////////////
 
         pager.setAdapter(userPageImgAdapter);
+
+
+        //툴바 추가하기
+        Toolbar toolbar =findViewById(R.id.toolbar);
+        toolbar.setTitle("");
+        setSupportActionBar(toolbar);
+        //툴바에 뒤로가기 화살표 추가
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+    }
+    //툴바에 뒤로가기 화살표 동작
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
+    }
+
+    //왼쪽 상단 애벌레 나타나게 표시하기 menu 옵션
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater=getMenuInflater();
+        inflater.inflate(R.menu.option,menu);
+        return super.onCreateOptionsMenu(menu);
     }
 }

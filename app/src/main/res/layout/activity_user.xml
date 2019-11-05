@@ -12,6 +12,13 @@
         android:layout_height="300dp">
     </androidx.viewpager.widget.ViewPager>
 
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.Appbaar"/>
+
     <TextView
         android:id="@+id/tv_userNickname"
         android:layout_width="wrap_content"
@@ -106,12 +113,6 @@
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/btn_userLike"/>
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/ic_arrow_back_black_24dp"
-        android:layout_marginLeft="6dp"
-        android:layout_marginTop="6dp"/>
 
 
 </RelativeLayout>
