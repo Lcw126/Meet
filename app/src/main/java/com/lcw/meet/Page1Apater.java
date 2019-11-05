@@ -81,6 +81,7 @@ public class Page1Apater extends RecyclerView.Adapter {
             ivImg=itemView.findViewById(R.id.iv);
 
             btn_close=itemView.findViewById(R.id.btn_close);
+            //해당 사용자 목록 X 버튼 누를 시 없애기
             btn_close.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {

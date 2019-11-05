@@ -128,7 +128,7 @@ public class Page1FragHome extends Fragment {
 
                         //대량의 데이터 ArrayList에 추가
                        // page1Items.add(0,new Page1Item(db_nickname,db_year,db_local,db_imgPath01));
-                        page1Items.add(0,new Page1Item(db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
+                        page1Items.add(0,new Page1Item(db_kakakoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
 
 
                         //리스트뷰 갱신
