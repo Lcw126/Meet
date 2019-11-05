@@ -100,6 +100,7 @@ public class Page1Apater extends RecyclerView.Adapter {
                     int position= getLayoutPosition();
 
                     //넘겨줄 데이터
+//                    String userkakaoID= datas.get(position).getKakakoID();
                     String userNickname= datas.get(position).getNickname();
                     String userYear= datas.get(position).getYear();
                     String userLocal= datas.get(position).getLocal();
@@ -114,7 +115,7 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                     //유저 프로필 상세 화면(UserActivity)로 전환
                     Intent intent= new Intent(context, UserActivity.class);
-
+//                    intent.putExtra("userkakaoID",userkakaoID);
                     intent.putExtra("userNickname",userNickname);
                     intent.putExtra("userYear",userYear);
                     intent.putExtra("userLocal",userLocal);

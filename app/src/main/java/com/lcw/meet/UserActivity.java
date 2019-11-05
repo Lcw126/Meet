@@ -45,6 +45,7 @@ public class UserActivity extends AppCompatActivity {
         ratingBar.setOnRatingBarChangeListener(ratinglistener);
 
         Intent intent= getIntent();
+        String userkakaoID= intent.getStringExtra("userkakaoID");
         String userNickname= intent.getStringExtra("userNickname");
         String userYear= intent.getStringExtra("userYear");
         String userLocal= intent.getStringExtra("userLocal");
