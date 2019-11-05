@@ -1,6 +1,7 @@
 package com.lcw.meet;
 
 public class Page1Item {
+    String kakakoID;
     String nickname;
     String gender;
     String year;
@@ -27,16 +28,17 @@ public class Page1Item {
     public Page1Item() {
     }
 
-    public Page1Item(String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03) {
+    public Page1Item(String kakakoID, String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03) {
+        this.kakakoID= kakakoID;
         this.nickname = nickname;
         this.gender = gender;
         this.year = year;
         this.local = local;
         this.intro = intro;
         this.cahrac = cahrac;
-        ImgPath01 = imgPath01;
-        ImgPath02 = imgPath02;
-        ImgPath03 = imgPath03;
+        this.ImgPath01 = imgPath01;
+        this.ImgPath02 = imgPath02;
+        this. ImgPath03 = imgPath03;
     }
 
     /////////////////////test용 트래픽을 사용하지 않기 위해
@@ -47,6 +49,14 @@ public class Page1Item {
         this.testimg= testimg;
     }
     /////////////////////////////////////////////////////
+
+    public String getKakakoID() {
+        return kakakoID;
+    }
+
+    public void setKakakoID(String kakakoID) {
+        this.kakakoID = kakakoID;
+    }
 
     public String getGender() {
         return gender;
