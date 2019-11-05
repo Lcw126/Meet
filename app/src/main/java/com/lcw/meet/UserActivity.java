@@ -10,7 +10,9 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.RatingBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -22,6 +24,7 @@ public class UserActivity extends AppCompatActivity {
 
     ArrayList<String> datas= new ArrayList<String>();
 
+    RatingBar ratingBar; //별점
 
     //Test용
     ArrayList<Integer> Tdatas= new ArrayList<>();
@@ -37,6 +40,9 @@ public class UserActivity extends AppCompatActivity {
         tv_userLocal= findViewById(R.id.tv_userLocal);
         tv_userIntro= findViewById(R.id.tv_userIntro);
         tv_usercharac=findViewById(R.id.tv_usercharac);
+
+        ratingBar=findViewById(R.id.rating);
+        ratingBar.setOnRatingBarChangeListener(ratinglistener);
 
         Intent intent= getIntent();
         String userNickname= intent.getStringExtra("userNickname");
@@ -89,7 +95,8 @@ public class UserActivity extends AppCompatActivity {
         //툴바에 뒤로가기 화살표 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-    }
+    }//onCreate ..
+
     //툴바에 뒤로가기 화살표 동작
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -109,4 +116,12 @@ public class UserActivity extends AppCompatActivity {
         inflater.inflate(R.menu.option,menu);
         return super.onCreateOptionsMenu(menu);
     }
+
+    public RatingBar.OnRatingBarChangeListener ratinglistener= new RatingBar.OnRatingBarChangeListener() {
+        @Override
+        public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
+            Toast.makeText(UserActivity.this, v+"점을 주었습니다.", Toast.LENGTH_SHORT).show();
+        }
+    };
+
 }
