@@ -121,6 +121,7 @@ public class UserActivity extends AppCompatActivity {
         @Override
         public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
             Toast.makeText(UserActivity.this, v+"점을 주었습니다.", Toast.LENGTH_SHORT).show();
+            ratingBar.setIsIndicator(true);
         }
     };
 

@@ -7,6 +7,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,7 +48,6 @@ public class Page1Apater extends RecyclerView.Adapter {
         vh.tvNickname.setText(item.getNickname());
         vh.tvYear.setText(item.getYear());
         vh.tvLocal.setText(item.getLocal());
-        vh.tvLocal.setText(item.getLocal());
 
 
         //Test용
@@ -70,6 +70,8 @@ public class Page1Apater extends RecyclerView.Adapter {
         TextView tvLocal;
         ImageView ivImg;
 
+        ImageButton btn_close;
+
         public VH(@NonNull View itemView) {
             super(itemView);
 
@@ -77,6 +79,17 @@ public class Page1Apater extends RecyclerView.Adapter {
             tvYear=itemView.findViewById(R.id.tv_year);
             tvLocal=itemView.findViewById(R.id.tv_local);
             ivImg=itemView.findViewById(R.id.iv);
+
+            btn_close=itemView.findViewById(R.id.btn_close);
+            btn_close.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    //Toast.makeText(context, "x버튼 클릭\n getAdapterPosition "+getAdapterPosition()+"\n getLayoutPosition "+getLayoutPosition(), Toast.LENGTH_SHORT).show();
+                    datas.remove(getLayoutPosition());
+                    notifyItemRemoved(getLayoutPosition());
+
+                }
+            });
 
 
             //여러 사용자 사진중 한명을 터치 했을때

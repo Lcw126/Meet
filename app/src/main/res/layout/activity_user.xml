@@ -111,20 +111,25 @@
         android:layout_marginLeft="6dp"
         android:layout_marginTop="8dp"/>
 
-    <Button
+    <ImageButton
         android:id="@+id/btn_userLike"
         android:layout_width="300dp"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="16dp"
-        android:layout_marginLeft="16dp"/>
-    <Button
-        android:layout_width="60dp"
-        android:layout_height="wrap_content"
+        android:layout_height="50dp"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="16dp"
         android:layout_marginLeft="16dp"
-        android:layout_toRightOf="@id/btn_userLike"/>
+        android:src="@drawable/ic_heart"
+        android:backgroundTint="@color/colorButton"/>
+
+    <ImageButton
+        android:layout_width="60dp"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/btn_userLike"
+        android:src="@drawable/ic_mail_outline_black_24dp"
+        android:backgroundTint="@color/colorButton"/>
 
 
 

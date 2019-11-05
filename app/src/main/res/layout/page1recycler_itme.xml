@@ -50,31 +50,58 @@
             android:layout_marginLeft="8dp"
             android:layout_marginBottom="8dp"/>
 
-        <Button
+
+        <ImageButton
             android:id="@+id/btn_close"
-            android:layout_width="50dp"
-            android:layout_height="wrap_content"
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="8dp"
-            android:background="@drawable/ic_close_black_24dp"/>
-        <Button
+            android:src="@drawable/ic_close_black_24dp"
+            android:backgroundTint="@color/colorButton"/>
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_like"-->
+<!--            android:layout_width="230dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            android:layout_marginLeft="16dp"-->
+<!--            android:layout_toRightOf="@id/btn_close"/>-->
+        <ImageButton
             android:id="@+id/btn_like"
-            android:layout_width="230dp"
-            android:layout_height="wrap_content"
+            android:layout_width="240dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="16dp"
-            android:layout_toRightOf="@id/btn_close"/>
-        <Button
-            android:id="@+id/btn_message"
-            android:layout_width="80dp"
-            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/btn_close"
+            android:src="@drawable/ic_heart"
+            android:backgroundTint="@color/colorButton"/>
+
+
+<!--        <Button-->
+<!--            android:id="@+id/btn_message"-->
+<!--            android:layout_width="80dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_alignBaseline="@id/btn_close"/>-->
+        <ImageButton
+            android:layout_width="60dp"
+            android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_alignParentRight="true"
             android:layout_marginBottom="4dp"
             android:layout_marginRight="8dp"
-            android:layout_alignBaseline="@id/btn_close"/>
+            android:layout_alignBaseline="@id/btn_close"
+            android:src="@drawable/ic_mail_outline_black_24dp"
+            android:backgroundTint="@color/colorButton"/>
+
+
 
     </RelativeLayout>
 </androidx.cardview.widget.CardView>

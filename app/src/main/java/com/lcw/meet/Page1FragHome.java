@@ -46,7 +46,7 @@ public class Page1FragHome extends Fragment {
 
                         //대량의 데이터 ArrayList에 추가
                         page1Items.add(new Page1Item("BOB","22","SEOUL",R.drawable.img01));
-                        page1Items.add(new Page1Item("ROBIN","22","SEOUL",R.drawable.img01));
+                        page1Items.add(new Page1Item("ROBIN","22","SEOUL",R.drawable.img02));
         /////////////////////////
 
         recyclerView=view.findViewById(R.id.recycler);
