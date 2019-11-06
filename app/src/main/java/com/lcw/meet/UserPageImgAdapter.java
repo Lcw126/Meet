@@ -63,11 +63,8 @@ public class UserPageImgAdapter extends PagerAdapter {
 
         ImageView iv= page.findViewById(R.id.iv_userimg01);
 
-
-
         //Test용
 //        Glide.with(context).load(Tdatas.get(position)).into(iv);
-
 
         //       Test 끝나면 나중에 주석 풀기
         Glide.with(context).load(datas.get(position)).into(iv);

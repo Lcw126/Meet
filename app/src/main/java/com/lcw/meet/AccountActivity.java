@@ -69,14 +69,14 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
 
-//        if(MainActivity.kakaoIDNUM!=0)   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
-//        {
-//            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
-//            startActivity(intentMain2);
-//            Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
-//            finish();
-//
-//        }
+        if(MainActivity.kakaoIDNUM!=0)   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
+        {
+            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+            startActivity(intentMain2);
+            Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
+            finish();
+
+        }
 
 
         Log.e("카카오 ID",""+MainActivity.kakaoIDNUM);

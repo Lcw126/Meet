@@ -27,7 +27,7 @@ public class UserActivity extends AppCompatActivity {
     RatingBar ratingBar; //별점
 
     //Test용
-    ArrayList<Integer> Tdatas= new ArrayList<>();
+//    ArrayList<Integer> Tdatas= new ArrayList<>();
 
 
     @Override
@@ -63,6 +63,14 @@ public class UserActivity extends AppCompatActivity {
         String userImg03= intent.getStringExtra("userImg03");
 
 
+        //datas.add(userImg01);
+        //datas.add(userImg02);
+        //datas.add(userImg03);
+        if(userImg01.matches(".*.jpg|.png.*")) datas.add(userImg01);
+        if(userImg02.matches(".*.jpg|.png.*")) datas.add(userImg02);
+        if(userImg03.matches(".*.jpg|.png.*")) datas.add(userImg03);
+
+
 //        /////////////////////test용 트래픽을 사용하지 않기 위해
 //
 //        String s= intent.getStringExtra("userTestImg01");
@@ -72,10 +80,9 @@ public class UserActivity extends AppCompatActivity {
 //        Tdatas.add(userTestImg01);
 //        //////////////////////////////////////////////////
 
-//       Test 끝나면 나중에 주석 풀기
-        datas.add(userImg01);
-        datas.add(userImg02);
-        datas.add(userImg03);
+
+
+
 
 
         pager=findViewById(R.id.pager);
