@@ -66,9 +66,9 @@ public class UserActivity extends AppCompatActivity {
         //datas.add(userImg01);
         //datas.add(userImg02);
         //datas.add(userImg03);
-        if(userImg01.matches(".*.jpg|.png.*")) datas.add(userImg01);
-        if(userImg02.matches(".*.jpg|.png.*")) datas.add(userImg02);
-        if(userImg03.matches(".*.jpg|.png.*")) datas.add(userImg03);
+        if(userImg01.matches(".*.png.*" ) || userImg01.matches(".*.jpg.*" )) datas.add(userImg01);
+        if(userImg02.matches(".*.png.*" ) || userImg02.matches(".*.jpg.*" )) datas.add(userImg02);
+        if(userImg03.matches(".*.png.*" ) || userImg03.matches(".*.jpg.*" )) datas.add(userImg03);
 
 
 //        /////////////////////test용 트래픽을 사용하지 않기 위해

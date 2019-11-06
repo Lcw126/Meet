@@ -2,6 +2,7 @@ package com.lcw.meet;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -46,6 +47,8 @@ public class Page1FragHome extends Fragment {
     private Context mContext;
     Activity activity;
 
+    static Page2FragToFrag fragToFrag;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_home,container,false);
 
@@ -66,6 +69,10 @@ public class Page1FragHome extends Fragment {
         recyclerView=view.findViewById(R.id.recycler);
         page1Apater= new Page1Apater(page1Items, getContext());
         recyclerView.setAdapter(page1Apater);
+
+
+
+
         return view;
     }
 
@@ -173,7 +180,7 @@ public class Page1FragHome extends Fragment {
             //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
             @Override
             public void onResponse(JSONArray response) {
-                Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+               // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
 
 
                 //파라미터로 응답받은 결과 JsonArray를 분석
@@ -207,6 +214,17 @@ public class Page1FragHome extends Fragment {
                         page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
 
 
+                        //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
+                        if(Integer.parseInt(db_kakaoID)==MainActivity.kakaoIDNUM){
+                            //Toast.makeText(mContext, "현재 접속자 ID : "+MainActivity.kakaoIDNUM+"\n DB에서 가져온 일치 ID "+db_kakaoID, Toast.LENGTH_SHORT).show();
+                            Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
+//                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
+//                            intent.putExtra("db_imgPath01",db_imgPath01);
+//                            mContext.startActivity(intent);
+                                 fragToFrag= new Page2FragToFrag(db_imgPath01);
+
+                        }
+
                         //리스트뷰 갱신
                         getActivity().runOnUiThread(new Runnable() {
                             @Override
@@ -215,7 +233,7 @@ public class Page1FragHome extends Fragment {
                             }
                         });
 
-                    }
+                    }//for() ..
 
                 } catch (JSONException e) {e.printStackTrace();}
 
