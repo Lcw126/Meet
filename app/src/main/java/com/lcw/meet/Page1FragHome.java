@@ -3,16 +3,29 @@ package com.lcw.meet;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -39,7 +52,8 @@ public class Page1FragHome extends Fragment {
 
         //데이터를 서버에서 읽어오기
         //Test 끝나면 나중에 주석 풀기
-        loadDB();
+        //loadDB();
+        loadDBtoJson();
 
 //        /////////////////////test용 트래픽을 사용하지 않기 위해
 //
@@ -72,7 +86,7 @@ public class Page1FragHome extends Fragment {
             @Override
             public void run() {
 
-                String serverUri="http://umul.dothome.co.kr/Meet/loadDB.php";
+                 String serverUri="http://umul.dothome.co.kr/Meet/loadDB.php";
 
                 try {
                     URL url= new URL(serverUri);
@@ -124,7 +138,7 @@ public class Page1FragHome extends Fragment {
                         String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+datas[9];
                         String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+datas[10];
 
-                        
+
 
                         //대량의 데이터 ArrayList에 추가
                        // page1Items.add(0,new Page1Item(db_nickname,db_year,db_local,db_imgPath01));
@@ -145,4 +159,80 @@ public class Page1FragHome extends Fragment {
             }//run() ..
         }.start();
     }//loadDB() ..
+    void loadDBtoJson(){
+        //서버의 loadDBtoJson.php파일에 접속하여 (DB데이터들)결과 받기
+        //Volley+ 라이브러리 사용
+
+        //서버주소
+        String serverUrl="http://umul.dothome.co.kr/Meet/loadDBtoJson.php";
+
+        //결과를 JsonArray 받을 것이므로..
+        //StringRequest가 아니라..
+        //JsonArrayRequest를 이용할 것임
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(Request.Method.POST, serverUrl, null, new Response.Listener<JSONArray>() {
+            //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
+            @Override
+            public void onResponse(JSONArray response) {
+                Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+
+
+                //파라미터로 응답받은 결과 JsonArray를 분석
+
+                page1Items.clear();
+                //page1Apater.notifyDataSetChanged();
+                getActivity().runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        page1Apater.notifyDataSetChanged();
+                    }
+                });
+                try {
+
+                    for(int i=0;i<response.length();i++){
+                        JSONObject jsonObject= response.getJSONObject(i);
+
+                        int db_no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
+                        String db_kakaoID=jsonObject.getString("kakaoID");
+                        String db_nickname=jsonObject.getString("nickname");
+                        String db_gender=jsonObject.getString("gender");
+                        String db_year=jsonObject.getString("year");
+                        String db_local=jsonObject.getString("local");
+                        String db_intro=jsonObject.getString("intro");
+                        String db_charac=jsonObject.getString("charac");
+                        String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath01");  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
+                        String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath02");
+                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
+                        //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
+
+                        page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
+
+
+                        //리스트뷰 갱신
+                        getActivity().runOnUiThread(new Runnable() {
+                            @Override
+                            public void run() {
+                                page1Apater.notifyDataSetChanged();
+                            }
+                        });
+
+                    }
+
+                } catch (JSONException e) {e.printStackTrace();}
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(mContext, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //실제 요청 작업을 수행해주는 요청큐 객체 생성
+        RequestQueue requestQueue= Volley.newRequestQueue(mContext);
+
+        //요청큐에 요청 객체 생성
+        requestQueue.add(jsonArrayRequest);
+
+
+    }//loadDBtoJson() ..
 }
