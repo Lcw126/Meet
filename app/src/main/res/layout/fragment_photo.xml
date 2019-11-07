@@ -1,15 +1,17 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:padding="16dp">
+    android:layout_height="match_parent">
 
     <TextView
         android:id="@+id/tv_daily"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="일상"
-        android:textColor="#000000"/>
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_marginTop="28dp"
+        android:layout_marginLeft="24dp"/>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/civ_myimg"
@@ -17,8 +19,17 @@
         android:layout_height="60dp"
         android:src="@mipmap/ic_launcher"
         android:layout_below="@id/tv_daily"
-        android:layout_marginTop="6dp">
+        android:layout_marginTop="8dp"
+        android:layout_marginLeft="24dp">
     </de.hdodenhof.circleimageview.CircleImageView>
+    <!--회색 구분선-->
+    <View
+        android:id="@+id/v_line01"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C4C4C4"
+        android:layout_below="@+id/civ_myimg"
+        android:layout_marginTop="10dp"/>
 
     <TextView
         android:layout_width="wrap_content"
@@ -26,7 +37,7 @@
         android:layout_alignBaseline="@id/civ_myimg"
         android:layout_marginLeft="16dp"
         android:layout_toRightOf="@id/civ_myimg"
-        android:layout_marginTop="40dp"
+        android:layout_marginTop="74dp"
         android:text="일상을 공유해 보세요." />
     <ImageView
         android:id="@+id/iv_daily_write"
@@ -34,14 +45,18 @@
         android:layout_height="30dp"
         android:src="@drawable/wirte"
         android:layout_below="@id/civ_myimg"
-        android:layout_marginTop="12dp"
-        android:layout_marginLeft="62dp"/>
+        android:layout_marginTop="24dp"
+        android:layout_marginLeft="86dp"/>
+    <ImageView
+        android:id="@+id/iv_daily_help"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/help"
+        android:layout_alignParentRight="true"
+        android:layout_below="@id/civ_myimg"
+        android:layout_marginTop="24dp"
+        android:layout_marginRight="86dp"/>
 
-<!--    <Button-->
-<!--        android:id="@+id/btn_logout"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_alignParentBottom="true"-->
-<!--        android:text="로그 아웃"/>-->
+
 
 </RelativeLayout>
