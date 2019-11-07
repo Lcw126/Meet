@@ -4,4 +4,10 @@
     android:layout_height="match_parent"
     android:background="#aaaa33">
 
+    <Button
+        android:id="@+id/click_LogOut"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="로그아웃"/>
+
 </LinearLayout>

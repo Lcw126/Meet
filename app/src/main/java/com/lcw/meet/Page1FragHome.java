@@ -215,9 +215,9 @@ public class Page1FragHome extends Fragment {
 
 
                         //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
-                        if(Integer.parseInt(db_kakaoID)==MainActivity.kakaoIDNUM){
+                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(UsePublicData.currentkakaoIDNUM)){
                             //Toast.makeText(mContext, "현재 접속자 ID : "+MainActivity.kakaoIDNUM+"\n DB에서 가져온 일치 ID "+db_kakaoID, Toast.LENGTH_SHORT).show();
-                            Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
 //                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
 //                            intent.putExtra("db_imgPath01",db_imgPath01);
 //                            mContext.startActivity(intent);

@@ -20,11 +20,28 @@
         android:layout_marginTop="6dp">
     </de.hdodenhof.circleimageview.CircleImageView>
 
-    <Button
-        android:id="@+id/btn_logout"
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:text="로그 아웃"/>
+        android:layout_alignBaseline="@id/civ_myimg"
+        android:layout_marginLeft="16dp"
+        android:layout_toRightOf="@id/civ_myimg"
+        android:layout_marginTop="40dp"
+        android:text="일상을 공유해 보세요." />
+    <ImageView
+        android:id="@+id/iv_daily_write"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:src="@drawable/wirte"
+        android:layout_below="@id/civ_myimg"
+        android:layout_marginTop="12dp"
+        android:layout_marginLeft="62dp"/>
+
+<!--    <Button-->
+<!--        android:id="@+id/btn_logout"-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:text="로그 아웃"/>-->
 
 </RelativeLayout>

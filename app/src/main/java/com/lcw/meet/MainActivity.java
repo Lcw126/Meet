@@ -12,6 +12,12 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonArrayRequest;
+import com.android.volley.toolbox.Volley;
 import com.kakao.auth.ErrorCode;
 import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
@@ -23,11 +29,17 @@ import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
 import com.kakao.util.helper.log.Logger;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.security.MessageDigest;
+import java.util.ArrayList;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static long kakaoIDNUM;
+    public static long currentkakaoIDNUM;
+    public ArrayList<String> kakaoIDes= new ArrayList<>();
 
     private SessionCallback callback;      //콜백 선언
     //유저프로필
@@ -53,6 +65,9 @@ public class MainActivity extends AppCompatActivity {
 
         //자기 카카오톡 프로필 정보 및 디비정보 쉐어드에 저장해놨던거 불러오기
         //loadShared();
+
+        //DB에 있는 카카오 ID들 불러오기
+        loadDBtoJson();
 
         if (Session.getCurrentSession().isOpened()) {
             // 로그인 상태
@@ -101,15 +116,15 @@ public class MainActivity extends AppCompatActivity {
         Session.getCurrentSession().removeCallback(callback);
     }
 
-    //로그아웃
-    public void click_LogOut(View view) {
-        UserManagement.requestLogout(new LogoutResponseCallback() {
-            @Override
-            public void onCompleteLogout() {
-                redirectLoginActivity();
-            }
-        });
-    }
+    //로그아웃 버튼
+//    public void click_LogOut(View view) {
+//        UserManagement.requestLogout(new LogoutResponseCallback() {
+//            @Override
+//            public void onCompleteLogout() {
+//                redirectLoginActivity();
+//            }
+//        });
+//    }
 
     private class SessionCallback implements ISessionCallback {
 
@@ -166,7 +181,8 @@ public class MainActivity extends AppCompatActivity {
                 // 유저 카카오톡 아이디 디비에 넣음(첫가입인 경우에만 디비에저장)
 
 //                Map<String, String> user = new HashMap<>();
-                kakaoIDNUM=userProfile.getId();
+                currentkakaoIDNUM=userProfile.getId();
+                UsePublicData usePublicData= new UsePublicData(currentkakaoIDNUM+"",kakaoIDes);
 //                user.put("token", userProfile.getId() + "");
 //                user.put("name", userProfile.getNickname());
 //                //db.collection("users")
@@ -218,4 +234,67 @@ public class MainActivity extends AppCompatActivity {
 //        token = pref.getString("token", "");
 //        name = pref.getString("name", "");
 //    }
+
+
+    void loadDBtoJson(){
+        //서버의 loadDBtoJson.php파일에 접속하여 (DB데이터들)결과 받기
+        //Volley+ 라이브러리 사용
+
+        //서버주소
+        String serverUrl="http://umul.dothome.co.kr/Meet/loadDBtoJson.php";
+
+        //결과를 JsonArray 받을 것이므로..
+        //StringRequest가 아니라..
+        //JsonArrayRequest를 이용할 것임
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(Request.Method.POST, serverUrl, null, new Response.Listener<JSONArray>() {
+            //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
+            @Override
+            public void onResponse(JSONArray response) {
+                // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+
+
+                try {
+
+                    for(int i=0;i<response.length();i++){
+                        JSONObject jsonObject= response.getJSONObject(i);
+
+                        int db_no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
+                        String db_kakaoID=jsonObject.getString("kakaoID");
+                        kakaoIDes.add(db_kakaoID);
+//                        String db_nickname=jsonObject.getString("nickname");
+//                        String db_gender=jsonObject.getString("gender");
+//                        String db_year=jsonObject.getString("year");
+//                        String db_local=jsonObject.getString("local");
+//                        String db_intro=jsonObject.getString("intro");
+//                        String db_charac=jsonObject.getString("charac");
+//                        String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath01");  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
+//                        String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath02");
+//                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
+                        //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
+
+
+
+
+
+
+
+                    }//for() ..
+
+                } catch (JSONException e) {e.printStackTrace();}
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(MainActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+        //실제 요청 작업을 수행해주는 요청큐 객체 생성
+        RequestQueue requestQueue= Volley.newRequestQueue(MainActivity.this);
+
+        //요청큐에 요청 객체 생성
+        requestQueue.add(jsonArrayRequest);
+
+
+    }//loadDBtoJson() ..
 }

@@ -68,18 +68,23 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
+        Log.e("DB에 저장된 카카오 ID 수 : ",""+UsePublicData.kakaoIDes.size());
 
-        if(MainActivity.kakaoIDNUM!=0)   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
-        {
-            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
-            startActivity(intentMain2);
-            Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
-            finish();
+        for(int i=0;i<UsePublicData.kakaoIDes.size();i++){
 
+            if(UsePublicData.currentkakaoIDNUM.equals(""+UsePublicData.kakaoIDes.get(i)))   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
+            {
+                Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+                startActivity(intentMain2);
+                Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
+                finish();
+                break;
+            }
         }
 
 
-        Log.e("카카오 ID",""+MainActivity.kakaoIDNUM);
+
+        Log.e("카카오 ID",""+MainActivity.currentkakaoIDNUM);
 
         et_nickName=findViewById(R.id.et_nickName);
 
@@ -453,7 +458,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             });
 
             //요청 객체에 보낼 데이터를 추가
-            smpr.addStringParam("kakaoID", MainActivity.kakaoIDNUM+"");
+            smpr.addStringParam("kakaoID", MainActivity.currentkakaoIDNUM+"");
             smpr.addStringParam("s_nickname", s_nickname);
             smpr.addStringParam("s_gender", s_gender);
             smpr.addStringParam("s_year", s_year);

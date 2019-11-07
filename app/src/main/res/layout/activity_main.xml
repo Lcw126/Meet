@@ -29,16 +29,18 @@
         android:layout_width="380dp"
         android:layout_height="50dp"
         android:layout_gravity="bottom"
-        android:layout_above="@id/btn_Log"
+        android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="16dp"/>
-    <Button
-        android:id="@+id/btn_Log"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="10dp"
-        android:layout_width="380dp"
-        android:layout_height="50dp"
-        android:text="log out"
-        android:layout_centerHorizontal="true"
-        android:onClick="click_LogOut"/>
+
+<!--    -->
+<!--    <Button-->
+<!--        android:id="@+id/btn_Log"-->
+<!--        android:layout_alignParentBottom="true"-->
+<!--        android:layout_marginBottom="10dp"-->
+<!--        android:layout_width="380dp"-->
+<!--        android:layout_height="50dp"-->
+<!--        android:text="log out"-->
+<!--        android:layout_centerHorizontal="true"-->
+<!--        android:onClick="click_LogOut"/>-->
 </RelativeLayout>
