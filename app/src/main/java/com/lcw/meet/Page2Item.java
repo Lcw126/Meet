@@ -2,16 +2,25 @@ package com.lcw.meet;
 
 public class Page2Item {
     String kakaoID;
+    String nickname;
     String memo;
     String imgPath;
 
     public Page2Item() {
     }
 
-    public Page2Item(String kakaoID, String memo, String imgPath) {
+    public Page2Item(String kakaoID, String nickname, String memo, String imgPath) {
         this.kakaoID = kakaoID;
         this.memo = memo;
         this.imgPath = imgPath;
+    }
+
+    public String getNickname() {
+        return nickname;
+    }
+
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     public String getKakaoID() {

@@ -49,7 +49,7 @@ public class Page2WriteActivity extends AppCompatActivity {
 
         //툴바 추가하기
         Toolbar toolbar =findViewById(R.id.toolbar);
-        toolbar.setTitle("");
+        toolbar.setTitle("일상");
         setSupportActionBar(toolbar);
         //툴바에 뒤로가기 화살표 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -179,6 +179,7 @@ public class Page2WriteActivity extends AppCompatActivity {
 
             //요청 객체에 보낼 데이터를 추가
             smpr.addStringParam("kakaoID", UsePublicData.currentkakaoIDNUM+"");
+            smpr.addStringParam("nickname",  Page2FragToFrag.db_nickname  );
             smpr.addStringParam("memo", etWirte);
 
             //이미지 파일 추가

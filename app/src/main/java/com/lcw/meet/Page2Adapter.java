@@ -1,6 +1,7 @@
 package com.lcw.meet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -41,7 +42,7 @@ public class Page2Adapter extends RecyclerView.Adapter {
 
 //        vh.tvMsg.setText(ite.msg);
 
-        Glide.with(context).load(ite.imgPath).into(vh.ivIcon);
+        Glide.with(context).load(ite.imgPath).into(vh.ivDaily);
 
     }
 
@@ -53,13 +54,27 @@ public class Page2Adapter extends RecyclerView.Adapter {
     //이너클래스 : 아이템뷰를 보관하는 클래스
     class VH extends RecyclerView.ViewHolder{
 
-        ImageView ivIcon;
+        ImageView ivDaily;
 
 
         public VH(@NonNull View itemView) {
             super(itemView);
 
-            ivIcon=itemView.findViewById(R.id.iv_page2img);
+            ivDaily=itemView.findViewById(R.id.iv_page2img);
+
+
+            //일상 사진 눌렀을 때
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                    Intent intent= new Intent(context, Page2DailyActivity.class);
+                    context.startActivity(intent);
+
+                }
+            });
+
+
 
 
         }

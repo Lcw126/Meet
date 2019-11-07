@@ -438,6 +438,8 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
        // s_nickname, s_gender, s_year,s_local,s_intro, s_character;
         s_nickname=et_nickName.getText().toString();
         s_intro=et_intro.getText().toString();
+        UsePublicData.currentNickname=s_nickname;
+
         if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
             // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
             Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n"+imgPath01, Toast.LENGTH_SHORT).show();

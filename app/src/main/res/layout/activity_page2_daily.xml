@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".Page2DailyActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.Page2WriteAppbaar"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_daily"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/toolbar">
+
+    </androidx.recyclerview.widget.RecyclerView>
+
+<!--    <de.hdodenhof.circleimageview.CircleImageView-->
+<!--        android:id="@+id/civ_myimg"-->
+<!--        android:layout_width="60dp"-->
+<!--        android:layout_height="60dp"-->
+<!--        android:src="@mipmap/ic_launcher"-->
+<!--        android:layout_below="@id/toolbar"-->
+<!--        android:layout_marginTop="8dp"-->
+<!--        android:layout_marginLeft="24dp">-->
+<!--    </de.hdodenhof.circleimageview.CircleImageView>-->
+<!--    -->
+<!--    <TextView-->
+<!--        android:layout_width="wrap_content"-->
+<!--        android:layout_height="wrap_content"-->
+<!--        android:text="닉네임"-->
+<!--        android:layout_toRightOf="@id/civ_myimg"/>-->
+
+</RelativeLayout>

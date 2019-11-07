@@ -233,7 +233,8 @@ public class Page1FragHome extends Fragment {
 //                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
 //                            intent.putExtra("db_imgPath01",db_imgPath01);
 //                            mContext.startActivity(intent);
-                                 fragToFrag= new Page2FragToFrag(db_imgPath01);
+                                 fragToFrag= new Page2FragToFrag(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
+
 
                         }
 

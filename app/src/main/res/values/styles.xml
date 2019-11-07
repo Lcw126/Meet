@@ -15,5 +15,9 @@
     <style name="AppTheme.Page2Appbaar">
         <item name="colorControlNormal">#B3B3B3</item>
     </style>
+    <style name="AppTheme.Page2WriteAppbaar">
+        <item name="colorControlNormal">#000000</item>
+    </style>
+
 
 </resources>

@@ -111,7 +111,7 @@ public class Page2FragPhoto extends Fragment{
             //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
             @Override
             public void onResponse(JSONArray response) {
-                Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
 
 
                 //파라미터로 응답받은 결과 JsonArray를 분석
@@ -125,13 +125,14 @@ public class Page2FragPhoto extends Fragment{
 
                         int no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
                         String db_kakaoID_photo=jsonObject.getString("kakaoID");
+                        String db_nickname_photo=jsonObject.getString("nickname");
                         String db_memo_photo=jsonObject.getString("memo");
                         String db_imgPath_photo="http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath");
 
 
                         //이미지 경로의 경우 서버 IP가 제외된 주소이므로(uploads/xxxx.jpg) 바로 사용 불가.
 
-                        datas.add(0,new Page2Item(db_kakaoID_photo, db_memo_photo, db_imgPath_photo)); // 첫 번째 매개변수는 몇번째에 추가 될지, 제일 위에 오도록
+                        datas.add(0,new Page2Item(db_kakaoID_photo,db_nickname_photo, db_memo_photo, db_imgPath_photo)); // 첫 번째 매개변수는 몇번째에 추가 될지, 제일 위에 오도록
                         adapter.notifyItemInserted(0);
                     }
                 } catch (JSONException e) {e.printStackTrace();}
