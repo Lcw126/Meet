@@ -31,9 +31,6 @@ public class Page2FragPhoto extends Fragment{
 
     ImageView iv_daily_write;
 
-//test용으로 로그아웃 기능 만듬
-//    Button button;
-
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_photo,container,false);
 
@@ -47,19 +44,7 @@ public class Page2FragPhoto extends Fragment{
 
         Glide.with(this).load(db_imgPath01).into(circleImageView);
 
-        //test용으로 로그아웃 기능 만듬
-//        button=view.findViewById(R.id.btn_logout);
-//        button.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                UserManagement.requestLogout(new LogoutResponseCallback() {
-//                    @Override
-//                    public void onCompleteLogout() {
-//                        redirectLoginActivity();
-//                    }
-//                });
-//            }
-//        });
+
 
 
         return view;
@@ -70,19 +55,17 @@ public class Page2FragPhoto extends Fragment{
         super.onAttach(context);
         mContext= context;
     }
-//      //test용으로 로그아웃 기능 만듬
-//    protected void redirectLoginActivity() {
-//        final Intent intent = new Intent(mContext, MainActivity.class);
-//        intent.setFlags(Intent.FLAG_ACTIVITY_NO_ANIMATION);
-//        startActivity(intent);
-//        //finish();
-//        getActivity().finish();
-//    }
 
 
+    //쓰기 표시를 눌렀을 때
     public  View.OnClickListener imgListener= new View.OnClickListener() {
         @Override
         public void onClick(View view) {
+
+            //새로운 액티비티로 전환 사진,글 올리는 화면
+            Intent intent= new Intent(mContext, Page2WriteActivity.class);
+            mContext.startActivity(intent);
+
 
         }
     };

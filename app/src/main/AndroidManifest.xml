@@ -14,7 +14,8 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".UserActivity"></activity>
+        <activity android:name=".Page2WriteActivity"></activity>
+        <activity android:name=".UserActivity" />
         <activity android:name=".Main2Activity" />
         <activity android:name=".AccountActivity" />
         <activity

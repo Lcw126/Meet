@@ -10,7 +10,10 @@
 
     <style name="AppTheme.Appbaar">
         <item name="colorControlNormal">#ffffff</item>
+    </style>
 
+    <style name="AppTheme.Page2Appbaar">
+        <item name="colorControlNormal">#B3B3B3</item>
     </style>
 
 </resources>

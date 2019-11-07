@@ -16,6 +16,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
@@ -49,6 +50,8 @@ public class Page1FragHome extends Fragment {
 
     static Page2FragToFrag fragToFrag;
 
+    SwipeRefreshLayout refreshLayout;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_home,container,false);
 
@@ -70,6 +73,15 @@ public class Page1FragHome extends Fragment {
         page1Apater= new Page1Apater(page1Items, getContext());
         recyclerView.setAdapter(page1Apater);
 
+        refreshLayout=view.findViewById(R.id.layout_swipe);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                page1Items.clear();
+                page1Apater.notifyDataSetChanged();
+                loadDBtoJson();
+            }
+        });
 
 
 
@@ -230,8 +242,10 @@ public class Page1FragHome extends Fragment {
                             @Override
                             public void run() {
                                 page1Apater.notifyDataSetChanged();
+                                refreshLayout.setRefreshing(false);
                             }
                         });
+
 
                     }//for() ..
 
@@ -253,4 +267,6 @@ public class Page1FragHome extends Fragment {
 
 
     }//loadDBtoJson() ..
+
+
 }

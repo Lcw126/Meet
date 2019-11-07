@@ -19,7 +19,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         app:menu="@menu/bottom"
-        app:itemIconTint="#000000"
+        app:itemIconTint="@color/bottomcolor"
         android:background="#ffffff"
         app:labelVisibilityMode="unlabeled">
     </com.google.android.material.bottomnavigation.BottomNavigationView>
