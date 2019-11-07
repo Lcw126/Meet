@@ -1,9 +1,9 @@
 package com.lcw.meet;
 
-public class Page2FragToFrag {
+public class CurrentUserInfo {
 
 
-   static String db_kakaoID;
+    static String db_kakaoID;
     static String db_nickname;
     static String db_gender;
     static String db_year;
@@ -14,10 +14,10 @@ public class Page2FragToFrag {
     static String db_imgPath02;
     static String db_imgPath03;
 
-    public Page2FragToFrag() {
+    public CurrentUserInfo() {
     }
 
-    public Page2FragToFrag(String db_kakaoID, String db_nickname, String db_gender, String db_year, String db_local, String db_intro, String db_charac, String db_imgPath01, String db_imgPath02, String db_imgPath03) {
+    public CurrentUserInfo(String db_kakaoID, String db_nickname, String db_gender, String db_year, String db_local, String db_intro, String db_charac, String db_imgPath01, String db_imgPath02, String db_imgPath03) {
         this.db_kakaoID = db_kakaoID;
         this.db_nickname = db_nickname;
         this.db_gender = db_gender;
@@ -30,7 +30,7 @@ public class Page2FragToFrag {
         this.db_imgPath03 = db_imgPath03;
     }
 
-    public Page2FragToFrag(String db_imgPath01) {
+    public CurrentUserInfo(String db_imgPath01) {
         this.db_imgPath01 = db_imgPath01;
     }
 

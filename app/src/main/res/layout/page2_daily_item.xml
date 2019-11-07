@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="wrap_content">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/civ_page2write_myimg"
+                android:layout_width="60dp"
+                android:layout_height="60dp"
+                android:src="@mipmap/ic_launcher"
+                android:layout_marginTop="16dp"
+                android:layout_marginLeft="24dp">
+            </de.hdodenhof.circleimageview.CircleImageView>
+
+            <TextView
+                android:id="@+id/tv_page2write_nickname"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="닉네임"
+                android:layout_toRightOf="@id/civ_page2write_myimg"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="28dp"/>
+            <TextView
+                android:id="@+id/tv_page2write_year"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="2000"
+                android:layout_toRightOf="@id/tv_page2write_nickname"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="28dp"/>
+            <ImageView
+                android:id="@+id/iv_page2write"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:scaleType="centerCrop"
+                android:layout_below="@id/civ_page2write_myimg"
+                android:layout_marginTop="8dp"/>
+        <TextView
+            android:id="@+id/tv_page2write_msg"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_page2write"
+            android:layout_marginLeft="4dp"
+            android:text="나의 일상을 공유합니다."/>
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>

@@ -178,11 +178,13 @@ public class Page2WriteActivity extends AppCompatActivity {
             });
 
             //요청 객체에 보낼 데이터를 추가
-            smpr.addStringParam("kakaoID", UsePublicData.currentkakaoIDNUM+"");
-            smpr.addStringParam("nickname",  Page2FragToFrag.db_nickname  );
+            smpr.addStringParam("kakaoID", CurrentUserInfo.db_kakaoID+"");
+            smpr.addStringParam("nickname",  CurrentUserInfo.db_nickname);
+            smpr.addStringParam("year",  CurrentUserInfo.db_year);
             smpr.addStringParam("memo", etWirte);
 
             //이미지 파일 추가
+            smpr.addFile("img", CurrentUserInfo.db_imgPath01);
             smpr.addFile("img01", imgPath);
 
             //요청객체를 서버로 보낼 우체통 같은 객체 생성

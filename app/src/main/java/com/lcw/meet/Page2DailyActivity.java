@@ -2,11 +2,22 @@ package com.lcw.meet;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
+import android.widget.Toast;
+
+import java.util.ArrayList;
 
 public class Page2DailyActivity extends AppCompatActivity {
+
+    RecyclerView recyclerView;
+    Page2DailyAdapter adapter;
+
+    ArrayList<Page2Item> page2Items=new ArrayList<>();
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -18,6 +29,21 @@ public class Page2DailyActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         //툴바에 뒤로가기 화살표 추가
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        Intent intent= getIntent();
+        int position= intent.getIntExtra("position",0);
+        page2Items.addAll(Page2FragPhoto.datas);
+       // Log.e("0참조 변수의 관계","page2Items.size() : "+page2Items.size()+" Page2FragPhoto.datas.size() "+Page2FragPhoto.datas.size());
+
+        for(int i=0;i<position;i++){
+            page2Items.remove(0);
+        }
+
+        recyclerView=findViewById(R.id.recycler_daily);
+        //Toast.makeText(this, ""+Page2FragPhoto.datas.size(), Toast.LENGTH_SHORT).show();
+        adapter= new Page2DailyAdapter(page2Items,this);
+        recyclerView.setAdapter(adapter);
+
     }// onCreate()..
     //툴바에 뒤로가기 화살표 동작
     @Override

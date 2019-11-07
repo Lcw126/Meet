@@ -129,10 +129,6 @@ public class Page1Apater extends RecyclerView.Adapter {
                     intent.putExtra("userImg03",userImg03);
                     //Toast.makeText(context, "DB에서 받아온 이미지 1 : "+userImg01+"\nDB에서 받아온 이미지 2 : "+userImg02+"\n DB에서 받아온 이미지 3 :"+userImg03, Toast.LENGTH_SHORT).show();
 
-
-
-
-
 //                    /////////////////////test용 트래픽을 사용하지 않기 위해
 //                    int userTestImg01= datas.get(position).getTestimg();
 //                    String s=userTestImg01+"";

@@ -1,21 +1,17 @@
 package com.lcw.meet;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.android.volley.Request;
@@ -25,8 +21,6 @@ import com.android.volley.error.VolleyError;
 import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
-import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -45,7 +39,7 @@ public class Page2FragPhoto extends Fragment{
     ImageView iv_daily_write;
 
     RecyclerView recyclerView;
-    ArrayList<Page2Item> datas = new ArrayList<>();
+    static ArrayList<Page2Item> datas = new ArrayList<>();
     Page2Adapter adapter;
 
 
@@ -54,7 +48,7 @@ public class Page2FragPhoto extends Fragment{
         View view= inflater.inflate(R.layout.fragment_photo,container,false);
 
 
-        String db_imgPath01 =Page1FragHome.fragToFrag.getDb_imgPath01();
+        String db_imgPath01 = CurrentUserInfo.db_imgPath01;
         //Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
 
         circleImageView= view.findViewById(R.id.civ_myimg);
@@ -126,13 +120,15 @@ public class Page2FragPhoto extends Fragment{
                         int no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
                         String db_kakaoID_photo=jsonObject.getString("kakaoID");
                         String db_nickname_photo=jsonObject.getString("nickname");
+                        String db_year_photo=jsonObject.getString("year");
                         String db_memo_photo=jsonObject.getString("memo");
+                        String db_img_photo="http://umul.dothome.co.kr/Meet/"+jsonObject.getString("img");
                         String db_imgPath_photo="http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath");
 
 
                         //이미지 경로의 경우 서버 IP가 제외된 주소이므로(uploads/xxxx.jpg) 바로 사용 불가.
 
-                        datas.add(0,new Page2Item(db_kakaoID_photo,db_nickname_photo, db_memo_photo, db_imgPath_photo)); // 첫 번째 매개변수는 몇번째에 추가 될지, 제일 위에 오도록
+                        datas.add(0,new Page2Item(db_kakaoID_photo,db_nickname_photo,db_year_photo, db_memo_photo,db_img_photo, db_imgPath_photo)); // 첫 번째 매개변수는 몇번째에 추가 될지, 제일 위에 오도록
                         adapter.notifyItemInserted(0);
                     }
                 } catch (JSONException e) {e.printStackTrace();}

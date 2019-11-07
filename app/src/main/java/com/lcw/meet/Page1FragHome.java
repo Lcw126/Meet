@@ -2,18 +2,14 @@ package com.lcw.meet;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -48,7 +44,7 @@ public class Page1FragHome extends Fragment {
     private Context mContext;
     Activity activity;
 
-    static Page2FragToFrag fragToFrag;
+    static CurrentUserInfo fragToFrag;
 
     SwipeRefreshLayout refreshLayout;
 
@@ -233,7 +229,7 @@ public class Page1FragHome extends Fragment {
 //                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
 //                            intent.putExtra("db_imgPath01",db_imgPath01);
 //                            mContext.startActivity(intent);
-                                 fragToFrag= new Page2FragToFrag(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
+                                 fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
 
 
                         }
