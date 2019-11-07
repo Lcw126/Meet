@@ -5,8 +5,8 @@
 
     <ImageView
         android:id="@+id/iv_page2img"
-        android:layout_width="120dp"
-        android:layout_height="120dp"
+        android:layout_width="134dp"
+        android:layout_height="134dp"
         android:scaleType="centerCrop"/>
 
 </LinearLayout>

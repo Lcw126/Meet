@@ -11,6 +11,7 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -37,6 +38,7 @@ public class Page2FragPhoto extends Fragment{
     CircleImageView circleImageView;
 
     ImageView iv_daily_write;
+    ImageView iv_daily_help;
 
     RecyclerView recyclerView;
     static ArrayList<Page2Item> datas = new ArrayList<>();
@@ -53,8 +55,9 @@ public class Page2FragPhoto extends Fragment{
 
         circleImageView= view.findViewById(R.id.civ_myimg);
         iv_daily_write= view.findViewById(R.id.iv_daily_write);
+        iv_daily_help= view.findViewById(R.id.iv_daily_help);
         iv_daily_write.setOnClickListener(imgListener);
-
+        iv_daily_help.setOnClickListener(imgListener);
         Glide.with(this).load(db_imgPath01).into(circleImageView);
 
 
@@ -82,10 +85,17 @@ public class Page2FragPhoto extends Fragment{
         @Override
         public void onClick(View view) {
 
-            //새로운 액티비티로 전환 사진,글 올리는 화면
-            Intent intent= new Intent(mContext, Page2WriteActivity.class);
-            mContext.startActivity(intent);
-
+            int id= view.getId();
+            switch (id){
+                case R.id.iv_daily_write:
+                    //새로운 액티비티로 전환 사진,글 올리는 화면
+                    Intent intent= new Intent(mContext, Page2WriteActivity.class);
+                    mContext.startActivity(intent);
+                    break;
+                case R.id.iv_daily_help:
+                    new AlertDialog.Builder(mContext).setMessage("자신의 일상 사진을 공유해서 사람들과 소통해보세요.").create().show();
+                    break;
+            }
 
         }
     };

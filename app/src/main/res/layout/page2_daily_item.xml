@@ -44,7 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/iv_page2write"
             android:layout_marginLeft="4dp"
-            android:text="나의 일상을 공유합니다."/>
+            android:text="나의 일상을 공유합니다."
+            android:textColor="#000000"/>
     </RelativeLayout>
 
 </androidx.cardview.widget.CardView>

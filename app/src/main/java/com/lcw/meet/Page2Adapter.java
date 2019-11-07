@@ -70,16 +70,11 @@ public class Page2Adapter extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     int position= getLayoutPosition();
                     Intent intent= new Intent(context, Page2DailyActivity.class);
-
                     intent.putExtra("position",position);
-                    Toast.makeText(context, ""+position, Toast.LENGTH_SHORT).show();
                     context.startActivity(intent);
 
                 }
             });
-
-
-
 
         }
     }
