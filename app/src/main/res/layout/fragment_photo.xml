@@ -1,6 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
 
     <TextView
@@ -56,6 +58,22 @@
         android:layout_below="@id/civ_myimg"
         android:layout_marginTop="24dp"
         android:layout_marginRight="86dp"/>
+    <View
+        android:id="@+id/v_line02"
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:background="#C4C4C4"
+        android:layout_below="@+id/iv_daily_write"
+        android:layout_marginTop="10dp"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_photo"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:spanCount="3"
+        android:layout_below="@+id/v_line02">
+    </androidx.recyclerview.widget.RecyclerView>
 
 
 
