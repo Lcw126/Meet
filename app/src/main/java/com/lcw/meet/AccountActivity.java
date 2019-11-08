@@ -43,8 +43,13 @@ import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
 import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.InputStream;
 import java.util.ArrayList;
@@ -63,6 +68,8 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
     private static final int STORAGE_REQUEST_CODE = 1;
 
     String imgPath01, imgPath02, imgPath03;
+
+    boolean isNicknameOverlap=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -436,57 +443,124 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
     public void click_finish(View view) {
 
        // s_nickname, s_gender, s_year,s_local,s_intro, s_character;
-        s_nickname=et_nickName.getText().toString();
+        //s_nickname=et_nickName.getText().toString();
         s_intro=et_intro.getText().toString();
         UsePublicData.currentNickname=s_nickname;
 
+
+
         if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
-            // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
-            Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n"+imgPath01, Toast.LENGTH_SHORT).show();
 
-            String serverUrl="http://umul.dothome.co.kr/Meet/insertDB.php";
+            if(isNicknameOverlap) {
+                // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
+                Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n"+imgPath01, Toast.LENGTH_SHORT).show();
 
-            SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
-                @Override
-                public void onResponse(String response) {
-                    //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
-                    Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
-                }
-            }, new Response.ErrorListener() {
-                @Override
-                public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-                }
-            });
+                String serverUrl="http://umul.dothome.co.kr/Meet/insertDB.php";
 
-            //요청 객체에 보낼 데이터를 추가
-            smpr.addStringParam("kakaoID", MainActivity.currentkakaoIDNUM+"");
-            smpr.addStringParam("s_nickname", s_nickname);
-            smpr.addStringParam("s_gender", s_gender);
-            smpr.addStringParam("s_year", s_year);
-            smpr.addStringParam("s_local", s_local);
-            smpr.addStringParam("s_intro", s_intro);
-            smpr.addStringParam("s_character", s_character);
-            //이미지 파일 추가
-            smpr.addFile("img01", imgPath01);
-            if(imgPath02!=null) smpr.addFile("img02", imgPath02);
-            if(imgPath03!=null) smpr.addFile("img03", imgPath03);
+                SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+                        //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
+                        Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+                    }
+                }, new Response.ErrorListener() {
+                    @Override
+                    public void onErrorResponse(VolleyError error) {
+                        Toast.makeText(AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+                //요청 객체에 보낼 데이터를 추가
+                smpr.addStringParam("kakaoID", MainActivity.currentkakaoIDNUM+"");
+                smpr.addStringParam("s_nickname", s_nickname);
+                smpr.addStringParam("s_gender", s_gender);
+                smpr.addStringParam("s_year", s_year);
+                smpr.addStringParam("s_local", s_local);
+                smpr.addStringParam("s_intro", s_intro);
+                smpr.addStringParam("s_character", s_character);
+                //이미지 파일 추가
+                smpr.addFile("img01", imgPath01);
+                if(imgPath02!=null) smpr.addFile("img02", imgPath02);
+                if(imgPath03!=null) smpr.addFile("img03", imgPath03);
 
 
-            //요청객체를 서버로 보낼 우체통 같은 객체 생성
-            RequestQueue requestQueue= Volley.newRequestQueue(this);
-            requestQueue.add(smpr);
+                //요청객체를 서버로 보낼 우체통 같은 객체 생성
+                RequestQueue requestQueue= Volley.newRequestQueue(this);
+                requestQueue.add(smpr);
 
-            //다음 화면으로 이동
-            Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
-            startActivity(intentMain2);
-            Toast.makeText(AccountActivity.this, "프로필 생성 완료", Toast.LENGTH_SHORT).show();
-            finish();
+                //다음 화면으로 이동
+                Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+                startActivity(intentMain2);
+                Toast.makeText(AccountActivity.this, "프로필 생성 완료", Toast.LENGTH_SHORT).show();
+                finish();
+
+            }
+
 
         }else{
-            Toast.makeText(this, "모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "중복확인 및 모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
 
     }
+    //닉네임 중복 확인 버튼
+    public void click_btn_overlapCheck(View view) {
 
+        if(et_nickName.getText().toString()!=null){
+
+            s_nickname= et_nickName.getText().toString().replace(" ", "");
+            loadDBtoJson(); //DB 닉네임 값을 불러와서 현재 쓴 닉네임이 겹치는지 확인
+
+        }else Toast.makeText(AccountActivity.this, "닉네임이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
+    }
+
+    void loadDBtoJson(){
+        //서버의 loadDBtoJson.php파일에 접속하여 (DB데이터들)결과 받기
+        //Volley+ 라이브러리 사용
+
+        //서버주소
+        String serverUrl="http://umul.dothome.co.kr/Meet/loadDBtoJson.php";
+
+        //결과를 JsonArray 받을 것이므로..
+        //StringRequest가 아니라..
+        //JsonArrayRequest를 이용할 것임
+        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(Request.Method.POST, serverUrl, null, new Response.Listener<JSONArray>() {
+            //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
+            @Override
+            public void onResponse(JSONArray response) {
+                // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+
+                try {
+
+                    for(int i=0;i<response.length();i++){
+                        JSONObject jsonObject= response.getJSONObject(i);
+
+                        String db_nickname=jsonObject.getString("nickname");
+                        if(!s_nickname.equals(db_nickname)) {
+                            Toast.makeText(AccountActivity.this, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                            et_nickName.setText(s_nickname);
+                            isNicknameOverlap = true;
+                        }else{
+                            Toast.makeText(AccountActivity.this, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+                        }
+
+                    }//for() ..
+
+                } catch (JSONException e) {e.printStackTrace();}
+
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText( AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //실제 요청 작업을 수행해주는 요청큐 객체 생성
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+
+        //요청큐에 요청 객체 생성
+        requestQueue.add(jsonArrayRequest);
+
+
+    }//loadDBtoJson() ..
 }

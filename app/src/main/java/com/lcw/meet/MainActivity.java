@@ -272,12 +272,6 @@ public class MainActivity extends AppCompatActivity {
 //                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
 
-
-
-
-
-
-
                     }//for() ..
 
                 } catch (JSONException e) {e.printStackTrace();}
