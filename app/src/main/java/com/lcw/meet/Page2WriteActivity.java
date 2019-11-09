@@ -14,6 +14,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -76,7 +77,6 @@ public class Page2WriteActivity extends AppCompatActivity {
                 return true;
             }
             case R.id.menu_wirte:
-                Toast.makeText(this, "게시를 눌렀다.", Toast.LENGTH_SHORT).show();
                 write();
                 return true;
         }
@@ -114,6 +114,7 @@ public class Page2WriteActivity extends AppCompatActivity {
                         in.close();
                         Uri uri = data.getData();
                         imgPath = getRealPathFromUri(uri);
+                        Log.e("LogCheck",""+imgPath);
                         iv.setImageURI(uri);
 
                     } catch (Exception e) {

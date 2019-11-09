@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class DBPublicData {
 
     static  String  currentkakaoIDNUM;
-    public static ArrayList<String> kakaoIDes;
+    public static ArrayList<String> kakaoIDes= new ArrayList<>();
     static  String currentNickname;
     public static ArrayList<Page1Item> DBdatas= new ArrayList<>();
 

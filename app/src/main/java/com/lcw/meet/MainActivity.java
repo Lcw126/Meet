@@ -185,36 +185,19 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onSuccess(final UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
                 Log.e("LogCheck", "onSuccess ()..");
-//                Logger.d("UserProfile : " + userProfile);
-//                Log.d(TAG, "유저가입성공");
-                // Create a new user with a first and last name
-                // 유저 카카오톡 아이디 디비에 넣음(첫가입인 경우에만 디비에저장)
 
-//                Map<String, String> user = new HashMap<>();
                 currentkakaoIDNUM=userProfile.getId();
                 DBPublicData DBPublicData = new DBPublicData(currentkakaoIDNUM+"",kakaoIDes);
-//                user.put("token", userProfile.getId() + "");
-//                user.put("name", userProfile.getNickname());
-//                //db.collection("users")
-//                        .document(userProfile.getId() + "")
-//                        .set(user)
-//                        .addOnSuccessListener(new OnSuccessListener<Void>() {
-//                            @Override
-//                            public void onSuccess(Void aVoid) {
-//                                Log.d(TAG, "유저정보 디비삽입 성공");
-//                                saveShared(userProfile.getId() + "", userProfile.getNickname());
-//                            }
-//                        });
-//                Intent intent=new Intent(MainActivity.this, AccountActivity.class);
-//                startActivity(intent);
-//                finish();
-//                Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
-                loadDBtoJson();
 
-                    Intent intentAccount=new Intent(MainActivity.this, AccountActivity.class);
-                    startActivity(intentAccount);
-                    finish();
-                    Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                loadDBtoJson();
+                Log.e("LogCheck", "kakaoIDes :"+kakaoIDes.size());
+//                DBPublicData.kakaoIDes=kakaoIDes;
+
+                //볼리로 다 받고 나서 실행하도록  291줄에 써줌
+//                    Intent intentAccount=new Intent(MainActivity.this, AccountActivity.class);
+//                    startActivity(intentAccount);
+//                    finish();
+//                    Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
 
 
             }
@@ -273,10 +256,12 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     for(int i=0;i<response.length();i++){
+                        Log.e("LogCheck", "response.length() :"+i);
                         JSONObject jsonObject= response.getJSONObject(i);
 
                         int db_no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
                         String db_kakaoID=jsonObject.getString("kakaoID");
+                        Log.e("LogCheck", "db_kakaoID:"+db_kakaoID);
                         kakaoIDes.add(db_kakaoID);
                         String db_nickname=jsonObject.getString("nickname");
                         String db_gender=jsonObject.getString("gender");
@@ -298,7 +283,16 @@ public class MainActivity extends AppCompatActivity {
 
                     }//for() ..
 
+                    Log.e("LogCheck", "loadDBtoJson () .. kakaoIDes 사이즈 :"+kakaoIDes.size());
+                    DBPublicData.kakaoIDes=kakaoIDes;
+
                 } catch (JSONException e) {e.printStackTrace();}
+
+                    Intent intentAccount=new Intent(MainActivity.this, AccountActivity.class);
+                    startActivity(intentAccount);
+                    finish();
+                    Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+
 
             }
         }, new Response.ErrorListener() {

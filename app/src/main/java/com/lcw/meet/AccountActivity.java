@@ -69,7 +69,6 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         Log.e("DB에 저장된 카카오 ID 수 : ",""+ DBPublicData.kakaoIDes.size());
 
         for(int i = 0; i< DBPublicData.kakaoIDes.size(); i++){
-
             if(DBPublicData.currentkakaoIDNUM.equals(""+ DBPublicData.kakaoIDes.get(i)))   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
             {
                 Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
@@ -97,6 +96,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         tv_birthday_choice=findViewById(R.id.tv_birthday_choice);
         tv_location_choice=findViewById(R.id.tv_location_choice);
         tv_character_choice=findViewById(R.id.tv_character_choice);
+
 
 
         // 외부 메모리 읽기/쓰기 사용 묵시적 권한 허용 ( 이미지를 가져올려면 필요)
