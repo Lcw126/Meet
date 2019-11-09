@@ -2,13 +2,14 @@ package com.lcw.meet;
 
 import java.util.ArrayList;
 
-public class UsePublicData {
+public class DBPublicData {
 
     static  String  currentkakaoIDNUM;
     public static ArrayList<String> kakaoIDes;
     static  String currentNickname;
+    public static ArrayList<Page1Item> DBdatas= new ArrayList<>();
 
-    public UsePublicData(String currentkakaoIDNUM,ArrayList<String> kakaoIDes) {
+    public DBPublicData(String currentkakaoIDNUM, ArrayList<String> kakaoIDes) {
         this.currentkakaoIDNUM = currentkakaoIDNUM;
         this.kakaoIDes = kakaoIDes;
     }
@@ -18,7 +19,7 @@ public class UsePublicData {
     }
 
     public static void setCurrentNickname(String currentNickname) {
-        UsePublicData.currentNickname = currentNickname;
+        DBPublicData.currentNickname = currentNickname;
     }
 
     public ArrayList<String> getKakaoIDes() {

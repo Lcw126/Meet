@@ -7,32 +7,22 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.loader.content.CursorLoader;
 
 import android.Manifest;
-import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Resources;
 import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.Paint;
 import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.MediaStore;
-import android.text.Editable;
-import android.text.Html;
-import android.text.SpannableString;
-import android.text.TextWatcher;
-import android.text.style.UnderlineSpan;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.Button;
-import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.NumberPicker;
@@ -70,24 +60,25 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
     String imgPath01, imgPath02, imgPath03;
 
     boolean isNicknameOverlap=false;
+    boolean ISclick_btn_overlap=false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_account);
-        Log.e("DB에 저장된 카카오 ID 수 : ",""+UsePublicData.kakaoIDes.size());
+        Log.e("DB에 저장된 카카오 ID 수 : ",""+ DBPublicData.kakaoIDes.size());
 
-        for(int i=0;i<UsePublicData.kakaoIDes.size();i++){
-
-            if(UsePublicData.currentkakaoIDNUM.equals(""+UsePublicData.kakaoIDes.get(i)))   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
-            {
-                Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
-                startActivity(intentMain2);
-                Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
-                finish();
-                break;
-            }
-        }
+//        for(int i = 0; i< DBPublicData.kakaoIDes.size(); i++){
+//
+//            if(DBPublicData.currentkakaoIDNUM.equals(""+ DBPublicData.kakaoIDes.get(i)))   // DB에서 카카오 ID를 가져와서 프로필이 작성된 기존 회원이면 Main2Activity로 바로 넘어가기
+//            {
+//                Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
+//                startActivity(intentMain2);
+//                Toast.makeText(AccountActivity.this, "기존 회원이므로 바로 home 화면으로 갑니다.", Toast.LENGTH_SHORT).show();
+//                finish();
+//                break;
+//            }
+//        }
 
 
 
@@ -445,13 +436,12 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
        // s_nickname, s_gender, s_year,s_local,s_intro, s_character;
         //s_nickname=et_nickName.getText().toString();
         s_intro=et_intro.getText().toString();
-        UsePublicData.currentNickname=s_nickname;
+        DBPublicData.currentNickname=s_nickname;
 
+        if(ISclick_btn_overlap){
+            Toast.makeText(this, "닉네임 중복 확인을 해주세요.", Toast.LENGTH_SHORT).show();
+            if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
 
-
-        if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
-
-            if(isNicknameOverlap) {
                 // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
                 Toast.makeText(this, s_nickname+"\n"+s_gender+"\n"+s_year+"\n"+s_local+"\n"+s_intro+"\n"+s_character+"\n"+imgPath01, Toast.LENGTH_SHORT).show();
 
@@ -494,11 +484,9 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 Toast.makeText(AccountActivity.this, "프로필 생성 완료", Toast.LENGTH_SHORT).show();
                 finish();
 
+            }else{
+                Toast.makeText(this, "중복확인 및 모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
-
-
-        }else{
-            Toast.makeText(this, "중복확인 및 모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
         }
 
     }
@@ -509,58 +497,66 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
             s_nickname= et_nickName.getText().toString().replace(" ", "");
             loadDBtoJson(); //DB 닉네임 값을 불러와서 현재 쓴 닉네임이 겹치는지 확인
-
+            if(!isNicknameOverlap)ISclick_btn_overlap=true;
         }else Toast.makeText(AccountActivity.this, "닉네임이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
     void loadDBtoJson(){
-        //서버의 loadDBtoJson.php파일에 접속하여 (DB데이터들)결과 받기
-        //Volley+ 라이브러리 사용
+//        //서버의 loadDBtoJson.php파일에 접속하여 (DB데이터들)결과 받기
+//        //Volley+ 라이브러리 사용
+//
+//        //서버주소
+//        String serverUrl="http://umul.dothome.co.kr/Meet/loadDBtoJson.php";
+//
+//        //결과를 JsonArray 받을 것이므로..
+//        //StringRequest가 아니라..
+//        //JsonArrayRequest를 이용할 것임
+//        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(Request.Method.POST, serverUrl, null, new Response.Listener<JSONArray>() {
+//            //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
+//            @Override
+//            public void onResponse(JSONArray response) {
+//                // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+//
+//                try {
+//
+//                    for(int i=0;i<response.length();i++){       //DB에서 읽어온 값 확인
+//                        JSONObject jsonObject= response.getJSONObject(i);
+//
+//                        String db_nickname=jsonObject.getString("nickname");
+//                        if(s_nickname.equals(db_nickname)) isNicknameOverlap = false;   //같은 닉네임이 한번이라도 존재하면 false
+//                    }//for() ..
+//                    if(isNicknameOverlap){
+//                        Toast.makeText(AccountActivity.this, "isNicknameOverlap 는 이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
+//                        et_nickName.setText("");
+//                    }
+//
+//                } catch (JSONException e) {e.printStackTrace();}
+//
+//            }
+//        }, new Response.ErrorListener() {
+//            @Override
+//            public void onErrorResponse(VolleyError error) {
+//                Toast.makeText( AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+//            }
+//        });
+//
+//        //실제 요청 작업을 수행해주는 요청큐 객체 생성
+//        RequestQueue requestQueue= Volley.newRequestQueue(this);
+//
+//        //요청큐에 요청 객체 생성
+//        requestQueue.add(jsonArrayRequest);
 
-        //서버주소
-        String serverUrl="http://umul.dothome.co.kr/Meet/loadDBtoJson.php";
 
-        //결과를 JsonArray 받을 것이므로..
-        //StringRequest가 아니라..
-        //JsonArrayRequest를 이용할 것임
-        JsonArrayRequest jsonArrayRequest= new JsonArrayRequest(Request.Method.POST, serverUrl, null, new Response.Listener<JSONArray>() {
-            //volley 라이브러리의 GET방식은 버튼 누를때마다 새로운 갱신 데이터를 불러들이지 않음. 그래서 POST 방식 사용
-            @Override
-            public void onResponse(JSONArray response) {
-                // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
+                 for(int i=0;i<DBPublicData.DBdatas.size();i++){       //DB에서 읽어온 값 확인
 
-                try {
-
-                    for(int i=0;i<response.length();i++){
-                        JSONObject jsonObject= response.getJSONObject(i);
-
-                        String db_nickname=jsonObject.getString("nickname");
-                        if(!s_nickname.equals(db_nickname)) {
-                            Toast.makeText(AccountActivity.this, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                            et_nickName.setText(s_nickname);
-                            isNicknameOverlap = true;
-                        }else{
-                            Toast.makeText(AccountActivity.this, "이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
-                        }
-
+                        String db_nickname=DBPublicData.DBdatas.get(i).nickname;
+                        Log.e("db_nickname"," : "+db_nickname);
+                        if(s_nickname.equals(db_nickname)) isNicknameOverlap = true;   //같은 닉네임이 한번이라도 존재하면 true
                     }//for() ..
+                    if(isNicknameOverlap){
+                        Toast.makeText(AccountActivity.this, isNicknameOverlap+" 는 이미 존재하는 닉네임입니다.", Toast.LENGTH_SHORT).show();
 
-                } catch (JSONException e) {e.printStackTrace();}
-
-            }
-        }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText( AccountActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-            }
-        });
-
-        //실제 요청 작업을 수행해주는 요청큐 객체 생성
-        RequestQueue requestQueue= Volley.newRequestQueue(this);
-
-        //요청큐에 요청 객체 생성
-        requestQueue.add(jsonArrayRequest);
-
+                    }
 
     }//loadDBtoJson() ..
 }

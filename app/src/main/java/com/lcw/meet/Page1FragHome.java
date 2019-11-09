@@ -10,8 +10,6 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
@@ -27,13 +25,6 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
-import java.net.URL;
 import java.util.ArrayList;
 
 public class Page1FragHome extends Fragment {
@@ -220,13 +211,15 @@ public class Page1FragHome extends Fragment {
                         String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath01");  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
                         String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath02");
                         String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
+                        String db_tome=jsonObject.getString("tome");
+                        String db_fromme=jsonObject.getString("fromme");
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
 
-                        page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03));
+                        page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
 
 
                         //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
-                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(UsePublicData.currentkakaoIDNUM)){
+                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){
                             //Toast.makeText(mContext, "현재 접속자 ID : "+MainActivity.kakaoIDNUM+"\n DB에서 가져온 일치 ID "+db_kakaoID, Toast.LENGTH_SHORT).show();
                             //Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
 //                            Intent intent= new Intent(mContext, Page2FragPhoto.class);

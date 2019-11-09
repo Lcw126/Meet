@@ -9,7 +9,6 @@ import android.content.pm.Signature;
 import android.os.Bundle;
 import android.util.Base64;
 import android.util.Log;
-import android.view.View;
 import android.widget.Toast;
 
 import com.android.volley.Request;
@@ -23,7 +22,6 @@ import com.kakao.auth.ISessionCallback;
 import com.kakao.auth.Session;
 import com.kakao.network.ErrorResult;
 import com.kakao.usermgmt.UserManagement;
-import com.kakao.usermgmt.callback.LogoutResponseCallback;
 import com.kakao.usermgmt.callback.MeResponseCallback;
 import com.kakao.usermgmt.response.model.UserProfile;
 import com.kakao.util.exception.KakaoException;
@@ -40,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
 
     public static long currentkakaoIDNUM;
     public ArrayList<String> kakaoIDes= new ArrayList<>();
+
+    ArrayList<Page1Item> datas= new ArrayList<>();
 
     private SessionCallback callback;      //콜백 선언
     //유저프로필
@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity {
 
 //                Map<String, String> user = new HashMap<>();
                 currentkakaoIDNUM=userProfile.getId();
-                UsePublicData usePublicData= new UsePublicData(currentkakaoIDNUM+"",kakaoIDes);
+                DBPublicData DBPublicData = new DBPublicData(currentkakaoIDNUM+"",kakaoIDes);
 //                user.put("token", userProfile.getId() + "");
 //                user.put("name", userProfile.getNickname());
 //                //db.collection("users")
@@ -261,15 +261,19 @@ public class MainActivity extends AppCompatActivity {
                         int db_no= Integer.parseInt(jsonObject.getString("no")); //no가 문자열이라서 바꿔야함.
                         String db_kakaoID=jsonObject.getString("kakaoID");
                         kakaoIDes.add(db_kakaoID);
-//                        String db_nickname=jsonObject.getString("nickname");
-//                        String db_gender=jsonObject.getString("gender");
-//                        String db_year=jsonObject.getString("year");
-//                        String db_local=jsonObject.getString("local");
-//                        String db_intro=jsonObject.getString("intro");
-//                        String db_charac=jsonObject.getString("charac");
-//                        String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath01");  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
-//                        String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath02");
-//                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
+                        String db_nickname=jsonObject.getString("nickname");
+                        String db_gender=jsonObject.getString("gender");
+                        String db_year=jsonObject.getString("year");
+                        String db_local=jsonObject.getString("local");
+                        String db_intro=jsonObject.getString("intro");
+                        String db_charac=jsonObject.getString("charac");
+                        String db_imgPath01= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath01");  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
+                        String db_imgPath02= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath02");
+                        String db_imgPath03= "http://umul.dothome.co.kr/Meet/"+jsonObject.getString("imgPath03");
+                        String db_tome=jsonObject.getString("tome");
+                        String db_fromme=jsonObject.getString("fromme");
+
+                        DBPublicData.DBdatas.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
 
                     }//for() ..

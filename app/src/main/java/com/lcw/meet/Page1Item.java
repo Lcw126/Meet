@@ -11,6 +11,8 @@ public class Page1Item {
     String ImgPath01;
     String ImgPath02;
     String ImgPath03;
+    String tome;
+    String fromme;
 
     /////////////////////test용 트래픽을 사용하지 않기 위해
     int testimg;
@@ -28,7 +30,7 @@ public class Page1Item {
     public Page1Item() {
     }
 
-    public Page1Item(String kakakoID, String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03) {
+    public Page1Item(String kakakoID, String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03,String tome,String fromme) {
         this.kakakoID= kakakoID;
         this.nickname = nickname;
         this.gender = gender;
@@ -39,6 +41,8 @@ public class Page1Item {
         this.ImgPath01 = imgPath01;
         this.ImgPath02 = imgPath02;
         this. ImgPath03 = imgPath03;
+        this.tome = tome;
+        this.fromme = fromme;
     }
 
     /////////////////////test용 트래픽을 사용하지 않기 위해
