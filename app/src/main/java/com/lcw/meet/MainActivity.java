@@ -39,7 +39,9 @@ public class MainActivity extends AppCompatActivity {
     public static long currentkakaoIDNUM;
     public ArrayList<String> kakaoIDes= new ArrayList<>();
 
-    ArrayList<Page1Item> datas= new ArrayList<>();
+    static CurrentUserInfo fragToFrag;
+
+
 
     private SessionCallback callback;      //콜백 선언
     //유저프로필
@@ -66,8 +68,8 @@ public class MainActivity extends AppCompatActivity {
         //자기 카카오톡 프로필 정보 및 디비정보 쉐어드에 저장해놨던거 불러오기
         //loadShared();
 
-        //DB에 있는 카카오 ID들 불러오기
-        loadDBtoJson();
+        //DB에 있는 카카오 ID들 및 DB정보 불러오기
+//        loadDBtoJson();
 
         if (Session.getCurrentSession().isOpened()) {
             // 로그인 상태
@@ -82,6 +84,11 @@ public class MainActivity extends AppCompatActivity {
             // 로그인되어있지 않은 상태
             Toast.makeText(MainActivity.this, "로그인 안되있음", Toast.LENGTH_SHORT).show();
         }
+        //Toast.makeText(this, "logInOK : "+logInOK, Toast.LENGTH_SHORT).show();
+
+
+
+
 
     }
 
@@ -149,7 +156,9 @@ public class MainActivity extends AppCompatActivity {
 
 
     protected void requestMe() { //유저의 정보를 받아오는 함수
+        Log.e("LogCheck", "requestMe ()..");
         UserManagement.requestMe(new MeResponseCallback() {
+
             @Override
             public void onFailure(ErrorResult errorResult) {
                 String message = "failed to get user info. msg=" + errorResult;
@@ -175,6 +184,7 @@ public class MainActivity extends AppCompatActivity {
 
             @Override
             public void onSuccess(final UserProfile userProfile) {  //성공 시 userProfile 형태로 반환
+                Log.e("LogCheck", "onSuccess ()..");
 //                Logger.d("UserProfile : " + userProfile);
 //                Log.d(TAG, "유저가입성공");
                 // Create a new user with a first and last name
@@ -195,10 +205,17 @@ public class MainActivity extends AppCompatActivity {
 //                                saveShared(userProfile.getId() + "", userProfile.getNickname());
 //                            }
 //                        });
-                Intent intent=new Intent(MainActivity.this, AccountActivity.class);
-                startActivity(intent);
-                finish();
-                Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+//                Intent intent=new Intent(MainActivity.this, AccountActivity.class);
+//                startActivity(intent);
+//                finish();
+//                Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+                loadDBtoJson();
+
+                    Intent intentAccount=new Intent(MainActivity.this, AccountActivity.class);
+                    startActivity(intentAccount);
+                    finish();
+                    Toast.makeText(MainActivity.this, "로그인 성공", Toast.LENGTH_SHORT).show();
+
 
             }
         });
@@ -275,6 +292,9 @@ public class MainActivity extends AppCompatActivity {
 
                         DBPublicData.DBdatas.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
+
+                        //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
+                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){ fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03); }
 
                     }//for() ..
 

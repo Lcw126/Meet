@@ -81,10 +81,6 @@ public class UserActivity extends AppCompatActivity {
 //        //////////////////////////////////////////////////
 
 
-
-
-
-
         pager=findViewById(R.id.pager);
         //Test 끝나면 나중에 주석 풀기
         userPageImgAdapter= new UserPageImgAdapter(datas, getLayoutInflater(),this);

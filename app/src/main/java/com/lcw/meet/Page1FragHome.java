@@ -3,6 +3,7 @@ package com.lcw.meet;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,24 +33,28 @@ public class Page1FragHome extends Fragment {
     RecyclerView recyclerView;
 
     Page1Apater page1Apater;
-    ArrayList<Page1Item> page1Items= new ArrayList<>();
+//    ArrayList<Page1Item> page1Items= new ArrayList<>();
 
     private Context mContext;
     Activity activity;
 
-    static CurrentUserInfo fragToFrag;
+    //static CurrentUserInfo fragToFrag;
 
     SwipeRefreshLayout refreshLayout;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_home,container,false);
 
+        Log.e("LogCheck","onCreateView");
 
 
         //데이터를 서버에서 읽어오기
         //Test 끝나면 나중에 주석 풀기
         //loadDB();
-        loadDBtoJson();
+        //loadDBtoJson();
+        //MainActivity에서 DB정보를 담고 있는 DBdatas에 내용을 page1Items로 깊은 복사하여 그 정보를 보여준다.
+//        page1Items.clear();
+//        page1Items.addAll(DBPublicData.DBdatas);
 
 //        /////////////////////test용 트래픽을 사용하지 않기 위해
 //
@@ -60,14 +65,15 @@ public class Page1FragHome extends Fragment {
 //        /////////////////////////
 
         recyclerView=view.findViewById(R.id.recycler);
-        page1Apater= new Page1Apater(page1Items, getContext());
+        page1Apater= new Page1Apater(Main2Activity.page1Items, getContext());
         recyclerView.setAdapter(page1Apater);
 
         refreshLayout=view.findViewById(R.id.layout_swipe);
+        //스와이프 시에만 DB에서 다시 로드한다.
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                page1Items.clear();
+                Main2Activity.page1Items.clear();
                 page1Apater.notifyDataSetChanged();
                 loadDBtoJson();
             }
@@ -85,6 +91,9 @@ public class Page1FragHome extends Fragment {
 
         if (context instanceof Activity)
             activity = (Activity) context;
+
+        Log.e("LogCheck","onAttach");
+
 
     }
 
@@ -187,7 +196,7 @@ public class Page1FragHome extends Fragment {
 
                 //파라미터로 응답받은 결과 JsonArray를 분석
 
-                page1Items.clear();
+                Main2Activity.page1Items.clear();
                 //page1Apater.notifyDataSetChanged();
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -215,20 +224,20 @@ public class Page1FragHome extends Fragment {
                         String db_fromme=jsonObject.getString("fromme");
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
 
-                        page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
+                        Main2Activity.page1Items.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
 
-
-                        //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
-                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){
-                            //Toast.makeText(mContext, "현재 접속자 ID : "+MainActivity.kakaoIDNUM+"\n DB에서 가져온 일치 ID "+db_kakaoID, Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
-//                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
-//                            intent.putExtra("db_imgPath01",db_imgPath01);
-//                            mContext.startActivity(intent);
-                                 fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
-
-
-                        }
+                            //이래 주석 내용을 MainActivity로 옮김
+//                        //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
+//                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){
+//                            //Toast.makeText(mContext, "현재 접속자 ID : "+MainActivity.kakaoIDNUM+"\n DB에서 가져온 일치 ID "+db_kakaoID, Toast.LENGTH_SHORT).show();
+//                            //Toast.makeText(mContext, ""+db_imgPath01, Toast.LENGTH_SHORT).show();
+////                            Intent intent= new Intent(mContext, Page2FragPhoto.class);
+////                            intent.putExtra("db_imgPath01",db_imgPath01);
+////                            mContext.startActivity(intent);
+//                                 fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
+//
+//
+//                        }
 
                         //리스트뷰 갱신
                         getActivity().runOnUiThread(new Runnable() {

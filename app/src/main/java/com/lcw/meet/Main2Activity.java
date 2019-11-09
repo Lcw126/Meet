@@ -10,7 +10,12 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 
+import java.util.ArrayList;
+
 public class Main2Activity extends AppCompatActivity {
+
+
+    static ArrayList<Page1Item> page1Items= new ArrayList<>();
 
     BottomNavigationView bnv;
 
@@ -29,6 +34,8 @@ public class Main2Activity extends AppCompatActivity {
         FragmentTransaction transaction = fragmentManager.beginTransaction();
         transaction.replace(R.id.frame_layout, page1FragHome).commitAllowingStateLoss();
 
+        //MainActivity에서 DB정보를 담고 있는 DBdatas에 내용을 page1Items로 깊은 복사하여 그 정보를 보여준다.
+        page1Items.addAll(DBPublicData.DBdatas);
 
         bnv=findViewById(R.id.bnv);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
