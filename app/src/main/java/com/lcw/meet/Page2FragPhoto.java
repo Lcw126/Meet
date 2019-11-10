@@ -139,6 +139,7 @@ public class Page2FragPhoto extends Fragment{
 
                         //이미지 경로의 경우 서버 IP가 제외된 주소이므로(uploads/xxxx.jpg) 바로 사용 불가.
 
+                        //Page2에서 사진을 눌렀을 시 Linear로 보이는데 프로필 사진을 못불러와서 추가 코드
                         Log.e("check","DBPublicData.DBdatas.size() : "+DBPublicData.DBdatas.size());
                         for(int j=0;j<DBPublicData.DBdatas.size();j++){
                             if(DBPublicData.DBdatas.get(j).nickname.equals(db_nickname_photo)){
