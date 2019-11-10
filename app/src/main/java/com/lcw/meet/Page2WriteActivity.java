@@ -2,6 +2,7 @@ package com.lcw.meet;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.loader.content.CursorLoader;
@@ -114,7 +115,7 @@ public class Page2WriteActivity extends AppCompatActivity {
                         in.close();
                         Uri uri = data.getData();
                         imgPath = getRealPathFromUri(uri);
-                        Log.e("LogCheck",""+imgPath);
+                        Log.e("LogCheck","imgPath"+imgPath);
                         iv.setImageURI(uri);
 
                     } catch (Exception e) {
@@ -161,7 +162,6 @@ public class Page2WriteActivity extends AppCompatActivity {
 
         if(imgPath!=null && etWirte!=null){
             // 모든 값이 잘 들어갔을 때, DB에 저장 및 다음 화면 넘어가기.
-            Toast.makeText(this, imgPath+"\n"+etWirte, Toast.LENGTH_SHORT).show();
 
             String serverUrl="http://umul.dothome.co.kr/Meet/insertPhotoDB.php";
 
@@ -169,12 +169,14 @@ public class Page2WriteActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(String response) {
                     //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
-                    Toast.makeText(Page2WriteActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(Page2WriteActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("응답:"+response).create().show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
-                    Toast.makeText(Page2WriteActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                   // Toast.makeText(Page2WriteActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("ERROR:").create().show();
                 }
             });
 
@@ -187,14 +189,16 @@ public class Page2WriteActivity extends AppCompatActivity {
             //이미지 파일 추가
             smpr.addFile("img", CurrentUserInfo.db_imgPath01);
             smpr.addFile("img01", imgPath);
+            Log.e("LogCheck","write() img : "+CurrentUserInfo.db_imgPath01);
+            Log.e("LogCheck","write() img01: "+imgPath);
 
             //요청객체를 서버로 보낼 우체통 같은 객체 생성
-            RequestQueue requestQueue= Volley.newRequestQueue(this);
+            RequestQueue requestQueue= Volley.newRequestQueue(Page2WriteActivity.this);
             requestQueue.add(smpr);
 
 
             //게시했던 창 나가기
-            finish();
+            //finish();
 
 
         }else{

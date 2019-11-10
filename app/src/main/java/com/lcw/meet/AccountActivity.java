@@ -450,8 +450,8 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
-                        //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
-                        Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+                        new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
+                        //Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
                     }
                 }, new Response.ErrorListener() {
                     @Override
@@ -470,6 +470,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 smpr.addStringParam("s_character", s_character);
                 //이미지 파일 추가
                 smpr.addFile("img01", imgPath01);
+                Log.e("LogCheck"," Account write() img01 : "+imgPath01);
                 if(imgPath02!=null) smpr.addFile("img02", imgPath02);
                 if(imgPath03!=null) smpr.addFile("img03", imgPath03);
 
@@ -478,7 +479,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 RequestQueue requestQueue= Volley.newRequestQueue(this);
                 requestQueue.add(smpr);
 
-                //다음 화면으로 이동
+//                다음 화면으로 이동
                 Intent intentMain2=new Intent(AccountActivity.this, Main2Activity.class);
                 startActivity(intentMain2);
                 Toast.makeText(AccountActivity.this, "프로필 생성 완료", Toast.LENGTH_SHORT).show();
