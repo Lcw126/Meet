@@ -3,6 +3,7 @@ package com.lcw.meet;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -138,9 +139,17 @@ public class Page2FragPhoto extends Fragment{
 
                         //이미지 경로의 경우 서버 IP가 제외된 주소이므로(uploads/xxxx.jpg) 바로 사용 불가.
 
+                        Log.e("check","DBPublicData.DBdatas.size() : "+DBPublicData.DBdatas.size());
+                        for(int j=0;j<DBPublicData.DBdatas.size();j++){
+                            if(DBPublicData.DBdatas.get(j).nickname.equals(db_nickname_photo)){
+                                Log.e("check","db_img_photo = "+db_img_photo+"DBPublicData.DBdatas.get(j).ImgPath01 : "+DBPublicData.DBdatas.get(j).ImgPath01);
+                                db_img_photo=DBPublicData.DBdatas.get(j).ImgPath01;
+
+                            }
+                        }
                         datas.add(0,new Page2Item(db_kakaoID_photo,db_nickname_photo,db_year_photo, db_memo_photo,db_img_photo, db_imgPath_photo)); // 첫 번째 매개변수는 몇번째에 추가 될지, 제일 위에 오도록
                         adapter.notifyItemInserted(0);
-                    }
+                    }// for ..
                 } catch (JSONException e) {e.printStackTrace();}
 
             }
@@ -156,8 +165,6 @@ public class Page2FragPhoto extends Fragment{
 
         //요청큐에 요청 객체 생성
         requestQueue.add(jsonArrayRequest);
-
-
-    }
+    }//loadDBtoJson() ..
 
 }

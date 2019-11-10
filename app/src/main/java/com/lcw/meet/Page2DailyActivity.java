@@ -35,7 +35,7 @@ public class Page2DailyActivity extends AppCompatActivity {
         page2Items.addAll(Page2FragPhoto.datas);
        // Log.e("0참조 변수의 관계","page2Items.size() : "+page2Items.size()+" Page2FragPhoto.datas.size() "+Page2FragPhoto.datas.size());
 
-        for(int i=0;i<position;i++){
+        for(int i=0;i<position;i++){    //내가 선택한 사진 위로는 다 제거
             page2Items.remove(0);
         }
 

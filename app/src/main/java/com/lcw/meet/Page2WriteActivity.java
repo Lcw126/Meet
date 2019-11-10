@@ -187,13 +187,14 @@ public class Page2WriteActivity extends AppCompatActivity {
             smpr.addStringParam("memo", etWirte);
 
             //이미지 파일 추가
-            smpr.addFile("img", CurrentUserInfo.db_imgPath01);
             smpr.addFile("img01", imgPath);
+           // smpr.addFile("img", CurrentUserInfo.db_imgPath01);
+
             Log.e("LogCheck","write() img : "+CurrentUserInfo.db_imgPath01);
             Log.e("LogCheck","write() img01: "+imgPath);
 
             //요청객체를 서버로 보낼 우체통 같은 객체 생성
-            RequestQueue requestQueue= Volley.newRequestQueue(Page2WriteActivity.this);
+            RequestQueue requestQueue= Volley.newRequestQueue(this);
             requestQueue.add(smpr);
 
 

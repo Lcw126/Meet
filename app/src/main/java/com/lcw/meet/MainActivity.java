@@ -39,7 +39,7 @@ public class MainActivity extends AppCompatActivity {
     public static long currentkakaoIDNUM;
     public ArrayList<String> kakaoIDes= new ArrayList<>();
 
-    static CurrentUserInfo fragToFrag;
+    static CurrentUserInfo currentUserInfo;
 
 
 
@@ -279,7 +279,7 @@ public class MainActivity extends AppCompatActivity {
                         //Log.e("JSON 파싱 : ",db_kakaoID+"\n"+ db_nickname+"\n"+ db_gender+"\n"+ db_year+"\n"+ db_local+"\n"+ db_intro+"\n"+ db_charac+"\n"+ db_imgPath01+"\n"+ db_imgPath02+"\n"+ db_imgPath03+"\n");
 
                         //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
-                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){ fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03); }
+                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){ currentUserInfo= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03); }
 
                     }//for() ..
 
