@@ -1,18 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:padding="6dp">
+
+    <TextView
+        android:id="@+id/tv_myfromme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="내가 호감을 보낸 사람"
+        android:visibility="gone"/>
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/recycler_FromMe"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_myfromme"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        android:orientation="vertical">
+    </androidx.recyclerview.widget.RecyclerView>
+
 
 <!--    <androidx.recyclerview.widget.RecyclerView-->
-<!--        android:id="@+id/recycler_FromMe"-->
+<!--        android:id="@+id/recycler_ToMe"-->
 <!--        android:layout_width="match_parent"-->
 <!--        android:layout_height="wrap_content">-->
-
 <!--    </androidx.recyclerview.widget.RecyclerView>-->
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_ToMe"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-    </androidx.recyclerview.widget.RecyclerView>
 
 </RelativeLayout>

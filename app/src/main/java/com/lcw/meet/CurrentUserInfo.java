@@ -13,6 +13,8 @@ public class CurrentUserInfo {
     static String db_imgPath01;  //이미지는 상대경로라서 앞에 서버 주소를 써야한다.
     static String db_imgPath02;
     static String db_imgPath03;
+    static String tome;
+    static String fromme;
 
     public CurrentUserInfo() {
     }
@@ -29,6 +31,21 @@ public class CurrentUserInfo {
         this.db_imgPath02 = db_imgPath02;
         this.db_imgPath03 = db_imgPath03;
     }
+    public CurrentUserInfo(String db_kakaoID, String db_nickname, String db_gender, String db_year, String db_local, String db_intro, String db_charac, String db_imgPath01, String db_imgPath02, String db_imgPath03, String tome,String fromme) {
+        this.db_kakaoID = db_kakaoID;
+        this.db_nickname = db_nickname;
+        this.db_gender = db_gender;
+        this.db_year = db_year;
+        this.db_local = db_local;
+        this.db_intro = db_intro;
+        this.db_charac = db_charac;
+        this.db_imgPath01 = db_imgPath01;
+        this.db_imgPath02 = db_imgPath02;
+        this.db_imgPath03 = db_imgPath03;
+        this.tome = tome;
+        this.fromme = fromme;
+    }
+
 
     public CurrentUserInfo(String db_imgPath01) {
         this.db_imgPath01 = db_imgPath01;
