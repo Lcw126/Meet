@@ -498,7 +498,10 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
 
             s_nickname= et_nickName.getText().toString().replace(" ", "");
             loadDBtoJson(); //DB 닉네임 값을 불러와서 현재 쓴 닉네임이 겹치는지 확인
-            if(!isNicknameOverlap)ISclick_btn_overlap=true;
+            if(!isNicknameOverlap){
+                ISclick_btn_overlap=true;
+                Toast.makeText(AccountActivity.this, "사용 가능한 닉네임입니다.", Toast.LENGTH_SHORT).show();
+            }
         }else Toast.makeText(AccountActivity.this, "닉네임이 잘못되었습니다.", Toast.LENGTH_SHORT).show();
     }
 
