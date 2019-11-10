@@ -164,9 +164,7 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                         int position= getLayoutPosition();
                         loadDBToMe(position);
-                        insertDBToMe(position);
-
-
+                        //insertDBToMe(position);
 
                         break;
                     case R.id.btn_message :
@@ -177,7 +175,7 @@ public class Page1Apater extends RecyclerView.Adapter {
 
             }
 
-            void loadDBToMe(int position){
+            void loadDBToMe(final int position){
 
                 //우선 값을 바꾸기 위해 먼저 저장된 값을 가져온다.
                 //그러기위해 일단 선택된 사용자 닉네임 값을 판별하기위해 닉네임 값 전달
@@ -205,9 +203,8 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                                     //호감 받은 사람을 DB에서 찾았을 경우
                                 if(receiveLike_user_nickname.equals(jsonObject.getString("nickname"))){
-
                                     db_tome=jsonObject.getString("tome");
-                                    Log.e("db_tome","선택한 유저의 tome 값 가져옴 :"+db_tome);
+                                    Log.e("check","1 db_tome 선택한 유저의 tome 값 가져옴 :"+db_tome);
 
                                     String[] db_tomes = db_tome.split("&"); //db_tome 값들을 닉네임별로 다시 저장, 모든 닉네임이 하나의 문자열로 합처져 있어서 split작업함.
                                     for (String wo : db_tomes ){
@@ -215,13 +212,12 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                                     }
 
-
-                                   //내 닉네임을 DB에서 찾았을 경우
-                                }else if(CurrentUserInfo.db_nickname.equals(jsonObject.getString("nickname"))){
+                                }
+                                //내 닉네임을 DB에서 찾았을 경우
+                                if(CurrentUserInfo.db_nickname.equals(jsonObject.getString("nickname"))){
                                     db_fromme=jsonObject.getString("fromme");   //내 db_fromme 값을 가져온다.
                                     String[] db_frommes = db_fromme.split("&");
                                     for (String wo : db_frommes ){
-                                        Log.e("db_frommes",""+wo+" // ");
                                         if(receiveLike_user_nickname.equals(wo)) isdb_fromme=false; //만약 내 DB에 내가 이미 보낸 상대이면 false
                                     }
                                 }
@@ -231,7 +227,9 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                         } catch (JSONException e) {e.printStackTrace();}
 
-                    }
+                        insertDBToMe(position);
+
+                    }//onResponse() ..
                 }, new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
@@ -244,6 +242,8 @@ public class Page1Apater extends RecyclerView.Adapter {
 
                 //요청큐에 요청 객체 생성
                 requestQueue1.add(jsonArrayRequest);
+
+
 
 
             }//loadDBToMe()..
@@ -274,6 +274,7 @@ public class Page1Apater extends RecyclerView.Adapter {
                 if(isdb_tome){
                     smpr.addStringParam("receiveLike_user_nickname", receiveLike_user_nickname);
                     smpr.addStringParam("pushedLike_nickname",  db_tome+"&"+CurrentUserInfo.db_nickname);
+                    Log.e("check","2 db_tome : "+db_tome+"   CurrentUserInfo.db_nickname : "+CurrentUserInfo.db_nickname);
                 }
 
 
