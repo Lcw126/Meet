@@ -37,6 +37,78 @@ public class Page3item {
         this.fromme = fromme;
     }
 
+    public String getKakakoID() {
+        return kakakoID;
+    }
+
+    public void setKakakoID(String kakakoID) {
+        this.kakakoID = kakakoID;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
+
+    public String getIntro() {
+        return intro;
+    }
+
+    public void setIntro(String intro) {
+        this.intro = intro;
+    }
+
+    public String getCahrac() {
+        return cahrac;
+    }
+
+    public void setCahrac(String cahrac) {
+        this.cahrac = cahrac;
+    }
+
+    public String getImgPath01() {
+        return ImgPath01;
+    }
+
+    public void setImgPath01(String imgPath01) {
+        ImgPath01 = imgPath01;
+    }
+
+    public String getImgPath02() {
+        return ImgPath02;
+    }
+
+    public void setImgPath02(String imgPath02) {
+        ImgPath02 = imgPath02;
+    }
+
+    public String getImgPath03() {
+        return ImgPath03;
+    }
+
+    public void setImgPath03(String imgPath03) {
+        ImgPath03 = imgPath03;
+    }
+
+    public String getTome() {
+        return tome;
+    }
+
+    public void setTome(String tome) {
+        this.tome = tome;
+    }
+
+    public String getFromme() {
+        return fromme;
+    }
+
+    public void setFromme(String fromme) {
+        this.fromme = fromme;
+    }
+
     public String getNickname() {
         return nickname;
     }

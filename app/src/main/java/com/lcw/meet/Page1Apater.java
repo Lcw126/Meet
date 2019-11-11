@@ -108,7 +108,11 @@ public class Page1Apater extends RecyclerView.Adapter {
                 public void onClick(View view) {
                     int position= getLayoutPosition();
 
-                    //넘겨줄 데이터
+                    userActivityGo(position);
+
+                }//onClick ..
+
+                public void userActivityGo(int position){
                     String userkakaoID= datas.get(position).getKakakoID();
                     String userNickname= datas.get(position).getNickname();
                     String userYear= datas.get(position).getYear();
@@ -128,25 +132,13 @@ public class Page1Apater extends RecyclerView.Adapter {
                     intent.putExtra("userNickname",userNickname);
                     intent.putExtra("userYear",userYear);
                     intent.putExtra("userLocal",userLocal);
-                    //       Test 끝나면 나중에 주석 풀기
                     intent.putExtra("userIntro",userIntro);
                     intent.putExtra("userCharac",userCharac);
                     intent.putExtra("userImg01",userImg01);
-
-
                     intent.putExtra("userImg02",userImg02);
                     intent.putExtra("userImg03",userImg03);
-                    //Toast.makeText(context, "DB에서 받아온 이미지 1 : "+userImg01+"\nDB에서 받아온 이미지 2 : "+userImg02+"\n DB에서 받아온 이미지 3 :"+userImg03, Toast.LENGTH_SHORT).show();
-
-//                    /////////////////////test용 트래픽을 사용하지 않기 위해
-//                    int userTestImg01= datas.get(position).getTestimg();
-//                    String s=userTestImg01+"";
-//                    Log.e("userTestImg01 : ",""+userTestImg01);
-//                    intent.putExtra("userTestImg01",s);
-//                    /////////////////
 
                     context.startActivity(intent);
-
                 }
             });
         }// VH 생성자

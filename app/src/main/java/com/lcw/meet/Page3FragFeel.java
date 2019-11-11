@@ -138,14 +138,16 @@ public class Page3FragFeel extends Fragment {
                         for (String fromme : fromme_nicknames) {    //내가 호감 보낸 닉네임들 수 만큼 반복
                             Log.e("page3 check", "k  fromme : " + k + "   " + fromme);
                             if (DBdatas.get(k).nickname.equals(fromme)) {
-                                frommedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
+                                frommedatas.add(0, new Page3item(DBdatas.get(k).kakakoID, DBdatas.get(k).nickname, DBdatas.get(k).gender, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).intro, DBdatas.get(k).cahrac, DBdatas.get(k).ImgPath01, DBdatas.get(k).ImgPath02, DBdatas.get(k).ImgPath03, DBdatas.get(k).tome, DBdatas.get(k).fromme));
+
                                 Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
                             }
                         }
                         for (String tomme : tome_nicknames) {    //나에게 호감 보낸 닉네임들 수 만큼 반복
                             Log.e("page3 check", "k  tomme : " + k + "   " + tomme);
                             if (DBdatas.get(k).nickname.equals(tomme)) {
-                                tomedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
+                                //tomedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
+                                tomedatas.add(0, new Page3item(DBdatas.get(k).kakakoID, DBdatas.get(k).nickname, DBdatas.get(k).gender, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).intro, DBdatas.get(k).cahrac, DBdatas.get(k).ImgPath01, DBdatas.get(k).ImgPath02, DBdatas.get(k).ImgPath03, DBdatas.get(k).tome, DBdatas.get(k).fromme));
                                 Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
                             }
                         }

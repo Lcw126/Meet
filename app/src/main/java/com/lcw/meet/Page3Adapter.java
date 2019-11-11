@@ -1,6 +1,7 @@
 package com.lcw.meet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -68,6 +69,45 @@ public class Page3Adapter extends RecyclerView.Adapter {
             tvNickname=itemView.findViewById(R.id.tv_page3nickname);
             tvYear=itemView.findViewById(R.id.tv_page3year);
             tvLocal=itemView.findViewById(R.id.tv_page3local);
+
+            itemView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    int position= getLayoutPosition();
+                    userActivityGo(position);
+
+                }//onClick() ..
+
+                public void userActivityGo(int position){
+                    String userkakaoID= datas.get(position).getNickname();
+                    String userNickname= datas.get(position).getNickname();
+                    String userYear= datas.get(position).getYear();
+                    String userLocal= datas.get(position).getLocal();
+                    //       Test 끝나면 나중에 주석 풀기
+                    String userIntro= datas.get(position).getIntro();
+                    String userCharac= datas.get(position).getCahrac();
+
+                    String userImg01= datas.get(position).getImgPath01();
+                    String userImg02= datas.get(position).getImgPath02();
+                    String userImg03= datas.get(position).getImgPath03();
+                    //Toast.makeText(context, "userImg01 : "+userImg01+"\n"+"userImg02 : "+userImg02+"\n"+"userImg03 : "+userImg03, Toast.LENGTH_SHORT).show();
+
+                    //유저 프로필 상세 화면(UserActivity)로 전환
+                    Intent intent= new Intent(context, UserActivity.class);
+                    intent.putExtra("userkakaoID",userkakaoID);
+                    intent.putExtra("userNickname",userNickname);
+                    intent.putExtra("userYear",userYear);
+                    intent.putExtra("userLocal",userLocal);
+                    intent.putExtra("userIntro",userIntro);
+                    intent.putExtra("userCharac",userCharac);
+                    intent.putExtra("userImg01",userImg01);
+                    intent.putExtra("userImg02",userImg02);
+                    intent.putExtra("userImg03",userImg03);
+
+                    context.startActivity(intent);
+                }
+
+            });
 
         }
     }
