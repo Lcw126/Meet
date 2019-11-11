@@ -34,18 +34,26 @@ public class Page3FragFeel extends Fragment {
 
     RecyclerView recyclerViewFromme,recyclerViewTome;
     ArrayList<Page3item> DBdatas=new ArrayList<>();
-    ArrayList<Page3item> datas=new ArrayList<>();
+    ArrayList<Page3item> frommedatas=new ArrayList<>();
+    ArrayList<Page3item> tomedatas=new ArrayList<>();
     String[] fromme_nicknames, tome_nicknames;
 
     Page3Adapter page3Adapter;
 
     CurrentUserInfo currentUserInfo;
-    TextView tvMyfromme;
+    TextView tvMyfromme, tvMytome;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_feel,container,false);
 
         tvMyfromme=view.findViewById(R.id.tv_myfromme);
+        tvMytome=view.findViewById(R.id.tv_mytome);
+
+        //다시 이 화면으로 왔을 때, 그 전 정보와 더해져서 보이므로 clear() 시켜줌
+        DBdatas.clear();
+        frommedatas.clear();
+        tomedatas.clear();
+
 
         loadDBtoJson();
 
@@ -118,28 +126,42 @@ public class Page3FragFeel extends Fragment {
 
                         if(DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){    //현재 접속 닉네임과 같은지 비교
                             fromme_nicknames = DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+                            tome_nicknames= DBdatas.get(k).tome.split("&");
                             Log.e("page3 check","k  fromme_nicknames.length : "+k+"   "+fromme_nicknames.length);
+                            Log.e("page3 check","k  tome_nicknames.length : "+k+"   "+tome_nicknames.length);
                         }
 
-                        for (String fromme : fromme_nicknames ){
-                            Log.e("page3 check","k  fromme : "+k+"   "+fromme);
-                            if(DBdatas.get(k).nickname.equals(fromme)) {
-                                datas.add(0,new Page3item(DBdatas.get(k).nickname,DBdatas.get(k).year,DBdatas.get(k).local,DBdatas.get(k).ImgPath01));
-                                Log.e("page3 check","in if문 : "+DBdatas.get(k).nickname);
+                    }
+
+                    for(int k=0;k<DBdatas.size();k++) {  //DB정보만큼 반복
+
+                        for (String fromme : fromme_nicknames) {    //내가 호감 보낸 닉네임들 수 만큼 반복
+                            Log.e("page3 check", "k  fromme : " + k + "   " + fromme);
+                            if (DBdatas.get(k).nickname.equals(fromme)) {
+                                frommedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
+                                Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
+                            }
+                        }
+                        for (String tomme : tome_nicknames) {    //나에게 호감 보낸 닉네임들 수 만큼 반복
+                            Log.e("page3 check", "k  tomme : " + k + "   " + tomme);
+                            if (DBdatas.get(k).nickname.equals(tomme)) {
+                                tomedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
+                                Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
                             }
                         }
                     }
 
-
-
-
-
                 } catch (JSONException e) {e.printStackTrace();}
 
-                if(datas.size()!=0)tvMyfromme.setVisibility(TextView.VISIBLE);
+                if(frommedatas.size()!=0)tvMyfromme.setVisibility(TextView.VISIBLE);    //내가 호감 보낸 리스트가 있다면 TextView tvMyfromme 보이게
+                if(tomedatas.size()!=0)tvMytome.setVisibility(TextView.VISIBLE);    //나에게 호감 보낸 리스트가 있다면 TextView 보이게
 
-                page3Adapter=new Page3Adapter(datas,mContext);
+                page3Adapter=new Page3Adapter(frommedatas,mContext);
                 recyclerViewFromme.setAdapter(page3Adapter);
+
+                page3Adapter=new Page3Adapter(tomedatas,mContext);
+                recyclerViewTome.setAdapter(page3Adapter);
+
             }//onResponse() ..
         }, new Response.ErrorListener() {
             @Override

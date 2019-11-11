@@ -16,17 +16,25 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_FromMe"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="350dp"
         android:layout_below="@id/tv_myfromme"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical">
     </androidx.recyclerview.widget.RecyclerView>
 
+    <TextView
+        android:id="@+id/tv_mytome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/recycler_FromMe"
+        android:text="나에게 호감을 보낸 사람"
+        android:visibility="gone"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recycler_ToMe"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/recycler_FromMe"
+        android:layout_below="@id/tv_mytome"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         android:orientation="vertical">
     </androidx.recyclerview.widget.RecyclerView>
