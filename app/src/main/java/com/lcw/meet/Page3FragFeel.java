@@ -124,9 +124,9 @@ public class Page3FragFeel extends Fragment {
 
                     for(int k=0;k<DBPublicData.DBdatas.size();k++){  //DB정보만큼 반복
 
-                        if(DBPublicData.DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){    //현재 접속 닉네임과 같은지 비교
+                        if(DBPublicData.DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
                             fromme_nicknames = DBPublicData.DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
-                            tome_nicknames= DBPublicData.DBdatas.get(k).tome.split("&");
+                            tome_nicknames= DBPublicData.DBdatas.get(k).tome.split("&");           //현재 접속 닉네임의 tome 값을 가져옴.
                             Log.e("page3 check","k  fromme_nicknames.length : "+k+"   "+fromme_nicknames.length);
                             Log.e("page3 check","k  tome_nicknames.length : "+k+"   "+tome_nicknames.length);
                         }

@@ -14,6 +14,7 @@ public class Page1Item {
     String tome;
     String fromme;
 
+
     /////////////////////test용 트래픽을 사용하지 않기 위해
     int testimg;
 
