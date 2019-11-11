@@ -28,7 +28,7 @@ public class Page4FragChatl extends Fragment {
         View view= inflater.inflate(R.layout.fragment_chat,container,false);
 
         recyclerViewChat=view.findViewById(R.id.recycler_chat);
-        
+
         connectedNickname.clear();
         connectedDatas.clear();
         DBsearch();
