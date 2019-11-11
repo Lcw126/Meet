@@ -75,7 +75,9 @@ public class Page1FragHome extends Fragment {
             public void onRefresh() {
                 Main2Activity.page1Items.clear();
                 page1Apater.notifyDataSetChanged();
+                DBPublicData.DBdatas.clear();
                 loadDBtoJson();
+
             }
         });
 
@@ -237,8 +239,11 @@ public class Page1FragHome extends Fragment {
 //                                 fragToFrag= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03);
 //                        }
                         //현재 접속자 사진 가져와서 Page2FragPhoto에 보내기
-                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){ CurrentUserInfo currentUserInfo= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03); }
-
+                        //if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){ CurrentUserInfo currentUserInfo= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03); }
+                        //현재 접속자 정보 CurrentUserInfo에 저장
+                        if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){
+                            CurrentUserInfo currentUserInfo= new CurrentUserInfo(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme);
+                        }
 
                         //리스트뷰 갱신
                         getActivity().runOnUiThread(new Runnable() {

@@ -33,7 +33,7 @@ public class Page3FragFeel extends Fragment {
     Context mContext;
 
     RecyclerView recyclerViewFromme,recyclerViewTome;
-    ArrayList<Page3item> DBdatas=new ArrayList<>();
+   // ArrayList<Page3item> DBdatas=new ArrayList<>();
     ArrayList<Page3item> frommedatas=new ArrayList<>();
     ArrayList<Page3item> tomedatas=new ArrayList<>();
     String[] fromme_nicknames, tome_nicknames;
@@ -50,11 +50,11 @@ public class Page3FragFeel extends Fragment {
         tvMytome=view.findViewById(R.id.tv_mytome);
 
         //다시 이 화면으로 왔을 때, 그 전 정보와 더해져서 보이므로 clear() 시켜줌
-        DBdatas.clear();
+        //DBdatas.clear();
         frommedatas.clear();
         tomedatas.clear();
 
-
+        DBPublicData.DBdatas.clear();
         loadDBtoJson();
 
         recyclerViewFromme=view.findViewById(R.id.recycler_FromMe);
@@ -113,7 +113,7 @@ public class Page3FragFeel extends Fragment {
                         String db_fromme=jsonObject.getString("fromme");
 
 
-                        DBdatas.add(0,new Page3item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
+                        DBPublicData.DBdatas.add(0,new Page1Item(db_kakaoID,db_nickname,db_gender,db_year,db_local,db_intro,db_charac,db_imgPath01,db_imgPath02,db_imgPath03,db_tome,db_fromme));
 
                         //현재 접속자 정보 CurrentUserInfo에 저장
                         if(Integer.parseInt(db_kakaoID)==Integer.parseInt(DBPublicData.currentkakaoIDNUM)){
@@ -122,33 +122,33 @@ public class Page3FragFeel extends Fragment {
 
                     }//for() ..
 
-                    for(int k=0;k<DBdatas.size();k++){  //DB정보만큼 반복
+                    for(int k=0;k<DBPublicData.DBdatas.size();k++){  //DB정보만큼 반복
 
-                        if(DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){    //현재 접속 닉네임과 같은지 비교
-                            fromme_nicknames = DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
-                            tome_nicknames= DBdatas.get(k).tome.split("&");
+                        if(DBPublicData.DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){    //현재 접속 닉네임과 같은지 비교
+                            fromme_nicknames = DBPublicData.DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+                            tome_nicknames= DBPublicData.DBdatas.get(k).tome.split("&");
                             Log.e("page3 check","k  fromme_nicknames.length : "+k+"   "+fromme_nicknames.length);
                             Log.e("page3 check","k  tome_nicknames.length : "+k+"   "+tome_nicknames.length);
                         }
 
                     }
 
-                    for(int k=0;k<DBdatas.size();k++) {  //DB정보만큼 반복
+                    for(int k=0;k<DBPublicData.DBdatas.size();k++) {  //DB정보만큼 반복
 
                         for (String fromme : fromme_nicknames) {    //내가 호감 보낸 닉네임들 수 만큼 반복
                             Log.e("page3 check", "k  fromme : " + k + "   " + fromme);
-                            if (DBdatas.get(k).nickname.equals(fromme)) {
-                                frommedatas.add(0, new Page3item(DBdatas.get(k).kakakoID, DBdatas.get(k).nickname, DBdatas.get(k).gender, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).intro, DBdatas.get(k).cahrac, DBdatas.get(k).ImgPath01, DBdatas.get(k).ImgPath02, DBdatas.get(k).ImgPath03, DBdatas.get(k).tome, DBdatas.get(k).fromme));
+                            if (DBPublicData.DBdatas.get(k).nickname.equals(fromme)) {
+                                frommedatas.add(0, new Page3item(DBPublicData.DBdatas.get(k).kakakoID, DBPublicData.DBdatas.get(k).nickname, DBPublicData.DBdatas.get(k).gender, DBPublicData.DBdatas.get(k).year, DBPublicData.DBdatas.get(k).local, DBPublicData.DBdatas.get(k).intro, DBPublicData.DBdatas.get(k).cahrac, DBPublicData.DBdatas.get(k).ImgPath01, DBPublicData.DBdatas.get(k).ImgPath02, DBPublicData.DBdatas.get(k).ImgPath03, DBPublicData.DBdatas.get(k).tome, DBPublicData.DBdatas.get(k).fromme));
 
-                                Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
+                                Log.e("page3 check", "in if문 : " + DBPublicData.DBdatas.get(k).nickname);
                             }
                         }
                         for (String tomme : tome_nicknames) {    //나에게 호감 보낸 닉네임들 수 만큼 반복
                             Log.e("page3 check", "k  tomme : " + k + "   " + tomme);
-                            if (DBdatas.get(k).nickname.equals(tomme)) {
+                            if (DBPublicData.DBdatas.get(k).nickname.equals(tomme)) {
                                 //tomedatas.add(0, new Page3item(DBdatas.get(k).nickname, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).ImgPath01));
-                                tomedatas.add(0, new Page3item(DBdatas.get(k).kakakoID, DBdatas.get(k).nickname, DBdatas.get(k).gender, DBdatas.get(k).year, DBdatas.get(k).local, DBdatas.get(k).intro, DBdatas.get(k).cahrac, DBdatas.get(k).ImgPath01, DBdatas.get(k).ImgPath02, DBdatas.get(k).ImgPath03, DBdatas.get(k).tome, DBdatas.get(k).fromme));
-                                Log.e("page3 check", "in if문 : " + DBdatas.get(k).nickname);
+                                tomedatas.add(0, new Page3item(DBPublicData.DBdatas.get(k).kakakoID, DBPublicData.DBdatas.get(k).nickname, DBPublicData.DBdatas.get(k).gender, DBPublicData.DBdatas.get(k).year, DBPublicData.DBdatas.get(k).local, DBPublicData.DBdatas.get(k).intro, DBPublicData.DBdatas.get(k).cahrac, DBPublicData.DBdatas.get(k).ImgPath01, DBPublicData.DBdatas.get(k).ImgPath02, DBPublicData.DBdatas.get(k).ImgPath03, DBPublicData.DBdatas.get(k).tome, DBPublicData.DBdatas.get(k).fromme));
+                                Log.e("page3 check", "in if문 : " + DBPublicData.DBdatas.get(k).nickname);
                             }
                         }
                     }
