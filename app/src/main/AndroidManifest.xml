@@ -14,15 +14,28 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme"
         android:usesCleartextTraffic="true">
-        <activity android:name=".Page2DailyActivity" android:screenOrientation="portrait"></activity>
-        <activity android:name=".Page2WriteActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".UserActivity" android:screenOrientation="portrait"/>
-        <activity android:name=".Main2Activity" android:screenOrientation="portrait"/>
-        <activity android:name=".AccountActivity" android:screenOrientation="portrait"/>
+        <activity android:name=".Page4ChatActivity"></activity>
+        <activity
+            android:name=".Page2DailyActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Page2WriteActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".UserActivity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".Main2Activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".AccountActivity"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".LodingActivity"
             android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-        <activity android:name=".MainActivity" android:screenOrientation="portrait">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

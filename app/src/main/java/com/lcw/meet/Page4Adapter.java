@@ -1,6 +1,7 @@
 package com.lcw.meet;
 
 import android.content.Context;
+import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -69,6 +70,26 @@ public class Page4Adapter extends RecyclerView.Adapter {
             //tvContents=itemView.findViewById(R.id.tv_page4Contents);
             //tvTime=itemView.findViewById(R.id.tv_page4Time);
 
+            itemView.setOnClickListener(page4ClickListener);
+
         }
+
+        public View.OnClickListener page4ClickListener= new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                int position= getLayoutPosition();
+
+                String userNickname= datas.get(position).getNickname();
+                String userImg01= datas.get(position).getImgPath01();
+
+                Intent intent= new Intent(context, Page4ChatActivity.class);
+
+                intent.putExtra("userNickname",userNickname);
+                intent.putExtra("userImg01",userImg01);
+
+                context.startActivity(intent);
+
+            }
+        };
     }
 }

@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "931884375466",
+    "firebase_url": "https://meet-7ca0a.firebaseio.com",
+    "project_id": "meet-7ca0a",
+    "storage_bucket": "meet-7ca0a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:931884375466:android:247a2ad711a696bec95fd3",
+        "android_client_info": {
+          "package_name": "com.lcw.meet"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "931884375466-hv7s17mh0p86g142f0ulte2to1otvmtb.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDz16uJqerB-OhgInO0t7jePZVZ4h5EwXE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "931884375466-hv7s17mh0p86g142f0ulte2to1otvmtb.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
