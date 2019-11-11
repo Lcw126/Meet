@@ -32,10 +32,10 @@ public class Page3FragFeel extends Fragment {
 
     Context mContext;
 
-    RecyclerView recyclerViewFromme;
+    RecyclerView recyclerViewFromme,recyclerViewTome;
     ArrayList<Page3item> DBdatas=new ArrayList<>();
     ArrayList<Page3item> datas=new ArrayList<>();
-    String[] fromme_nicknames;
+    String[] fromme_nicknames, tome_nicknames;
 
     Page3Adapter page3Adapter;
 
@@ -50,6 +50,10 @@ public class Page3FragFeel extends Fragment {
         loadDBtoJson();
 
         recyclerViewFromme=view.findViewById(R.id.recycler_FromMe);
+        recyclerViewTome= view.findViewById(R.id.recycler_ToMe);
+
+        //onCreateView에서 실행하면 DB정보를 받는 동안 실행되어
+        //loadDBtoJson() 안에 onResponse()안에로 옮김
 //        page3Adapter=new Page3Adapter(datas,mContext);
 //        recyclerViewFromme.setAdapter(page3Adapter);
         return view;
