@@ -28,6 +28,9 @@ public class Page4FragChatl extends Fragment {
         View view= inflater.inflate(R.layout.fragment_chat,container,false);
 
         recyclerViewChat=view.findViewById(R.id.recycler_chat);
+        
+        connectedNickname.clear();
+        connectedDatas.clear();
         DBsearch();
 
         page4Adapter= new Page4Adapter(connectedDatas,getContext());
@@ -43,8 +46,7 @@ public class Page4FragChatl extends Fragment {
             if(DBPublicData.DBdatas.get(i).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
                 fromme_nicknames = DBPublicData.DBdatas.get(i).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
                 tome_nicknames= DBPublicData.DBdatas.get(i).tome.split("&");           //현재 접속 닉네임의 tome 값을 가져옴.
-//                Log.e("page3 check","k  fromme_nicknames.length : "+i+"   "+fromme_nicknames.length);
-//                Log.e("page3 check","k  tome_nicknames.length : "+i+"   "+tome_nicknames.length);
+
             }
         }//for ..
 
