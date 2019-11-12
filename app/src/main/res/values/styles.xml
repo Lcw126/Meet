@@ -21,5 +21,11 @@
         <item name="colorControlNormal">#000000</item>
     </style>
 
+    <style name="AppTheme.page4Appbaar"  >
+        <item name="colorControlNormal">#F52169</item>
+        <item name="windowActionBar">false</item>
+        <item name="windowNoTitle">true</item>
+    </style>
+
 
 </resources>

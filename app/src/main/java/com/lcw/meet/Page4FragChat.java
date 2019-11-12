@@ -26,9 +26,11 @@ public class Page4FragChat extends Fragment {
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_chat,container,false);
-
+        //Log.e("page4 charck","onCreateView  connectedDatas.size()"+connectedDatas.size());
         recyclerViewChat=view.findViewById(R.id.recycler_chat);
 
+        fromme_nicknames=null;
+        tome_nicknames=null;
         connectedNickname.clear();
         connectedDatas.clear();
         DBsearch();
@@ -39,7 +41,10 @@ public class Page4FragChat extends Fragment {
         return view;
     }
 
+
     void DBsearch(){
+
+
 
         //내 정보 fromme, tome 가져오기.
         for(int i=0;i<DBPublicData.DBdatas.size();i++){
@@ -57,18 +62,18 @@ public class Page4FragChat extends Fragment {
                 //일치하면 connectedNickname에 저장.
                 if(fromme!=null){
                     if(fromme.equals(tomme)) connectedNickname.add(tomme);
-                    Log.e("page4 check", "connectedNickname.add(tomme) : "+ tomme);
+                   // Log.e("page4 check", "connectedNickname.add(tomme) : "+ tomme);
                 }
 
             }
         }
-        Log.e("page4 check", "connectedNickname.size : "+ connectedNickname.size());
+        //Log.e("page4 check", "connectedNickname.size : "+ connectedNickname.size()+ connectedNickname.get(0)+" "+connectedNickname.get(1));
 
         for(int k=0;k<DBPublicData.DBdatas.size();k++){
 
             for(int j=0;j<connectedNickname.size();j++){
                 if(connectedNickname.get(j).equals(DBPublicData.DBdatas.get(k).nickname)){
-                    Log.e("page4 check", "connectedNickname.get(k) : "+connectedNickname.get(j)+"   DBPublicData.DBdatas.get(k).nickname : "+DBPublicData.DBdatas.get(k).nickname);
+                    //Log.e("page4 check", "connectedNickname.get(j) :  "+j+"  "+connectedNickname.get(j)+"   DBPublicData.DBdatas.get(k).nickname : "+k+"  "+DBPublicData.DBdatas.get(k).nickname);
                     connectedDatas.add(0,new Page1Item(DBPublicData.DBdatas.get(k).kakakoID, DBPublicData.DBdatas.get(k).nickname, DBPublicData.DBdatas.get(k).gender, DBPublicData.DBdatas.get(k).year, DBPublicData.DBdatas.get(k).local, DBPublicData.DBdatas.get(k).intro, DBPublicData.DBdatas.get(k).cahrac, DBPublicData.DBdatas.get(k).ImgPath01, DBPublicData.DBdatas.get(k).ImgPath02, DBPublicData.DBdatas.get(k).ImgPath03, DBPublicData.DBdatas.get(k).tome, DBPublicData.DBdatas.get(k).fromme));
                 }
             }

@@ -252,6 +252,7 @@ public class MainActivity extends AppCompatActivity {
             public void onResponse(JSONArray response) {
                 // Toast.makeText(mContext, response.toString(), Toast.LENGTH_SHORT).show();
 
+                DBPublicData.DBdatas.clear();
 
                 try {
 

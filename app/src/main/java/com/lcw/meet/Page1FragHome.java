@@ -197,7 +197,7 @@ public class Page1FragHome extends Fragment {
 
 
                 //파라미터로 응답받은 결과 JsonArray를 분석
-
+                DBPublicData.DBdatas.clear();
                 Main2Activity.page1Items.clear();
                 //page1Apater.notifyDataSetChanged();
                 getActivity().runOnUiThread(new Runnable() {

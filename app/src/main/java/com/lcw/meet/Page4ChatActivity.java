@@ -3,10 +3,13 @@ package com.lcw.meet;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
@@ -42,8 +45,8 @@ public class Page4ChatActivity extends AppCompatActivity {
 
         Intent intent= getIntent();
 
-        String userNickname= intent.getStringExtra("userNickname");
-        String userImg01= intent.getStringExtra("userImg01");
+        String otherNickname= intent.getStringExtra("otherNickname");
+        String otherImg01= intent.getStringExtra("otherImg01");
 
 
         //제목줄 제목글시를 닉네임으로(또는 채팅방)
@@ -53,6 +56,16 @@ public class Page4ChatActivity extends AppCompatActivity {
         listView=findViewById(R.id.listview);
         adapter=new Page4ChatAdapter(messageItems,getLayoutInflater());
         listView.setAdapter(adapter);
+
+
+        //툴바 추가하기
+        Toolbar toolbar =findViewById(R.id.toolbar);
+        toolbar.setTitle(otherNickname);
+        setSupportActionBar(toolbar);
+        //툴바에 뒤로가기 화살표 추가
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
 
         //Firebase DB관리 객체와 'caht'노드 참조객체 얻어오기
         firebaseDatabase= FirebaseDatabase.getInstance();
@@ -68,6 +81,8 @@ public class Page4ChatActivity extends AppCompatActivity {
 
                 //새로 추가된 데이터(값 : MessageItem객체) 가져오기
                 Page4MessageItem messageItem= dataSnapshot.getValue(Page4MessageItem.class);
+
+                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
 
                 //새로운 메세지를 리스뷰에 추가하기 위해 ArrayList에 추가
                 messageItems.add(messageItem);
@@ -98,6 +113,17 @@ public class Page4ChatActivity extends AppCompatActivity {
             }
         });
 
+    }//onCreate()..
+    //툴바에 뒤로가기 화살표 동작
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()){
+            case android.R.id.home:{ //toolbar의 back키 눌렀을 때 동작
+                finish();
+                return true;
+            }
+        }
+        return super.onOptionsItemSelected(item);
     }
 
     public void clickSend(View view) {

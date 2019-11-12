@@ -79,13 +79,16 @@ public class Page4Adapter extends RecyclerView.Adapter {
             public void onClick(View view) {
                 int position= getLayoutPosition();
 
-                String userNickname= datas.get(position).getNickname();
-                String userImg01= datas.get(position).getImgPath01();
+                String otherNickname= datas.get(position).getNickname();
+                String otherImg01= datas.get(position).getImgPath01();
+
+
+
 
                 Intent intent= new Intent(context, Page4ChatActivity.class);
 
-                intent.putExtra("userNickname",userNickname);
-                intent.putExtra("userImg01",userImg01);
+                intent.putExtra("otherNickname",otherNickname);
+                intent.putExtra("otherImg01",otherImg01);
 
                 context.startActivity(intent);
 
