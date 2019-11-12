@@ -20,6 +20,8 @@ import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.Query;
+import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -37,6 +39,12 @@ public class Page4ChatActivity extends AppCompatActivity {
 
     //'chat'노드의 참조객체 참조변수
     DatabaseReference chatRef;
+    DatabaseReference chatRooms;
+    DatabaseReference chatRoomInfo;
+
+    ArrayList<Page4ChatRoomInfo> roomInfoChilds= new ArrayList<>();
+    String[] InfoChilds= new String[3];
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +53,7 @@ public class Page4ChatActivity extends AppCompatActivity {
 
         Intent intent= getIntent();
 
-        String otherNickname= intent.getStringExtra("otherNickname");
+        final String otherNickname= intent.getStringExtra("otherNickname");
         String otherImg01= intent.getStringExtra("otherImg01");
 
 
@@ -66,10 +74,102 @@ public class Page4ChatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
+        roomInfoChilds.clear();
+
 
         //Firebase DB관리 객체와 'caht'노드 참조객체 얻어오기
         firebaseDatabase= FirebaseDatabase.getInstance();
-        chatRef= firebaseDatabase.getReference("chat");
+        chatRoomInfo=firebaseDatabase.getReference("chatRoomInfo");
+        chatRooms= firebaseDatabase.getReference("chatRooms");
+        Log.e("page4 check","chatRoomInfo.getKey(); : "+chatRoomInfo.getKey());
+
+
+        //처음 한번만 DB에서 chatRoomInfo 읽어옴.
+        chatRoomInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+            int i=0;
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+                        i=0;
+                    for (DataSnapshot postSnap: postSnapshot.getChildren()) {
+
+                        InfoChilds[i]=(String) postSnap.getValue();
+                        i++;
+                    }//for..
+
+                    roomInfoChilds.add(new Page4ChatRoomInfo(InfoChilds[0],InfoChilds[1],InfoChilds[2]));
+                    Log.e("page4 check","roomInfoChilds"+i+" "+InfoChilds[0]+" "+InfoChilds[1]+" "+InfoChilds[2]);
+
+                }//for..
+
+                Log.e("page4 check","roomInfoChilds.size : "+roomInfoChilds.size());
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        chatRef = chatRooms.push();
+
+
+//        chatRooms.addListenerForSingleValueEvent(new ValueEventListener() {
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                //채팅방 정보 DB에 저장하기 chatRoomInfo노드에 하위로 새로운 노드 생성거기에 (사용자ID, 상대방ID, 채팅방이름 ) 저장
+//                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
+//                //firebase DB에 저장할 값(MessageItem객체) 설정
+//                Page4ChatRoomInfo roomInfo= new Page4ChatRoomInfo(CurrentUserInfo.db_nickname,otherNickname,dataSnapshot.getRef()+"");
+//
+//                // if( )
+//
+//                //'chatRoomInfo'노드에 roomInfo내용을 저장한 child 생성
+//                chatRoomInfo.push().setValue(roomInfo);
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
+        chatRooms.addChildEventListener(new ChildEventListener() {
+            @Override
+            public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+                //채팅방 정보 DB에 저장하기 chatRoomInfo노드에 하위로 새로운 노드 생성거기에 (사용자ID, 상대방ID, 채팅방이름 ) 저장
+                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
+                //firebase DB에 저장할 값(MessageItem객체) 설정
+                Page4ChatRoomInfo roomInfo= new Page4ChatRoomInfo(CurrentUserInfo.db_nickname,otherNickname,dataSnapshot.getRef()+"");
+
+                // if( )
+
+                //'chatRoomInfo'노드에 roomInfo내용을 저장한 child 생성
+                chatRoomInfo.push().setValue(roomInfo);
+            }
+
+            @Override
+            public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+
+            }
+
+            @Override
+            public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
+
+            }
+
+            @Override
+            public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         //firebaseDB에서 채팅 메세지들 실시간 읽어오기..
         //'chat'노드에 저장되어 있는 데이터들을 읽어오기
@@ -82,7 +182,7 @@ public class Page4ChatActivity extends AppCompatActivity {
                 //새로 추가된 데이터(값 : MessageItem객체) 가져오기
                 Page4MessageItem messageItem= dataSnapshot.getValue(Page4MessageItem.class);
 
-                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
+                //Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
 
                 //새로운 메세지를 리스뷰에 추가하기 위해 ArrayList에 추가
                 messageItems.add(messageItem);
