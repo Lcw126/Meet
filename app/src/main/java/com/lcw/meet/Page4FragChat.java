@@ -13,7 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.ArrayList;
 
-public class Page4FragChatl extends Fragment {
+public class Page4FragChat extends Fragment {
 
     RecyclerView recyclerViewChat;
     String[] fromme_nicknames, tome_nicknames;

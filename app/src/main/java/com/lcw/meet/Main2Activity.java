@@ -24,7 +24,7 @@ public class Main2Activity extends AppCompatActivity {
     Page1FragHome page1FragHome= new Page1FragHome();
     Page2FragPhoto page2Fragphoto= new Page2FragPhoto();
     Page3FragFeel page3FragFeel=new Page3FragFeel();
-    Page4FragChatl page4FragChatl=new Page4FragChatl();
+    Page4FragChat page4FragChat =new Page4FragChat();
     Page5FragProfile page5FragProfile=new Page5FragProfile();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,7 +53,7 @@ public class Main2Activity extends AppCompatActivity {
                         transaction.replace(R.id.frame_layout,page3FragFeel).commitAllowingStateLoss();
                         break;
                     case R.id.chat:
-                        transaction.replace(R.id.frame_layout, page4FragChatl).commitAllowingStateLoss();
+                        transaction.replace(R.id.frame_layout, page4FragChat).commitAllowingStateLoss();
                         break;
                     case R.id.profile:
                         transaction.replace(R.id.frame_layout, page5FragProfile).commitAllowingStateLoss();
