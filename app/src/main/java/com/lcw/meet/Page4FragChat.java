@@ -47,13 +47,17 @@ public class Page4FragChat extends Fragment {
 
 
         //내 정보 fromme, tome 가져오기.
+
+        Log.e("page4 check", " DBPublicData.DBdatas.size() "+DBPublicData.DBdatas.size());
         for(int i=0;i<DBPublicData.DBdatas.size();i++){
             if(DBPublicData.DBdatas.get(i).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
                 fromme_nicknames = DBPublicData.DBdatas.get(i).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+                Log.e("page4 check", " fromme_nicknames "+fromme_nicknames[i]);
                 tome_nicknames= DBPublicData.DBdatas.get(i).tome.split("&");           //현재 접속 닉네임의 tome 값을 가져옴.
-
+                Log.e("page4 check", " tome_nicknames "+tome_nicknames[i]);
             }
         }//for ..
+        Log.e("page4 check", " fromme_nicknames.length "+fromme_nicknames.length);
 
         //내가 호감있는 사람과 나에게 호감있는 사람이 일치한지 비교
         for(String fromme : fromme_nicknames){

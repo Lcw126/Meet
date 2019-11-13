@@ -42,12 +42,17 @@ public class Page4ChatActivity extends AppCompatActivity {
     DatabaseReference chatRooms;
     DatabaseReference chatRoomInfo;
 
-    ArrayList<Page4ChatRoomInfo> roomInfoChilds= new ArrayList<>();
+    ArrayList<Page4ChatRoomInfo> saveRoomInfoChilds= new ArrayList<>();
     String[] InfoChilds= new String[3];
+    ArrayList<Page4ChatRoomInfo> loadRoomInfoChilds= new ArrayList<>();
 
+    boolean havetoMakeChatRoom=true;
+    boolean havetoMakeChatRoomInfo=true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
+        Log.e("page4 check","onCreate ");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_page4_chat);
 
@@ -74,35 +79,68 @@ public class Page4ChatActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
-        roomInfoChilds.clear();
+        saveRoomInfoChilds.clear();
 
 
         //Firebase DB관리 객체와 'caht'노드 참조객체 얻어오기
         firebaseDatabase= FirebaseDatabase.getInstance();
         chatRoomInfo=firebaseDatabase.getReference("chatRoomInfo");
         chatRooms= firebaseDatabase.getReference("chatRooms");
+
+        chatRef = chatRooms.push();
         Log.e("page4 check","chatRoomInfo.getKey(); : "+chatRoomInfo.getKey());
 
+        // 처음 한번 DB에서 chatRoomInfo 읽어옴.
+        //1.
+//        chatRoomInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+//
+//            @Override
+//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+//                for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
+//                    int i=0;
+//                    for (DataSnapshot postSnap: postSnapshot.getChildren()) {
+//                        InfoChilds[i]=(String) postSnap.getValue();
+//                        i++;
+//                    }//for..
+//                    saveRoomInfoChilds.add(new Page4ChatRoomInfo(InfoChilds[0],InfoChilds[1],InfoChilds[2]));
+//
+//                }//for..
+//
+//                Log.e("page4 check","SingleValueEvent "+saveRoomInfoChilds.size());
+//
+//
+//            }
+//
+//            @Override
+//            public void onCancelled(@NonNull DatabaseError databaseError) {
+//
+//            }
+//        });
 
-        //처음 한번만 DB에서 chatRoomInfo 읽어옴.
-        chatRoomInfo.addListenerForSingleValueEvent(new ValueEventListener() {
+
+        // chatRoomInfo 반응하는 리스너 DB에서 chatRoomInfo 읽어옴.
+        //2.
+        chatRoomInfo.addValueEventListener(new ValueEventListener() {
             int i=0;
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                saveRoomInfoChilds.clear();
                 for (DataSnapshot postSnapshot: dataSnapshot.getChildren()) {
                         i=0;
                     for (DataSnapshot postSnap: postSnapshot.getChildren()) {
 
-                        InfoChilds[i]=(String) postSnap.getValue();
+                        if(i==3){
+                            InfoChilds[i]=(String) postSnap.getKey();
+                        }else InfoChilds[i]=(String) postSnap.getValue();
                         i++;
                     }//for..
 
-                    roomInfoChilds.add(new Page4ChatRoomInfo(InfoChilds[0],InfoChilds[1],InfoChilds[2]));
+                    saveRoomInfoChilds.add(new Page4ChatRoomInfo(InfoChilds[0],InfoChilds[1],InfoChilds[2]));
                     Log.e("page4 check","roomInfoChilds"+i+" "+InfoChilds[0]+" "+InfoChilds[1]+" "+InfoChilds[2]);
 
                 }//for..
 
-                Log.e("page4 check","roomInfoChilds.size : "+roomInfoChilds.size());
+                Log.e("page4 check","roomInfoChilds.size : "+saveRoomInfoChilds.size());
 
             }
 
@@ -112,40 +150,49 @@ public class Page4ChatActivity extends AppCompatActivity {
             }
         });
 
-        chatRef = chatRooms.push();
+        //chatRef= firebaseDatabase.getReference("chat");
+        //방 정보에 이미 대화를 했던 상대인지 판별한다.
 
+//        //0. 그러나 saveRoomInfoChilds에는 저장된게 없다. 1.번 이후에 사이즈가 있음.
+//        Log.e("page4 check","방정보에 이미 대화를 했던 상대인지 판별한다. 몇번 : "+saveRoomInfoChilds.size());
+//        for (int i=0;i<saveRoomInfoChilds.size();i++){
+//            if(otherNickname.equals(saveRoomInfoChilds.get(i).getOtherNicnkname())){    //
+//                chatRef= firebaseDatabase.getReference(""+saveRoomInfoChilds.get(i).getRoomName());
+//                Log.e("page4 check","saveRoomInfoChilds.get(i).getRoomName()");
+//                havetoMakeChatRoom=false;
+//            }
+//        }
+//        if(havetoMakeChatRoom){
+//            Log.e("page4 check","chatRef = chatRooms.push()");
+//            chatRef = chatRooms.push();
+//        }
 
-//        chatRooms.addListenerForSingleValueEvent(new ValueEventListener() {
-//            @Override
-//            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-//                //채팅방 정보 DB에 저장하기 chatRoomInfo노드에 하위로 새로운 노드 생성거기에 (사용자ID, 상대방ID, 채팅방이름 ) 저장
-//                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
-//                //firebase DB에 저장할 값(MessageItem객체) 설정
-//                Page4ChatRoomInfo roomInfo= new Page4ChatRoomInfo(CurrentUserInfo.db_nickname,otherNickname,dataSnapshot.getRef()+"");
-//
-//                // if( )
-//
-//                //'chatRoomInfo'노드에 roomInfo내용을 저장한 child 생성
-//                chatRoomInfo.push().setValue(roomInfo);
-//            }
-//
-//            @Override
-//            public void onCancelled(@NonNull DatabaseError databaseError) {
-//
-//            }
-//        });
+        //채팅방에 변화가 생기면 반응
+        //3.
         chatRooms.addChildEventListener(new ChildEventListener() {
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
+
                 //채팅방 정보 DB에 저장하기 chatRoomInfo노드에 하위로 새로운 노드 생성거기에 (사용자ID, 상대방ID, 채팅방이름 ) 저장
-                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
+                Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getKey());
                 //firebase DB에 저장할 값(MessageItem객체) 설정
-                Page4ChatRoomInfo roomInfo= new Page4ChatRoomInfo(CurrentUserInfo.db_nickname,otherNickname,dataSnapshot.getRef()+"");
+                Page4ChatRoomInfo roomInfo= new Page4ChatRoomInfo(CurrentUserInfo.db_nickname,otherNickname,dataSnapshot.getKey());
 
-                // if( )
 
-                //'chatRoomInfo'노드에 roomInfo내용을 저장한 child 생성
-                chatRoomInfo.push().setValue(roomInfo);
+                //룸 정보들 조회
+                for (int i=0;i<saveRoomInfoChilds.size();i++){
+                    if(otherNickname.equals(saveRoomInfoChilds.get(i).getOtherNicnkname())){    //지금 상대방과 이미 기록이 있다면
+
+                       // chatRef=chatRooms.child(dataSnapshot.getKey());
+                        chatRef=firebaseDatabase.getReference("chatRooms").child(dataSnapshot.getKey());
+
+                        Log.e("page4 check","chatRef 가 참조하는 곳은 "+dataSnapshot.getKey());
+                        havetoMakeChatRoomInfo=false;
+                    }
+                }
+                if(havetoMakeChatRoomInfo) chatRoomInfo.push().setValue(roomInfo);
+
+
             }
 
             @Override
@@ -178,14 +225,17 @@ public class Page4ChatActivity extends AppCompatActivity {
             //새로 추가된 것만 줌 ValueListener는 하나의 값만 바뀌어도 처음부터 다시 값을 줌
             @Override
             public void onChildAdded(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                Log.e("page4 check","chatRef.addChildEventListener  onChildAdded");
                 //새로 추가된 데이터(값 : MessageItem객체) 가져오기
                 Page4MessageItem messageItem= dataSnapshot.getValue(Page4MessageItem.class);
 
-                //Log.e("page4 check","dataSnapshot.getRef() : "+dataSnapshot.getRef());
+                Log.e("page4 check","onChildAdded "+messageItem.getNickname()+" "+messageItem.getMessage());
 
                 //새로운 메세지를 리스뷰에 추가하기 위해 ArrayList에 추가
                 messageItems.add(messageItem);
+
+
+
 
                 //리스트뷰를 갱신
                 adapter.notifyDataSetChanged();
@@ -194,22 +244,22 @@ public class Page4ChatActivity extends AppCompatActivity {
 
             @Override
             public void onChildChanged(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                Log.e("page4 check","chatRef.addChildEventListener  onChildChanged");
             }
 
             @Override
             public void onChildRemoved(@NonNull DataSnapshot dataSnapshot) {
-
+                Log.e("page4 check","chatRef.addChildEventListener  onChildRemoved");
             }
 
             @Override
             public void onChildMoved(@NonNull DataSnapshot dataSnapshot, @Nullable String s) {
-
+                Log.e("page4 check","chatRef.addChildEventListener  onChildMoved");
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
-
+                Log.e("page4 check","chatRef.addChildEventListener  onCancelled");
             }
         });
 

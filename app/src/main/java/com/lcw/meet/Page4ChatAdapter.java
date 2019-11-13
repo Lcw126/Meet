@@ -1,10 +1,12 @@
 package com.lcw.meet;
 
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 
@@ -47,8 +49,10 @@ public class Page4ChatAdapter extends BaseAdapter {
 
         //메세지가 내 메세지인지??
         if(item.getNickname().equals(CurrentUserInfo.db_nickname)){
+            Log.e("page4 check", "내 메세지 ");
             itemView= layoutInflater.inflate(R.layout.my_msgbox,viewGroup,false);
         }else{
+            Log.e("page4 check", "상대 메세지 ");
             itemView= layoutInflater.inflate(R.layout.other_msgbox,viewGroup,false);
         }
 
