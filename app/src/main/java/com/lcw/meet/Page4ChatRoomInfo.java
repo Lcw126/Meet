@@ -1,13 +1,18 @@
 package com.lcw.meet;
 
+import com.google.firebase.database.DatabaseReference;
+
+import java.util.ArrayList;
+
 public class Page4ChatRoomInfo {
 
-    String currentNickname;
+
     String otherNicnkname;
     String roomName;
 
-    public Page4ChatRoomInfo(String currentNickname, String otherNicnkname, String roomName) {
-        this.currentNickname = currentNickname;
+    static ArrayList<Page4ChatRoomInfo> saveRoomInfoChilds= new ArrayList<>();
+    public Page4ChatRoomInfo(String otherNicnkname, String roomName) {
+
         this.otherNicnkname = otherNicnkname;
         this.roomName = roomName;
     }
@@ -15,13 +20,6 @@ public class Page4ChatRoomInfo {
     public Page4ChatRoomInfo() {
     }
 
-    public String getCurrentNickname() {
-        return currentNickname;
-    }
-
-    public void setCurrentNickname(String currentNickname) {
-        this.currentNickname = currentNickname;
-    }
 
     public String getOtherNicnkname() {
         return otherNicnkname;

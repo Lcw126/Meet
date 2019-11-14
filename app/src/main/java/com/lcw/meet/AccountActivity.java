@@ -79,8 +79,6 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
             }
         }
 
-
-
         Log.e("카카오 ID",""+MainActivity.currentkakaoIDNUM);
 
         et_nickName=findViewById(R.id.et_nickName);

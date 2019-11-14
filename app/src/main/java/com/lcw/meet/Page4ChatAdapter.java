@@ -49,10 +49,10 @@ public class Page4ChatAdapter extends BaseAdapter {
 
         //메세지가 내 메세지인지??
         if(item.getNickname().equals(CurrentUserInfo.db_nickname)){
-            Log.e("page4 check", "내 메세지 ");
+            Log.e("page4 check", "Page4ChatAdapter에 getView 내 메세지 ");
             itemView= layoutInflater.inflate(R.layout.my_msgbox,viewGroup,false);
         }else{
-            Log.e("page4 check", "상대 메세지 ");
+            Log.e("page4 check", "Page4ChatAdapter에 getView 상대 메세지 ");
             itemView= layoutInflater.inflate(R.layout.other_msgbox,viewGroup,false);
         }
 
