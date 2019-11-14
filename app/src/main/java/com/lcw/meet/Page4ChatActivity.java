@@ -131,10 +131,10 @@ public class Page4ChatActivity extends AppCompatActivity {
                             messageItems.add(messageItem);
 
                             //리스트뷰를 갱신
-                            adapter.notifyDataSetChanged();
-
-
-                            listView.setSelection(messageItems.size()-1); //리스트뷰의 마지막 위치로 스크롤 위치 이동
+                            adapter= new Page4ChatAdapter(messageItems, getLayoutInflater());
+                            listView.setAdapter(adapter);
+                            //adapter.notifyDataSetChanged();
+                            //listView.setSelection(messageItems.size()-1); //리스트뷰의 마지막 위치로 스크롤 위치 이동
                         }
 
                         @Override
@@ -220,6 +220,7 @@ public class Page4ChatActivity extends AppCompatActivity {
                             }//for..
                             //RoomInfo에 대한 자식 노드값들 저장
                             Page4ChatRoomInfo.saveRoomInfoChilds.add(new Page4ChatRoomInfo(InfoChild[0], InfoChild[1]));   //InfoChild[0] = 상대방 닉네임, InfoChild[1] = 채팅방 이름
+
                             Log.e("page4 check","chatRoomInfo 자식 노드값 :"+InfoChild[0]+" , "+InfoChild[1]);
                         }//for..
                         firstchatRoomInfosave=false;    //한번 읽었으므로 false로 추후 동작 안함.
