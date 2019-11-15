@@ -12,6 +12,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,9 @@ public class Page2Adapter extends RecyclerView.Adapter {
 
 //        vh.tvMsg.setText(ite.msg);
 
-        Glide.with(context).load(ite.imgPath).into(vh.ivDaily);
+        //Glide.with(context).load(ite.imgPath).into(vh.ivDaily);
+        Picasso.get().load(ite.imgPath).into(vh.ivDaily);
+
 
     }
 

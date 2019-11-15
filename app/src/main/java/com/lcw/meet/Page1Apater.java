@@ -23,6 +23,7 @@ import com.android.volley.request.JsonArrayRequest;
 import com.android.volley.request.SimpleMultiPartRequest;
 import com.android.volley.toolbox.Volley;
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -68,6 +69,7 @@ public class Page1Apater extends RecyclerView.Adapter {
 
         //       Test 끝나면 나중에 주석 풀기
         Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
+        //Picasso.get().load(item.getImgPath01()).into(vh.ivImg);
 
     }
 

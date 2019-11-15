@@ -7,12 +7,13 @@ import java.util.ArrayList;
 public class Page4ChatRoomInfo {
 
 
+    String myNickname;
     String otherNicnkname;
     String roomName;
 
     static ArrayList<Page4ChatRoomInfo> saveRoomInfoChilds= new ArrayList<>();
-    public Page4ChatRoomInfo(String otherNicnkname, String roomName) {
-
+    public Page4ChatRoomInfo(String myNickname, String otherNicnkname, String roomName) {
+        this.myNickname = myNickname;
         this.otherNicnkname = otherNicnkname;
         this.roomName = roomName;
     }
@@ -20,6 +21,13 @@ public class Page4ChatRoomInfo {
     public Page4ChatRoomInfo() {
     }
 
+    public String getMyNickname() {
+        return myNickname;
+    }
+
+    public void setMyNickname(String myNickname) {
+        this.myNickname = myNickname;
+    }
 
     public String getOtherNicnkname() {
         return otherNicnkname;

@@ -83,10 +83,8 @@ public class Page4FragChat extends Fragment {
 
             }
         }
-        //Log.e("page4 check", "connectedNickname.size : "+ connectedNickname.size()+ connectedNickname.get(0)+" "+connectedNickname.get(1));
-
+        // 호감이 일치한 사람의 정보를 DB 사용자 정보와 비교하여 connectedDatas에 저장한다.
         for(int k=0;k<DBPublicData.DBdatas.size();k++){
-
             for(int j=0;j<connectedNickname.size();j++){
                 if(connectedNickname.get(j).equals(DBPublicData.DBdatas.get(k).nickname)){
                     //Log.e("page4 check", "connectedNickname.get(j) :  "+j+"  "+connectedNickname.get(j)+"   DBPublicData.DBdatas.get(k).nickname : "+k+"  "+DBPublicData.DBdatas.get(k).nickname);
