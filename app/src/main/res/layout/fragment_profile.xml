@@ -48,6 +48,30 @@
         android:layout_below="@id/tv_temp"
         android:layout_toRightOf="@id/tv_temp_div"
         android:text="최고"/>
+    <TextView
+        android:id="@+id/tv_location"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="현재 내 위치 : "
+        android:layout_marginTop="8dp"
+        android:layout_below="@id/iv"/>
+    <TextView
+        android:id="@+id/tv_mylocation"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="위치 표시"
+        android:layout_marginTop="8dp"
+        android:layout_toRightOf="@id/tv_location"
+        android:layout_below="@id/iv"/>
+
+    <Button
+        android:id="@+id/btn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="버튼"
+        android:layout_below="@id/tv_mylocation"/>
+
+
 
     <Button
         android:id="@+id/click_LogOut"
