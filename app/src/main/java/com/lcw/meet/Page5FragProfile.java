@@ -15,6 +15,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -25,12 +26,21 @@ import androidx.core.app.ActivityCompat;
 import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
+import com.android.volley.misc.AsyncTask;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
@@ -50,10 +60,25 @@ public class Page5FragProfile extends Fragment {
     private static final int PERMISSIONS_REQUEST_CODE = 100;
     String[] REQUIRED_PERMISSIONS  = {Manifest.permission.ACCESS_FINE_LOCATION, Manifest.permission.ACCESS_COARSE_LOCATION};
 
+    double latitude;
+    double longitude;
+
+    TextView tv_name, tv_temp, tv_temp_min, tv_temp_max;
+    ImageView iv;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_profile,container,false);
         click_LogOut=view.findViewById(R.id.click_LogOut);
         click_LogOut.setOnClickListener(LogoutListener);
+
+        tv_name=view.findViewById(R.id.tv_name);
+        tv_temp=view.findViewById(R.id.tv_temp);
+        tv_temp_min=view.findViewById(R.id.tv_temp_min);
+        tv_temp_max=view.findViewById(R.id.tv_temp_max);
+        iv=view.findViewById(R.id.iv);
+
+        //현재 위치로 날씨 정보 가져오기
+        //https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=a39323947069b102269ba121717ac8df
 
         if (!checkLocationServicesStatus()) {
 
@@ -65,6 +90,7 @@ public class Page5FragProfile extends Fragment {
 
         textview_address=view.findViewById(R.id.tv_mylocation);
         ShowLocationButton =view.findViewById(R.id.btn);
+        //버튼 클릭시 위도 경도를 가져오기.
         ShowLocationButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -79,10 +105,142 @@ public class Page5FragProfile extends Fragment {
                 Toast.makeText(getContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
             }
         });
+        gpsTracker = new GpsTracker(getContext());
 
+       latitude = gpsTracker.getLatitude();
+        longitude = gpsTracker.getLongitude();
 
+        String address = getCurrentAddress(latitude, longitude);
+        textview_address.setText(address);
+
+        Toast.makeText(getContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
+
+        getWeatherData(latitude,longitude);
 
         return view;
+    }
+
+    //위도 경도 값으로 날씨 값을 가져온다.
+    private void getWeatherData( double lat, double lng ){
+
+        String url = "http://api.openweathermap.org/data/2.5/weather?lat="+ lat + "&lon=" + lng +"&units=metric&appid=a39323947069b102269ba121717ac8df";
+
+        ReceiveWeatherTask receiveUseTask = new ReceiveWeatherTask();
+        receiveUseTask.execute(url);
+
+    }
+    private class ReceiveWeatherTask extends AsyncTask<String, Void, JSONObject> {
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+        }
+
+        @Override
+        protected JSONObject doInBackground(String... datas) {
+            try {
+                HttpURLConnection conn = (HttpURLConnection) new URL(datas[0]).openConnection();
+                conn.setConnectTimeout(10000);
+                conn.setReadTimeout(10000);
+                conn.connect();
+
+                if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                    InputStream is = conn.getInputStream();
+                    InputStreamReader reader = new InputStreamReader(is);
+                    BufferedReader in = new BufferedReader(reader);
+
+                    String readed;
+                    while ((readed = in.readLine()) != null) {
+                        JSONObject jObject = new JSONObject(readed);
+//                        String result = jObject.getJSONArray("weather").getJSONObject(0).getString("icon");
+                        return jObject;
+                    }
+
+                } else {
+                    return null;
+                }
+                return null;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+
+
+        @Override
+        protected void onPostExecute(JSONObject result){
+            Log.i("log", result.toString());
+            if( result != null ){
+
+                String iconName = "";
+                String nowTemp = "";
+                String maxTemp = "";
+                String minTemp = "";
+
+                String humidity = "";
+                String speed = "";
+                String main = "";
+                String description = "";
+
+                try {
+                    iconName = result.getJSONArray("weather").getJSONObject(0).getString("icon");
+                    nowTemp = result.getJSONObject("main").getString("temp");
+                    humidity = result.getJSONObject("main").getString("humidity");
+                    minTemp = result.getJSONObject("main").getString("temp_min");
+                    maxTemp = result.getJSONObject("main").getString("temp_max");
+                    speed = result.getJSONObject("wind").getString("speed");
+                    main = result.getJSONArray("weather").getJSONObject(0).getString("main");
+                    description = result.getJSONArray("weather").getJSONObject(0).getString("description");
+
+                }
+                catch (JSONException e ){
+                    e.printStackTrace();
+                }
+                description = transferWeather( description );
+                final String msg = description + " 습도 " + humidity +"%, 풍속 " + speed +"m/s" + " 온도 현재:"+nowTemp+" / 최저:"+ minTemp + " / 최고:" + maxTemp;
+
+                // tv_name;
+                 tv_temp.setText(nowTemp);
+                 tv_temp_min.setText(minTemp);
+                 tv_temp_max.setText(maxTemp);
+                // iv
+
+            }
+
+        }
+    }// AsyncTask ..
+
+    private String transferWeather( String weather ){
+
+        weather = weather.toLowerCase();
+
+        if( weather.equals("haze") ){
+            return "안개";
+        }
+        else if( weather.equals("fog") ){
+            return "안개";
+        }
+        else if( weather.equals("clouds") ){
+            return "구름";
+        }
+        else if( weather.equals("few clouds") ){
+            return "구름 조금";
+        }
+        else if( weather.equals("scattered clouds") ){
+            return "구름 낌";
+        }
+        else if( weather.equals("broken clouds") ){
+            return "구름 많음";
+        }
+        else if( weather.equals("overcast clouds") ){
+            return "구름 많음";
+        }
+        else if( weather.equals("clear sky") ){
+            return "맑음";
+        }
+
+        return "";
     }
 
 
