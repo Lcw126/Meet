@@ -31,6 +31,7 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.kakao.usermgmt.UserManagement;
 import com.kakao.usermgmt.callback.LogoutResponseCallback;
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -40,6 +41,7 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.List;
 import java.util.Locale;
@@ -63,7 +65,7 @@ public class Page5FragProfile extends Fragment {
     double latitude;
     double longitude;
 
-    TextView tv_name, tv_temp, tv_temp_min, tv_temp_max;
+    TextView tv_weather, tv_temp, tv_temp_min, tv_temp_max;
     ImageView iv;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -71,7 +73,7 @@ public class Page5FragProfile extends Fragment {
         click_LogOut=view.findViewById(R.id.click_LogOut);
         click_LogOut.setOnClickListener(LogoutListener);
 
-        tv_name=view.findViewById(R.id.tv_name);
+        tv_weather=view.findViewById(R.id.tv_weather);
         tv_temp=view.findViewById(R.id.tv_temp);
         tv_temp_min=view.findViewById(R.id.tv_temp_min);
         tv_temp_max=view.findViewById(R.id.tv_temp_max);
@@ -193,6 +195,7 @@ public class Page5FragProfile extends Fragment {
                     main = result.getJSONArray("weather").getJSONObject(0).getString("main");
                     description = result.getJSONArray("weather").getJSONObject(0).getString("description");
 
+
                 }
                 catch (JSONException e ){
                     e.printStackTrace();
@@ -200,11 +203,15 @@ public class Page5FragProfile extends Fragment {
                 description = transferWeather( description );
                 final String msg = description + " 습도 " + humidity +"%, 풍속 " + speed +"m/s" + " 온도 현재:"+nowTemp+" / 최저:"+ minTemp + " / 최고:" + maxTemp;
 
-                // tv_name;
+                 //tv_weather.setText(description);
+
                  tv_temp.setText(nowTemp);
                  tv_temp_min.setText(minTemp);
                  tv_temp_max.setText(maxTemp);
-                // iv
+
+                    String img="http://openweathermap.org/img/w/" + iconName + ".png";
+
+                Picasso.get().load(img).into(iv);
 
             }
 
@@ -239,8 +246,11 @@ public class Page5FragProfile extends Fragment {
         else if( weather.equals("clear sky") ){
             return "맑음";
         }
+        else if( weather.equals("light rain") ){
+            return "약한 비";
+        }
 
-        return "";
+        return weather;
     }
 
 
