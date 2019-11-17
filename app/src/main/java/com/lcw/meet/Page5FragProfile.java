@@ -28,7 +28,7 @@ public class Page5FragProfile extends Fragment {
 
         return view;
     }
-
+    //로그 아웃 버튼 눌렀을 시
     public View.OnClickListener LogoutListener= new View.OnClickListener() {
         @Override
         public void onClick(View view) {
