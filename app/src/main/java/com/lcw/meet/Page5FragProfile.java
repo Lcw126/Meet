@@ -54,7 +54,7 @@ public class Page5FragProfile extends Fragment {
     private Context mContext;
 
     TextView textview_address;
-    Button ShowLocationButton ;
+    Button profileEdit ;
 
     private GpsTracker gpsTracker;
 
@@ -65,7 +65,7 @@ public class Page5FragProfile extends Fragment {
     double latitude;
     double longitude;
 
-    TextView tv_weather, tv_temp, tv_temp_min, tv_temp_max;
+    TextView  tv_temp, tv_temp_min, tv_temp_max;
     ImageView iv;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -73,13 +73,14 @@ public class Page5FragProfile extends Fragment {
         click_LogOut=view.findViewById(R.id.click_LogOut);
         click_LogOut.setOnClickListener(LogoutListener);
 
-        tv_weather=view.findViewById(R.id.tv_weather);
+
         tv_temp=view.findViewById(R.id.tv_temp);
         tv_temp_min=view.findViewById(R.id.tv_temp_min);
         tv_temp_max=view.findViewById(R.id.tv_temp_max);
         iv=view.findViewById(R.id.iv);
 
         //현재 위치로 날씨 정보 가져오기
+        //Open weatherMap 받은 키 : a39323947069b102269ba121717ac8df
         //https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=a39323947069b102269ba121717ac8df
 
         if (!checkLocationServicesStatus()) {
@@ -91,36 +92,27 @@ public class Page5FragProfile extends Fragment {
         }
 
         textview_address=view.findViewById(R.id.tv_mylocation);
-        ShowLocationButton =view.findViewById(R.id.btn);
-        //버튼 클릭시 위도 경도를 가져오기.
-        ShowLocationButton.setOnClickListener(new View.OnClickListener() {
+        profileEdit =view.findViewById(R.id.profile_edit);
+
+        //프로필 수정 클릭 시
+        profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                gpsTracker = new GpsTracker(getContext());
 
-                double latitude = gpsTracker.getLatitude();
-                double longitude = gpsTracker.getLongitude();
-
-                String address = getCurrentAddress(latitude, longitude);
-                textview_address.setText(address);
-
-                Toast.makeText(getContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
             }
         });
+
+
+        //위도 경도 가져오기.
         gpsTracker = new GpsTracker(getContext());
-
-       latitude = gpsTracker.getLatitude();
+        latitude = gpsTracker.getLatitude();
         longitude = gpsTracker.getLongitude();
-
         String address = getCurrentAddress(latitude, longitude);
         textview_address.setText(address);
-
-        Toast.makeText(getContext(), "현재위치 \n위도 " + latitude + "\n경도 " + longitude, Toast.LENGTH_LONG).show();
-
         getWeatherData(latitude,longitude);
 
         return view;
-    }
+    }// onCreateView ..
 
     //위도 경도 값으로 날씨 값을 가져온다.
     private void getWeatherData( double lat, double lng ){
@@ -200,57 +192,69 @@ public class Page5FragProfile extends Fragment {
                 catch (JSONException e ){
                     e.printStackTrace();
                 }
-                description = transferWeather( description );
-                final String msg = description + " 습도 " + humidity +"%, 풍속 " + speed +"m/s" + " 온도 현재:"+nowTemp+" / 최저:"+ minTemp + " / 최고:" + maxTemp;
+                //final String msg = description + " 습도 " + humidity +"%, 풍속 " + speed +"m/s" + " 온도 현재:"+nowTemp+" / 최저:"+ minTemp + " / 최고:" + maxTemp;
 
                  //tv_weather.setText(description);
 
-                 tv_temp.setText(nowTemp);
-                 tv_temp_min.setText(minTemp);
-                 tv_temp_max.setText(maxTemp);
+                 tv_temp.setText(nowTemp+"º");
+                 tv_temp_min.setText(minTemp+"º");
+                 tv_temp_max.setText(maxTemp+"º");
 
-                    String img="http://openweathermap.org/img/w/" + iconName + ".png";
+                // String img="http://openweathermap.org/img/w/" + iconName + ".png";
 
-                Picasso.get().load(img).into(iv);
+                int img=transferWeather(iconName);
+
+                if(img!=0) Picasso.get().load(img).into(iv);
+
 
             }
 
         }
     }// AsyncTask ..
 
-    private String transferWeather( String weather ){
+    private int transferWeather( String weatherIcon ){
 
-        weather = weather.toLowerCase();
+        weatherIcon = weatherIcon.toLowerCase();
 
-        if( weather.equals("haze") ){
-            return "안개";
+        if( weatherIcon.equals("01d") ){
+            return R.drawable.d01;
         }
-        else if( weather.equals("fog") ){
-            return "안개";
+        else if( weatherIcon.equals("02d") ){
+            return R.drawable.d02;
         }
-        else if( weather.equals("clouds") ){
-            return "구름";
+        else if( weatherIcon.equals("03d") || weatherIcon.equals("03n")){
+            return R.drawable.d03;
         }
-        else if( weather.equals("few clouds") ){
-            return "구름 조금";
+        else if( weatherIcon.equals("04d") || weatherIcon.equals("04n")){
+            return R.drawable.d04;
         }
-        else if( weather.equals("scattered clouds") ){
-            return "구름 낌";
+        else if( weatherIcon.equals("09d") || weatherIcon.equals("09n")){
+            return R.drawable.d09;
         }
-        else if( weather.equals("broken clouds") ){
-            return "구름 많음";
+        else if( weatherIcon.equals("10d") ){
+            return R.drawable.d10;
         }
-        else if( weather.equals("overcast clouds") ){
-            return "구름 많음";
+        else if( weatherIcon.equals("11d") || weatherIcon.equals("13n")){
+            return R.drawable.d11;
         }
-        else if( weather.equals("clear sky") ){
-            return "맑음";
+        else if( weatherIcon.equals("13d") || weatherIcon.equals("13n")){
+            return R.drawable.d13;
         }
-        else if( weather.equals("light rain") ){
-            return "약한 비";
+        else if( weatherIcon.equals("50d") || weatherIcon.equals("50n")){
+            return R.drawable.d50;
+        }
+        else if( weatherIcon.equals("01n") ){
+            return R.drawable.n01;
+        }
+        else if( weatherIcon.equals("02n") ){
+            return R.drawable.n02;
+        }
+        else if( weatherIcon.equals("10n") ){
+            return R.drawable.n10;
         }
 
-        return weather;
+
+        return 0;
     }
 
 
