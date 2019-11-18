@@ -436,6 +436,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
         s_intro=et_intro.getText().toString();
         DBPublicData.currentNickname=s_nickname;
 
+        //중복확인 했는지 체크
         if(ISclick_btn_overlap){
 
             if(s_nickname!=null && s_gender!=null && s_year!=null && s_local!=null && s_intro!=null && s_character!=null && imgPath01!=null){
@@ -484,7 +485,7 @@ public class AccountActivity extends AppCompatActivity implements  ImageView.OnC
                 finish();
 
             }else{
-                Toast.makeText(this, "중복확인 및 모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "모든 사항을 다 입력해주세요.", Toast.LENGTH_SHORT).show();
             }
         }else Toast.makeText(this, "닉네임 중복 확인을 해주세요.", Toast.LENGTH_SHORT).show();
 

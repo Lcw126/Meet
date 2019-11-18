@@ -67,7 +67,7 @@ public class Page2WriteActivity extends AppCompatActivity {
         }
 
 
-    }
+    }// onCreate ..
 
     //툴바에  뒤로가기 & 게시
     @Override

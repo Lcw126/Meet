@@ -115,6 +115,8 @@ public class Page5FragProfile extends Fragment {
         profileEdit.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                Intent intent= new Intent(mContext, Page5ProfileEditActivity.class);
+                mContext.startActivity(intent);
 
             }
         });
