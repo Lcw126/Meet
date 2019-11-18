@@ -455,7 +455,7 @@ public class Page5ProfileEditActivity extends AppCompatActivity {
             //요청객체를 서버로 보낼 우체통 같은 객체 생성
             RequestQueue requestQueue= Volley.newRequestQueue(this);
             requestQueue.add(smpr);
-            
+
             finish();
 
         }else{
