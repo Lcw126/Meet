@@ -44,7 +44,7 @@ public class Page2Adapter extends RecyclerView.Adapter {
 
 //        vh.tvMsg.setText(ite.msg);
 
-        //Glide.with(context).load(ite.imgPath).into(vh.ivDaily);
+//        Glide.with(context).load(ite.imgPath).into(vh.ivDaily);
         Picasso.get().load(ite.imgPath).into(vh.ivDaily);
 
 

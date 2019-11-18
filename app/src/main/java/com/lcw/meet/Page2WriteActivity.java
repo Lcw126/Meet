@@ -170,13 +170,13 @@ public class Page2WriteActivity extends AppCompatActivity {
                 public void onResponse(String response) {
                     //new AlertDialog.Builder(AccountActivity.this).setMessage("응답:"+response).create().show();
                     //Toast.makeText(Page2WriteActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
-                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("응답:"+response).create().show();
+//                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("응답:"+response).create().show();
                 }
             }, new Response.ErrorListener() {
                 @Override
                 public void onErrorResponse(VolleyError error) {
                    // Toast.makeText(Page2WriteActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
-                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("ERROR:").create().show();
+//                    new AlertDialog.Builder(Page2WriteActivity.this).setMessage("ERROR:").create().show();
                 }
             });
 
@@ -199,7 +199,7 @@ public class Page2WriteActivity extends AppCompatActivity {
 
 
             //게시했던 창 나가기
-            //finish();
+            finish();
 
 
         }else{

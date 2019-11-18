@@ -18,7 +18,7 @@
         android:layout_height="320dp"
         android:layout_centerHorizontal="true"
         android:layout_below="@+id/toolbar"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_photo"
         android:scaleType="centerCrop"/>
 
     <EditText

@@ -431,8 +431,8 @@ public class Page5ProfileEditActivity extends AppCompatActivity {
             SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
                 @Override
                 public void onResponse(String response) {
-                    new AlertDialog.Builder(Page5ProfileEditActivity.this).setMessage("응답:"+response).create().show();
-                    //Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+//                    new AlertDialog.Builder(Page5ProfileEditActivity.this).setMessage("응답:"+response).create().show();
+//                    Toast.makeText(Page5ProfileEditActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
                 }
             }, new Response.ErrorListener() {
                 @Override
@@ -448,7 +448,7 @@ public class Page5ProfileEditActivity extends AppCompatActivity {
             smpr.addStringParam("s_intro", s_intro);
             smpr.addStringParam("s_character", s_character);
             //이미지 파일 추가
-            if(imgPath02!=null) smpr.addFile("img01", imgPath01);
+            if(imgPath01!=null) smpr.addFile("img01", imgPath01);
             if(imgPath02!=null) smpr.addFile("img02", imgPath02);
             if(imgPath03!=null) smpr.addFile("img03", imgPath03);
 

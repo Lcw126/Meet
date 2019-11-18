@@ -12,7 +12,7 @@
         android:id="@+id/iv_01"
         android:layout_width="123dp"
         android:layout_height="123dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_person"
         android:scaleType="centerCrop"
         android:tag="iv_01"/>
     <ImageView
@@ -22,7 +22,7 @@
         android:id="@+id/iv_02"
         android:layout_width="123dp"
         android:layout_height="123dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_person"
         android:scaleType="centerCrop"
         android:tag="iv_02"/>
     <ImageView
@@ -32,7 +32,7 @@
         android:id="@+id/iv_03"
         android:layout_width="123dp"
         android:layout_height="123dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_person"
         android:scaleType="centerCrop"
         android:tag="iv_03"/>
 
