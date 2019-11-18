@@ -11,7 +11,7 @@
         android:layout_height="50dp"
         android:layout_toLeftOf="@id/tv_temp_min"
         android:layout_marginRight="20dp"
-        android:src="@mipmap/ic_launcher"/>
+        />
 
     <TextView
         android:id="@+id/tv_temp"
@@ -21,7 +21,7 @@
         android:textColor="#000000"
         android:layout_marginLeft="8dp"
         android:textSize="20sp"
-        android:text="온도"/>
+        />
     <TextView
         android:id="@+id/tv_temp_min"
         android:layout_width="wrap_content"
@@ -29,15 +29,14 @@
         android:layout_below="@id/tv_temp"
         android:layout_toLeftOf="@id/tv_temp_div"
         android:textColor="#000000"
-        android:text="최저"/>
+        />
     <TextView
         android:id="@+id/tv_temp_div"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@id/tv_temp"
         android:layout_toLeftOf="@id/tv_temp_max"
-        android:textColor="#000000"
-        android:text=" / "/>
+        android:textColor="#000000"/>
     <TextView
         android:id="@+id/tv_temp_max"
         android:layout_width="wrap_content"
@@ -45,24 +44,61 @@
         android:layout_below="@id/tv_temp"
         android:layout_alignParentRight="true"
         android:textColor="#000000"
-        android:text="최고"/>
+       />
 
     <TextView
         android:id="@+id/tv_mylocation"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="위치 표시"
         android:layout_alignParentRight="true"
         android:layout_marginTop="8dp"
         android:textColor="#000000"
         android:layout_below="@id/iv"/>
 
-    <Button
-        android:id="@+id/profile_edit"
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/civ_page5profile"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:src="@mipmap/ic_launcher"
+        android:layout_below="@id/tv_mylocation">
+    </de.hdodenhof.circleimageview.CircleImageView>
+    <TextView
+        android:id="@+id/tv_page5Ncikname"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_toRightOf="@id/civ_page5profile"
+        android:layout_below="@id/tv_mylocation"
+        android:layout_marginLeft="8dp"
+        android:text="닉네임"/>
+    <TextView
+        android:id="@+id/tv_page5Year"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_toRightOf="@id/tv_page5Ncikname"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/tv_mylocation"
+        android:text="1992"/>
+    <TextView
+        android:id="@+id/tv_page5Local"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#000000"
+        android:layout_toRightOf="@id/civ_page5profile"
+        android:layout_marginLeft="8dp"
+        android:layout_below="@id/tv_page5Ncikname"
+        android:text="경기"/>
+
+
+    <Button
+        android:id="@+id/profile_edit"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_toRightOf="@id/civ_page5profile"
+        android:layout_marginLeft="8dp"
         android:text="프로필 수정"
-        android:layout_above="@id/click_LogOut"/>
+        android:layout_below="@id/tv_page5Local"/>
     <Button
         android:id="@+id/click_LogOut"
         android:layout_width="wrap_content"

@@ -2,26 +2,26 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
     <item android:id="@+id/home"
         android:title="home"
-        android:icon="@android:drawable/ic_menu_share">
+        android:icon="@drawable/ic_home">
     </item>
 
     <item android:id="@+id/daily"
         android:title="daily"
-        android:icon="@android:drawable/ic_menu_gallery">
+        android:icon="@drawable/ic_photo">
     </item>
 
     <item android:id="@+id/feel"
         android:title="feel"
-        android:icon="@android:drawable/ic_menu_send">
+        android:icon="@drawable/ic_feel">
     </item>
 
     <item android:id="@+id/chat"
         android:title="chat"
-        android:icon="@android:drawable/ic_menu_help">
+        android:icon="@drawable/ic_chat">
     </item>
 
     <item android:id="@+id/profile"
         android:title="profile"
-        android:icon="@android:drawable/ic_menu_preferences">
+        android:icon="@drawable/ic_profile">
     </item>
 </menu>

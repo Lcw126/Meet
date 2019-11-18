@@ -46,6 +46,8 @@ import java.net.URL;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.content.Context.LOCATION_SERVICE;
 
 public class Page5FragProfile extends Fragment {
@@ -65,8 +67,11 @@ public class Page5FragProfile extends Fragment {
     double latitude;
     double longitude;
 
-    TextView  tv_temp, tv_temp_min, tv_temp_max;
+    TextView  tv_temp, tv_temp_min, tv_temp_max, tv_temp_div;
     ImageView iv;
+
+    TextView tv_page5Ncikname, tv_page5Year, tv_page5Local;
+    CircleImageView civ_page5profile;
 
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_profile,container,false);
@@ -77,7 +82,19 @@ public class Page5FragProfile extends Fragment {
         tv_temp=view.findViewById(R.id.tv_temp);
         tv_temp_min=view.findViewById(R.id.tv_temp_min);
         tv_temp_max=view.findViewById(R.id.tv_temp_max);
+        tv_temp_div=view.findViewById(R.id.tv_temp_div);
         iv=view.findViewById(R.id.iv);
+
+        tv_page5Ncikname=view.findViewById(R.id.tv_page5Ncikname);
+        tv_page5Year=view.findViewById(R.id.tv_page5Year);
+        tv_page5Local=view.findViewById(R.id.tv_page5Local);
+        civ_page5profile=view.findViewById(R.id.civ_page5profile);
+
+        tv_page5Ncikname.setText(CurrentUserInfo.db_nickname);
+        tv_page5Year.setText(CurrentUserInfo.db_year);
+        tv_page5Local.setText(CurrentUserInfo.db_local);
+        Picasso.get().load(CurrentUserInfo.db_imgPath01).into(civ_page5profile);
+
 
         //현재 위치로 날씨 정보 가져오기
         //Open weatherMap 받은 키 : a39323947069b102269ba121717ac8df
@@ -199,6 +216,7 @@ public class Page5FragProfile extends Fragment {
                  tv_temp.setText(nowTemp+"º");
                  tv_temp_min.setText(minTemp+"º");
                  tv_temp_max.setText(maxTemp+"º");
+                 tv_temp_div.setText(" / ");
 
                 // String img="http://openweathermap.org/img/w/" + iconName + ".png";
 
