@@ -6,6 +6,7 @@ import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
@@ -26,6 +27,8 @@ public class Main2Activity extends AppCompatActivity {
     Page3FragFeel page3FragFeel=new Page3FragFeel();
     Page4FragChat page4FragChat =new Page4FragChat();
     Page5FragProfile page5FragProfile=new Page5FragProfile();
+
+  
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -36,6 +39,13 @@ public class Main2Activity extends AppCompatActivity {
 
         //MainActivity에서 DB정보를 담고 있는 DBdatas에 내용을 page1Items로 깊은 복사하여 그 정보를 보여준다.
         page1Items.addAll(DBPublicData.DBdatas);
+
+        for(int i=0; i<page1Items.size();i++){
+            if(page1Items.get(i).getNickname().equals(CurrentUserInfo.db_nickname))page1Items.remove(i);
+
+        }
+
+
 
         bnv=findViewById(R.id.bnv);
         bnv.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -64,4 +74,11 @@ public class Main2Activity extends AppCompatActivity {
             }
         });
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        Log.e("log","Main2Activity onDestroy");
+    }
 }
+// class Main2Activity ..

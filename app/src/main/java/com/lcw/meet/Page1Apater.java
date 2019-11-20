@@ -49,6 +49,7 @@ public class Page1Apater extends RecyclerView.Adapter {
         LayoutInflater inflater=LayoutInflater.from(context);
         View itemView=inflater.inflate(R.layout.page1recycler_itme,parent,false);
 
+
         VH vh=new VH(itemView); // itemView가 가지고 있는 카드뷰가 전달됨
 
         return vh;
@@ -59,17 +60,16 @@ public class Page1Apater extends RecyclerView.Adapter {
         VH vh=(VH)holder; //명시적 다운 캐스팅
 
         Page1Item item= datas.get(position);
-        vh.tvNickname.setText(item.getNickname());
-        vh.tvYear.setText(item.getYear());
-        vh.tvLocal.setText(item.getLocal());
 
-
-        //Test용
+            vh.tvNickname.setText(item.getNickname());
+            vh.tvYear.setText(item.getYear());
+            vh.tvLocal.setText(item.getLocal());
+            //Test용
 //        Glide.with(context).load(item.getTestimg()).into(vh.ivImg);
 
-        //       Test 끝나면 나중에 주석 풀기
-        Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
-        //Picasso.get().load(item.getImgPath01()).into(vh.ivImg);
+            //       Test 끝나면 나중에 주석 풀기
+            Glide.with(context).load(item.getImgPath01()).into(vh.ivImg);
+            //Picasso.get().load(item.getImgPath01()).into(vh.ivImg);
 
     }
 
