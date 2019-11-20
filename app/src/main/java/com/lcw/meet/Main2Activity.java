@@ -28,6 +28,8 @@ public class Main2Activity extends AppCompatActivity {
     Page4FragChat page4FragChat =new Page4FragChat();
     Page5FragProfile page5FragProfile=new Page5FragProfile();
 
+    String[] fromme_nicknames;
+
   
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -40,10 +42,33 @@ public class Main2Activity extends AppCompatActivity {
         //MainActivity에서 DB정보를 담고 있는 DBdatas에 내용을 page1Items로 깊은 복사하여 그 정보를 보여준다.
         page1Items.addAll(DBPublicData.DBdatas);
 
+        Log.e("log","Main2 page1Items.size : "+page1Items.size());
         for(int i=0; i<page1Items.size();i++){
+            //자신의 프로필은 제거하고 보기위해서
             if(page1Items.get(i).getNickname().equals(CurrentUserInfo.db_nickname))page1Items.remove(i);
-
         }
+
+
+
+            for(int k=0;k<DBPublicData.DBdatas.size();k++){  //DB정보만큼 반복하여 자신이 호감을 보낸 상대 리스트를 fromme_nicknames에 저장
+                if(DBPublicData.DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
+                    fromme_nicknames = DBPublicData.DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+                }
+            }
+        Log.e("log","Main2 page1Items.size : "+page1Items.size());
+        for(int i=0; i<page1Items.size();i++){
+            //자신이 호감 보낸 상대이면 제거
+            for(int j=0;j<fromme_nicknames.length;j++){
+                if(page1Items.get(i).getNickname().equals(fromme_nicknames[j])){
+                    page1Items.remove(i);
+                    i--;
+                    break;
+                }
+
+            }
+        }
+
+
 
 
 
