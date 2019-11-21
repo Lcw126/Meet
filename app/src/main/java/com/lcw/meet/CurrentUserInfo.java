@@ -15,6 +15,9 @@ public class CurrentUserInfo {
     static String db_imgPath03;
     static String tome;
     static String fromme;
+    float grade;
+    int cnt;
+
 
     public CurrentUserInfo() {
     }
@@ -31,7 +34,7 @@ public class CurrentUserInfo {
         this.db_imgPath02 = db_imgPath02;
         this.db_imgPath03 = db_imgPath03;
     }
-    public CurrentUserInfo(String db_kakaoID, String db_nickname, String db_gender, String db_year, String db_local, String db_intro, String db_charac, String db_imgPath01, String db_imgPath02, String db_imgPath03, String tome,String fromme) {
+    public CurrentUserInfo(String db_kakaoID, String db_nickname, String db_gender, String db_year, String db_local, String db_intro, String db_charac, String db_imgPath01, String db_imgPath02, String db_imgPath03, String tome,String fromme,float grade,int cnt) {
         this.db_kakaoID = db_kakaoID;
         this.db_nickname = db_nickname;
         this.db_gender = db_gender;
@@ -44,6 +47,8 @@ public class CurrentUserInfo {
         this.db_imgPath03 = db_imgPath03;
         this.tome = tome;
         this.fromme = fromme;
+        this.grade=grade;
+        this.cnt=cnt;
     }
 
 

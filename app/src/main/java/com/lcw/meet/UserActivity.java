@@ -1,5 +1,6 @@
 package com.lcw.meet;
 
+import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.viewpager.widget.ViewPager;
@@ -14,6 +15,18 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.error.VolleyError;
+import com.android.volley.request.JsonArrayRequest;
+import com.android.volley.request.SimpleMultiPartRequest;
+import com.android.volley.toolbox.Volley;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 
 public class UserActivity extends AppCompatActivity {
@@ -25,6 +38,15 @@ public class UserActivity extends AppCompatActivity {
     ArrayList<String> datas= new ArrayList<String>();
 
     RatingBar ratingBar; //별점
+
+    boolean israting=true;
+
+    String userkakaoID;
+    String userNickname;
+    String userYear;
+    String userLocal;
+    String userIntro;
+    String userCharac;
 
     //Test용
 //    ArrayList<Integer> Tdatas= new ArrayList<>();
@@ -42,15 +64,40 @@ public class UserActivity extends AppCompatActivity {
         tv_usercharac=findViewById(R.id.tv_usercharac);
 
         ratingBar=findViewById(R.id.rating);
-        ratingBar.setOnRatingBarChangeListener(ratinglistener);
+
+
 
         Intent intent= getIntent();
-        String userkakaoID= intent.getStringExtra("userkakaoID");
-        String userNickname= intent.getStringExtra("userNickname");
-        String userYear= intent.getStringExtra("userYear");
-        String userLocal= intent.getStringExtra("userLocal");
-        String userIntro= intent.getStringExtra("userIntro");
-        String userCharac= intent.getStringExtra("userCharac");
+        userkakaoID= intent.getStringExtra("userkakaoID");
+        userNickname= intent.getStringExtra("userNickname");
+        userYear= intent.getStringExtra("userYear");
+        userLocal= intent.getStringExtra("userLocal");
+        userIntro= intent.getStringExtra("userIntro");
+        userCharac= intent.getStringExtra("userCharac");
+
+//          이건 자기 프로필에서 평점을 볼때 사용
+//        for(int i=0;i<DBPublicData.DBdatas.size();i++){ // 처음 받아 놓은 DB정보들 조회
+//            if(userNickname.equals(DBPublicData.DBdatas.get(i))){
+//
+//            }
+//        }
+        Log.e("log","meetRatings size : "+DBPublicData.meetRatings.size());
+        //MeetRating에서 이미 내가 별점준 사람이라면 그때 값이 나오게..
+        for(int i=0;i<DBPublicData.meetRatings.size();i++){
+            //만약 MeetRating 테이블에 내 닉네임을 찾으면
+            if(CurrentUserInfo.db_nickname.equals(DBPublicData.meetRatings.get(i).db_setuser)){
+                //만약 지금 보고 있는 유저의 ID가 내가 별점준 사람이라면
+                if(userNickname.equals(DBPublicData.meetRatings.get(i).db_getuser)){
+                    ratingBar.setRating(DBPublicData.meetRatings.get(i).db_grade);  //별점 입력
+                    ratingBar.setIsIndicator(true); //별점 수정 안되도록
+                    israting=false;
+
+                }
+            }
+        }//for ..
+
+        //만약 내가 한번도 별점은 안준 사람이면 리스너 달아서 별점을 줄 수 있도록 함.
+        if(israting)  ratingBar.setOnRatingBarChangeListener(ratinglistener); //별점 선택해서 줄 수 있게 리스너 달기
 
         tv_userNickname.setText(userNickname);
         tv_userYear.setText(userYear);
@@ -123,10 +170,80 @@ public class UserActivity extends AppCompatActivity {
 
     public RatingBar.OnRatingBarChangeListener ratinglistener= new RatingBar.OnRatingBarChangeListener() {
         @Override
-        public void onRatingChanged(RatingBar ratingBar, float v, boolean b) {
-            Toast.makeText(UserActivity.this, v+"점을 주었습니다.", Toast.LENGTH_SHORT).show();
+        public void onRatingChanged(RatingBar ratingBar, float ratingGrade, boolean b) {
+            Toast.makeText(UserActivity.this, ratingGrade+"점을 주었습니다.", Toast.LENGTH_SHORT).show();
+            float grade=ratingGrade;
+            int cnt=1;
+            float avg=0.0f;
+            for(int i=0;i<DBPublicData.DBdatas.size();i++){
+                if(DBPublicData.DBdatas.get(i).getNickname().equals( userNickname)){
+                    grade+=DBPublicData.DBdatas.get(i).grade;
+                    cnt+=DBPublicData.DBdatas.get(i).cnt;
+                    avg=grade/cnt;
+                }
+            }
+            insertMeetGrade(avg,cnt);
+
+
+            insertMeetRatingDB(ratingGrade); // MeetRating 테이블에 inset하는 메소드
+
             ratingBar.setIsIndicator(true);
         }
     };
+
+    //Meet 테이블에 grade, cnt inset하는 메소드
+    void insertMeetGrade(float grade, int cnt){
+        String serverUrl="http://umul.dothome.co.kr/Meet/updateMeetGrade.php";
+
+        SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //요청 객체에 보낼 데이터를 추가
+        smpr.addStringParam("grade", grade+"");
+        smpr.addStringParam("cnt", cnt+"");
+        smpr.addStringParam("nickname", userNickname);
+
+        //요청객체를 서버로 보낼 우체통 같은 객체 생성
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(smpr);
+    }
+
+
+    // MeetRating 테이블에 inset하는 메소드
+    void insertMeetRatingDB(float ratingGrade){
+
+        String serverUrl="http://umul.dothome.co.kr/Meet/insertMeetRatingDB.php";
+
+        SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
+                //Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //요청 객체에 보낼 데이터를 추가
+        smpr.addStringParam("setuser", CurrentUserInfo.db_nickname);
+        smpr.addStringParam("getuser", userNickname);
+        smpr.addStringParam("grade", ratingGrade+"");
+
+        //요청객체를 서버로 보낼 우체통 같은 객체 생성
+        RequestQueue requestQueue= Volley.newRequestQueue(this);
+        requestQueue.add(smpr);
+    }// insertMeetRatingDB ..
 
 }

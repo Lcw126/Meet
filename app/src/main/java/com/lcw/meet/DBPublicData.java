@@ -9,6 +9,10 @@ public class DBPublicData {
     static  String currentNickname;
     public static ArrayList<Page1Item> DBdatas= new ArrayList<>();
 
+    public static ArrayList<MeetRating> meetRatings= new ArrayList<>();
+
+
+
     public DBPublicData(String currentkakaoIDNUM, ArrayList<String> kakaoIDes) {
         this.currentkakaoIDNUM = currentkakaoIDNUM;
         this.kakaoIDes = kakaoIDes;

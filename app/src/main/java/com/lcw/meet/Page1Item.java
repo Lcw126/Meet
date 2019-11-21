@@ -13,6 +13,8 @@ public class Page1Item {
     String ImgPath03;
     String tome;
     String fromme;
+    float grade;
+    int cnt;
 
 
     /////////////////////test용 트래픽을 사용하지 않기 위해
@@ -31,6 +33,22 @@ public class Page1Item {
     public Page1Item() {
     }
 
+    public Page1Item(String kakakoID, String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03,String tome,String fromme,float grade,int cnt) {
+        this.kakakoID= kakakoID;
+        this.nickname = nickname;
+        this.gender = gender;
+        this.year = year;
+        this.local = local;
+        this.intro = intro;
+        this.cahrac = cahrac;
+        this.ImgPath01 = imgPath01;
+        this.ImgPath02 = imgPath02;
+        this. ImgPath03 = imgPath03;
+        this.tome = tome;
+        this.fromme = fromme;
+        this.grade= grade;
+        this.cnt= cnt;
+    }
     public Page1Item(String kakakoID, String nickname, String gender, String year, String local, String intro, String cahrac, String imgPath01, String imgPath02, String imgPath03,String tome,String fromme) {
         this.kakakoID= kakakoID;
         this.nickname = nickname;

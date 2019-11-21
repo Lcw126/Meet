@@ -67,6 +67,10 @@ public class Page5FragProfile extends Fragment {
     double latitude;
     double longitude;
 
+    float grade=0.0f;
+    TextView tv_mygrade;
+    ImageView ivpage5_tier;
+
     TextView  tv_temp, tv_temp_min, tv_temp_max, tv_temp_div;
     ImageView iv;
 
@@ -96,6 +100,8 @@ public class Page5FragProfile extends Fragment {
         Picasso.get().load(CurrentUserInfo.db_imgPath01).into(civ_page5profile);
 
 
+        tv_mygrade=view.findViewById(R.id.tv_mygrade);
+        ivpage5_tier=view.findViewById(R.id.ivpage5_tier);
         //현재 위치로 날씨 정보 가져오기
         //Open weatherMap 받은 키 : a39323947069b102269ba121717ac8df
         //https://samples.openweathermap.org/data/2.5/weather?lat=35&lon=139&appid=a39323947069b102269ba121717ac8df
@@ -120,6 +126,16 @@ public class Page5FragProfile extends Fragment {
 
             }
         });
+
+        //내 평점 불러오기.
+        for(int i=0;i<DBPublicData.DBdatas.size();i++){
+            if(DBPublicData.DBdatas.get(i).getNickname().equals(CurrentUserInfo.db_nickname)){
+                grade=DBPublicData.DBdatas.get(i).grade;
+            }
+        }
+        if(grade>= 0 && grade<=1){
+//            Picasso.get().load(R.drawable.v1).into(ivpage5_tier);
+        }
 
 
         //위도 경도 가져오기.
