@@ -27,6 +27,7 @@ import androidx.core.content.ContextCompat;
 import androidx.fragment.app.Fragment;
 
 import com.android.volley.misc.AsyncTask;
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.kakao.usermgmt.UserManagement;
@@ -127,15 +128,9 @@ public class Page5FragProfile extends Fragment {
             }
         });
 
-        //내 평점 불러오기.
-        for(int i=0;i<DBPublicData.DBdatas.size();i++){
-            if(DBPublicData.DBdatas.get(i).getNickname().equals(CurrentUserInfo.db_nickname)){
-                grade=DBPublicData.DBdatas.get(i).grade;
-            }
-        }
-        if(grade>= 0 && grade<=1){
-//            Picasso.get().load(R.drawable.).into(ivpage5_tier);
-        }
+        //내 평점
+        mygrade();
+
 
 
         //위도 경도 가져오기.
@@ -148,6 +143,29 @@ public class Page5FragProfile extends Fragment {
 
         return view;
     }// onCreateView ..
+    void mygrade(){
+        for(int i=0;i<DBPublicData.DBdatas.size();i++){
+            if(DBPublicData.DBdatas.get(i).getNickname().equals(CurrentUserInfo.db_nickname)){
+                grade=DBPublicData.DBdatas.get(i).grade;
+            }
+        }
+        if(grade>= 0 && grade<=1){
+            if(grade==0)tv_mygrade.setText("미평가");
+            else{
+                Picasso.get().load(R.drawable.t01).into(ivpage5_tier);
+                tv_mygrade.setText("브론즈");
+            }
+        }else if(grade>= 1 && grade<=2){
+            Picasso.get().load(R.drawable.t02).into(ivpage5_tier);
+            tv_mygrade.setText("실버");
+        }else if(grade>= 2.5 && grade<=4){
+            Picasso.get().load(R.drawable.t03).into(ivpage5_tier);
+            tv_mygrade.setText("골드");
+        }else if(grade>= 4 && grade<=5){
+            Picasso.get().load(R.drawable.t04).into(ivpage5_tier);
+            tv_mygrade.setText("다이아");
+        }
+    }
 
     //위도 경도 값으로 날씨 값을 가져온다.
     private void getWeatherData( double lat, double lng ){
