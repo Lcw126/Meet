@@ -11,6 +11,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
@@ -47,7 +48,8 @@ public class Page2DailyAdapter extends RecyclerView.Adapter {
         vh.tvName.setText(ite.nickname);
         vh.tvYear.setText(ite.year);
         vh.tvMsg.setText(ite.memo);
-        Glide.with(context).load(ite.imgPath).into(vh.ivImg);
+       // Glide.with(context).load(ite.imgPath).into(vh.ivImg);
+        Picasso.get().load(ite.imgPath).into(vh.ivImg);
 
     }
 

@@ -103,7 +103,7 @@ public class Main2Activity extends AppCompatActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        Log.e("log","Main2Activity onDestroy");
+        page1Items.clear();
     }
 }
 // class Main2Activity ..
