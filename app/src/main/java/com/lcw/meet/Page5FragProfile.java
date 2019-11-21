@@ -134,7 +134,7 @@ public class Page5FragProfile extends Fragment {
             }
         }
         if(grade>= 0 && grade<=1){
-//            Picasso.get().load(R.drawable.v1).into(ivpage5_tier);
+            Picasso.get().load(R.drawable.).into(ivpage5_tier);
         }
 
 
