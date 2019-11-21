@@ -17,7 +17,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/ic_launcher"/>
+            android:src="@drawable/ic_person"/>
         <TextView
             android:id="@+id/tv_nickname"
             android:layout_width="wrap_content"
@@ -57,7 +57,7 @@
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
-            android:layout_marginLeft="8dp"
+            android:layout_marginLeft="16dp"
             android:src="@drawable/ic_close_black_24dp"
             android:backgroundTint="@color/colorButton"/>
 
@@ -71,11 +71,12 @@
 <!--            android:layout_toRightOf="@id/btn_close"/>-->
         <ImageButton
             android:id="@+id/btn_like"
-            android:layout_width="240dp"
+            android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_alignParentBottom="true"
             android:layout_marginBottom="4dp"
             android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
             android:layout_toRightOf="@id/btn_close"
             android:src="@drawable/ic_heart"
             android:backgroundTint="@color/colorButton"/>
@@ -90,17 +91,17 @@
 <!--            android:layout_marginBottom="4dp"-->
 <!--            android:layout_marginRight="8dp"-->
 <!--            android:layout_alignBaseline="@id/btn_close"/>-->
-        <ImageButton
-            android:id="@+id/btn_message"
-            android:layout_width="60dp"
-            android:layout_height="50dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentRight="true"
-            android:layout_marginBottom="4dp"
-            android:layout_marginRight="8dp"
-            android:layout_alignBaseline="@id/btn_close"
-            android:src="@drawable/ic_mail_outline_black_24dp"
-            android:backgroundTint="@color/colorButton"/>
+<!--        <ImageButton-->
+<!--            android:id="@+id/btn_message"-->
+<!--            android:layout_width="60dp"-->
+<!--            android:layout_height="50dp"-->
+<!--            android:layout_alignParentBottom="true"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginBottom="4dp"-->
+<!--            android:layout_marginRight="8dp"-->
+<!--            android:layout_alignBaseline="@id/btn_close"-->
+<!--            android:src="@drawable/ic_mail_outline_black_24dp"-->
+<!--            android:backgroundTint="@color/colorButton"/>-->
 
 
 

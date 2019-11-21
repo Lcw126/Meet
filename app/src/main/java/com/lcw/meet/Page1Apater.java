@@ -97,11 +97,11 @@ public class Page1Apater extends RecyclerView.Adapter {
 
             btn_close=itemView.findViewById(R.id.btn_close);
             btn_like=itemView.findViewById(R.id.btn_like);
-            btn_message=itemView.findViewById(R.id.btn_message);
+//            btn_message=itemView.findViewById(R.id.btn_message);
             //해당 사용자 목록 X 버튼 누를 시 없애기
             btn_close.setOnClickListener(clickListener);
             btn_like.setOnClickListener(clickListener);
-            btn_message.setOnClickListener(clickListener);
+//            btn_message.setOnClickListener(clickListener);
 
 
             //여러 사용자 사진중 한명을 터치 했을때
@@ -161,9 +161,9 @@ public class Page1Apater extends RecyclerView.Adapter {
                         //insertDBToMe(position);
 
                         break;
-                    case R.id.btn_message :
-                        Toast.makeText(context, "메세지", Toast.LENGTH_SHORT).show();
-                        break;
+//                    case R.id.btn_message :
+//                        Toast.makeText(context, "메세지", Toast.LENGTH_SHORT).show();
+//                        break;
 
                 }
 

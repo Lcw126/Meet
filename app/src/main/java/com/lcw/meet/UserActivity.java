@@ -48,6 +48,8 @@ public class UserActivity extends AppCompatActivity {
     String userIntro;
     String userCharac;
 
+    String[] fromme_nicknames, tome_nicknames;
+
     //Test용
 //    ArrayList<Integer> Tdatas= new ArrayList<>();
 
@@ -75,13 +77,30 @@ public class UserActivity extends AppCompatActivity {
         userIntro= intent.getStringExtra("userIntro");
         userCharac= intent.getStringExtra("userCharac");
 
-//          이건 자기 프로필에서 평점을 볼때 사용
-//        for(int i=0;i<DBPublicData.DBdatas.size();i++){ // 처음 받아 놓은 DB정보들 조회
-//            if(userNickname.equals(DBPublicData.DBdatas.get(i))){
+
+//        //내 정보 fromme, tome 가져오기.
+//        Log.e("page4 check", " Page4FragChat DBPublicData.DBdatas.size() "+DBPublicData.DBdatas.size());
+//        for(int i=0;i<DBPublicData.DBdatas.size();i++){
+//            if(DBPublicData.DBdatas.get(i).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
+//                fromme_nicknames = DBPublicData.DBdatas.get(i).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+//                tome_nicknames= DBPublicData.DBdatas.get(i).tome.split("&");           //현재 접속 닉네임의 tome 값을 가져옴.
+//            }
+//        }//for ..
+//        Log.e("page4 check", " Page4FragChat fromme_nicknames.length "+fromme_nicknames.length);
+//
+//        //내가 호감있는 사람과 나에게 호감있는 사람이 일치한지 비교
+//        for(String fromme : fromme_nicknames){
+//
+//            for(String tomme : tome_nicknames){
+//                //일치하면 connectedNickname에 저장.
+//                if(fromme!=null){
+//                    if(fromme.equals(userNickname) && tomme.equals(userNickname))
+//                }
 //
 //            }
 //        }
-        Log.e("log","meetRatings size : "+DBPublicData.meetRatings.size());
+
+
         //MeetRating에서 이미 내가 별점준 사람이라면 그때 값이 나오게..
         for(int i=0;i<DBPublicData.meetRatings.size();i++){
             //만약 MeetRating 테이블에 내 닉네임을 찾으면
@@ -91,7 +110,6 @@ public class UserActivity extends AppCompatActivity {
                     ratingBar.setRating(DBPublicData.meetRatings.get(i).db_grade);  //별점 입력
                     ratingBar.setIsIndicator(true); //별점 수정 안되도록
                     israting=false;
-
                 }
             }
         }//for ..

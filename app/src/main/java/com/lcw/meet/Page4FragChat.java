@@ -61,7 +61,6 @@ public class Page4FragChat extends Fragment {
     void DBsearch(){
 
         //내 정보 fromme, tome 가져오기.
-
         Log.e("page4 check", " Page4FragChat DBPublicData.DBdatas.size() "+DBPublicData.DBdatas.size());
         for(int i=0;i<DBPublicData.DBdatas.size();i++){
             if(DBPublicData.DBdatas.get(i).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
