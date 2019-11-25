@@ -63,7 +63,7 @@ public class MainActivity extends AppCompatActivity {
         callback = new SessionCallback();
         Session.getCurrentSession().addCallback(callback);
         //키값 알아내기(알아냈으면 등록하고 지워도 상관없다)
-        getAppKeyHash();
+        //getAppKeyHash();
 
         //자기 카카오톡 프로필 정보 및 디비정보 쉐어드에 저장해놨던거 불러오기
         //loadShared();

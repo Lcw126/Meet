@@ -42,6 +42,8 @@ public class Page1FragHome extends Fragment {
 
     SwipeRefreshLayout refreshLayout;
 
+    String[] fromme_nicknames;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_home,container,false);
 
@@ -74,11 +76,13 @@ public class Page1FragHome extends Fragment {
             @Override
             public void onRefresh() {
                 Main2Activity.page1Items.clear();
-                page1Apater.notifyDataSetChanged();
+
                 DBPublicData.DBdatas.clear();
                 loadDBtoJson();
 
-            }
+
+
+            }// onRefresh ..
         });
 
 
@@ -261,7 +265,34 @@ public class Page1FragHome extends Fragment {
 
                 } catch (JSONException e) {e.printStackTrace();}
 
-            }
+                for(int i=0; i<Main2Activity.page1Items.size();i++){
+                    //자신의 프로필은 제거하고 보기위해서
+                    if(Main2Activity.page1Items.get(i).getNickname().equals(CurrentUserInfo.db_nickname))Main2Activity.page1Items.remove(i);
+                }
+
+                for(int k=0;k<DBPublicData.DBdatas.size();k++){  //DB정보만큼 반복하여 자신이 호감을 보낸 상대 리스트를 fromme_nicknames에 저장
+                    if(DBPublicData.DBdatas.get(k).nickname.equals(CurrentUserInfo.db_nickname)){     //현재 접속 닉네임과 같은지 비교
+                        fromme_nicknames = DBPublicData.DBdatas.get(k).fromme.split("&");      //현재 접속 닉네임의 fromme 값을 가져옴.
+                    }
+                }
+
+                for(int i=0; i<Main2Activity.page1Items.size();i++){
+                    //자신이 호감 보낸 상대이면 제거
+                    for(int j=0;j<fromme_nicknames.length;j++){
+                        if(Main2Activity.page1Items.get(i).getNickname().equals(fromme_nicknames[j])){
+                            Main2Activity.page1Items.remove(i);
+                            i--;
+                            break;
+                        }
+
+                    }
+                }
+                page1Apater.notifyDataSetChanged();
+            }// onResponse ..
+
+
+
+
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {

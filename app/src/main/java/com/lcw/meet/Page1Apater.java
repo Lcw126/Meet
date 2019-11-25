@@ -1,6 +1,7 @@
 package com.lcw.meet;
 
 
+import android.animation.Animator;
 import android.content.Context;
 import android.content.Intent;
 import android.util.Log;
@@ -15,6 +16,7 @@ import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.airbnb.lottie.LottieAnimationView;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -86,7 +88,7 @@ public class Page1Apater extends RecyclerView.Adapter {
         ImageView ivImg;
 
         ImageButton btn_close, btn_like, btn_message;
-
+        LottieAnimationView animationView;
         public VH(@NonNull View itemView) {
             super(itemView);
 
@@ -102,6 +104,9 @@ public class Page1Apater extends RecyclerView.Adapter {
             btn_close.setOnClickListener(clickListener);
             btn_like.setOnClickListener(clickListener);
 //            btn_message.setOnClickListener(clickListener);
+
+            animationView= (LottieAnimationView) itemView.findViewById(R.id.animation_view);
+
 
 
             //여러 사용자 사진중 한명을 터치 했을때
@@ -155,9 +160,38 @@ public class Page1Apater extends RecyclerView.Adapter {
                         notifyItemRemoved(getLayoutPosition());
                         break;
                     case R.id.btn_like :
-
                         int position= getLayoutPosition();
                         loadDBToMe(position);
+
+
+                        animationView.setVisibility(View.VISIBLE);
+                        animationView.playAnimation();
+                        animationView.addAnimatorListener(new Animator.AnimatorListener() {
+                            @Override
+                            public void onAnimationStart(Animator animation) {
+                            }
+
+                            @Override
+                            public void onAnimationEnd(Animator animation) {
+                                animationView.setVisibility(View.GONE);
+                                datas.remove(getLayoutPosition());
+                                notifyItemRemoved(getLayoutPosition());
+
+                            }
+
+                            @Override
+                            public void onAnimationCancel(Animator animation) {
+
+                            }
+
+                            @Override
+                            public void onAnimationRepeat(Animator animation) {
+
+                            }
+                        });
+
+
+                        //loadDBToMe 메소드 안으로 이동함. 로드후에 올리도록
                         //insertDBToMe(position);
 
                         break;
@@ -168,6 +202,8 @@ public class Page1Apater extends RecyclerView.Adapter {
                 }
 
             }
+
+
 
             void loadDBToMe(final int position){
 
@@ -285,6 +321,8 @@ public class Page1Apater extends RecyclerView.Adapter {
                 //요청객체를 서버로 보낼 우체통 같은 객체 생성
                 RequestQueue requestQueue= Volley.newRequestQueue(context);
                 requestQueue.add(smpr);
+
+
 
             }
         };// View.OnClickListener() ..
