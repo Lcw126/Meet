@@ -20,7 +20,7 @@
         android:id="@+id/civ_myimg"
         android:layout_width="60dp"
         android:layout_height="60dp"
-        android:src="@mipmap/ic_launcher"
+        android:src="@drawable/ic_person"
         android:layout_below="@id/tv_daily"
         android:layout_marginTop="8dp"
         android:layout_marginLeft="24dp">

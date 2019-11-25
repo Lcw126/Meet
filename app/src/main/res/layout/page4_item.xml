@@ -23,6 +23,14 @@
             android:layout_marginTop="12dp"
             android:layout_marginLeft="8dp"
             android:text="닉네임"/>
+        <!--회색 구분선-->
+        <View
+            android:id="@+id/v_line01"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="#C4C4C4"
+            android:layout_alignParentBottom="true"
+            android:layout_marginTop="10dp"/>
 
 <!--        <TextView-->
 <!--            android:id="@+id/tv_page4Contents"-->
