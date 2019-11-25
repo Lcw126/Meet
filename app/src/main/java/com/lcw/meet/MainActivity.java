@@ -86,6 +86,11 @@ public class MainActivity extends AppCompatActivity {
         }
         //Toast.makeText(this, "logInOK : "+logInOK, Toast.LENGTH_SHORT).show();
 
+        //플레이스토에서 카카오 로그인이 되로록 추가 SHA1로 해시키 얻음.
+//        byte[] sha1 = {
+//               0x5D, (byte) 0xAD, (byte) 0xF6, (byte) 0xBB, (byte)0x8E, (byte)0x8B, (byte)0x9F, (byte)0x8E, (byte)0x9B, (byte)0x93, 0x49, 0x1B, (byte)0xE3, (byte)0xBD, 0x6E, 0x23,(byte) 0xBA, 0x6A, (byte)0xB1, (byte)0x81
+//        };
+//        Log.e("keyhash", Base64.encodeToString(sha1, Base64.NO_WRAP));
 
 
 
@@ -101,7 +106,7 @@ public class MainActivity extends AppCompatActivity {
                 md = MessageDigest.getInstance("SHA");
                 md.update(signature.toByteArray());
                 String something = new String(Base64.encode(md.digest(), 0));
-                Log.e("Hash key", something);
+               // Log.e("Hash key", something);
             }
         } catch (Exception e) {
             // TODO Auto-generated catch block

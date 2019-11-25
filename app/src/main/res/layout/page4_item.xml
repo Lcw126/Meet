@@ -12,7 +12,7 @@
             android:id="@+id/civ_page4"
             android:layout_width="52dp"
             android:layout_height="52dp"
-            android:src="@mipmap/ic_launcher"
+            android:src="@drawable/ic_person"
             android:layout_centerVertical="true"/>
 
         <TextView
@@ -24,23 +24,23 @@
             android:layout_marginLeft="8dp"
             android:text="닉네임"/>
 
-        <TextView
-            android:id="@+id/tv_page4Contents"
-            android:layout_width="200dp"
-            android:layout_height="wrap_content"
-            android:text="내용"
-            android:layout_below="@id/tv_page4Nickname"
-            android:layout_toRightOf="@id/civ_page4"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="6dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_page4Contents"-->
+<!--            android:layout_width="200dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="내용"-->
+<!--            android:layout_below="@id/tv_page4Nickname"-->
+<!--            android:layout_toRightOf="@id/civ_page4"-->
+<!--            android:layout_marginLeft="8dp"-->
+<!--            android:layout_marginTop="6dp"/>-->
 
-        <TextView
-            android:id="@+id/tv_page4Time"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="11:11"
-            android:layout_alignParentRight="true"
-            android:layout_marginTop="4dp"/>
+<!--        <TextView-->
+<!--            android:id="@+id/tv_page4Time"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:text="11:11"-->
+<!--            android:layout_alignParentRight="true"-->
+<!--            android:layout_marginTop="4dp"/>-->
 
     </RelativeLayout>
 

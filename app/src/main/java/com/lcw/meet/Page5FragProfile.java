@@ -153,17 +153,17 @@ public class Page5FragProfile extends Fragment {
             if(grade==0)tv_mygrade.setText("미평가");
             else{
                 Picasso.get().load(R.drawable.t01).into(ivpage5_tier);
-                tv_mygrade.setText("브론즈");
+                tv_mygrade.setText("실버메달");
             }
         }else if(grade>= 1 && grade<=2){
             Picasso.get().load(R.drawable.t02).into(ivpage5_tier);
-            tv_mygrade.setText("실버");
+            tv_mygrade.setText("골드 코인");
         }else if(grade>= 2.5 && grade<=4){
             Picasso.get().load(R.drawable.t03).into(ivpage5_tier);
-            tv_mygrade.setText("골드");
+            tv_mygrade.setText("골드바");
         }else if(grade>= 4 && grade<=5){
             Picasso.get().load(R.drawable.t04).into(ivpage5_tier);
-            tv_mygrade.setText("다이아");
+            tv_mygrade.setText("다이아몬드");
         }
     }
 
