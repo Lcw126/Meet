@@ -71,6 +71,7 @@ public class Page4Adapter extends RecyclerView.Adapter {
         //vh.tvContents.setText(ite.);
 
         Glide.with(context).load(ite.ImgPath01).into(vh.ivIcon);
+        if(position==(datas.size()-1)) vh.v_line01.setVisibility(View.INVISIBLE);
 
 
         //Firebase DB관리 객체와 'caht'노드 참조객체 얻어오기
@@ -190,6 +191,7 @@ public class Page4Adapter extends RecyclerView.Adapter {
         TextView tvNickname;
         TextView tvContents;
         TextView tvTime;
+        View v_line01;
 
         public VH(@NonNull View itemView) {
             super(itemView);
@@ -198,6 +200,8 @@ public class Page4Adapter extends RecyclerView.Adapter {
             tvNickname=itemView.findViewById(R.id.tv_page4Nickname);
             //tvContents=itemView.findViewById(R.id.tv_page4Contents);
             //tvTime=itemView.findViewById(R.id.tv_page4Time);
+
+            v_line01=itemView.findViewById(R.id.v_line01);
 
             itemView.setOnClickListener(page4ClickListener);
 
