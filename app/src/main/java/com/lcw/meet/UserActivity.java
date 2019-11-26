@@ -216,12 +216,12 @@ public class UserActivity extends AppCompatActivity {
         SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
+               // new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -244,13 +244,13 @@ public class UserActivity extends AppCompatActivity {
         SimpleMultiPartRequest smpr= new SimpleMultiPartRequest(Request.Method.POST, serverUrl, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
-                new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
+                //new AlertDialog.Builder(UserActivity.this).setMessage("응답:"+response).create().show();
                 //Toast.makeText(AccountActivity.this, "응답"+response, Toast.LENGTH_SHORT).show();
             }
         }, new Response.ErrorListener() {
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(UserActivity.this, "ERROR", Toast.LENGTH_SHORT).show();
             }
         });
 
