@@ -96,8 +96,9 @@ public class Page5FragProfile extends Fragment {
         click_adver=view.findViewById(R.id.click_adver);
         click_adver.setOnClickListener(adverListener);
 
-        rewardedAd = new RewardedAd(mContext, "ca-app-pub-3940256099942544/5224354917");
+        rewardedAd = new RewardedAd(mContext, "ca-app-pub-3964115173779256/1828751488");
         //발급 받은 광고 키 ca-app-pub-3964115173779256/1828751488
+        //샘플키 ca-app-pub-3940256099942544/5224354917
 
         //광고 로드 및 콜백리스터 추가
         rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
