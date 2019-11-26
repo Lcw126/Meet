@@ -28,6 +28,11 @@ import androidx.fragment.app.Fragment;
 
 import com.android.volley.misc.AsyncTask;
 import com.bumptech.glide.Glide;
+import com.google.android.gms.ads.AdRequest;
+import com.google.android.gms.ads.rewarded.RewardItem;
+import com.google.android.gms.ads.rewarded.RewardedAd;
+import com.google.android.gms.ads.rewarded.RewardedAdCallback;
+import com.google.android.gms.ads.rewarded.RewardedAdLoadCallback;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.FusedLocationProviderClient;
 import com.kakao.usermgmt.UserManagement;
@@ -53,7 +58,7 @@ import static android.content.Context.LOCATION_SERVICE;
 
 public class Page5FragProfile extends Fragment {
 
-    Button click_LogOut;
+    Button click_LogOut, click_adver;
     private Context mContext;
 
     TextView textview_address;
@@ -78,10 +83,24 @@ public class Page5FragProfile extends Fragment {
     TextView tv_page5Ncikname, tv_page5Year, tv_page5Local;
     CircleImageView civ_page5profile;
 
+    //리워드 광고 관련 변수
+    private RewardedAd rewardedAd;
+
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view= inflater.inflate(R.layout.fragment_profile,container,false);
+        //로그아웃 버튼
         click_LogOut=view.findViewById(R.id.click_LogOut);
         click_LogOut.setOnClickListener(LogoutListener);
+
+        //광고 보기 버튼
+        click_adver=view.findViewById(R.id.click_adver);
+        click_adver.setOnClickListener(adverListener);
+
+        rewardedAd = new RewardedAd(mContext, "ca-app-pub-3940256099942544/5224354917");
+        //발급 받은 광고 키 ca-app-pub-3964115173779256/1828751488
+
+        //광고 로드 및 콜백리스터 추가
+        rewardedAd.loadAd(new AdRequest.Builder().build(), adLoadCallback);
 
 
         tv_temp=view.findViewById(R.id.tv_temp);
@@ -143,6 +162,9 @@ public class Page5FragProfile extends Fragment {
 
         return view;
     }// onCreateView ..
+
+
+
     void mygrade(){
         for(int i=0;i<DBPublicData.DBdatas.size();i++){
             if(DBPublicData.DBdatas.get(i).getNickname().equals(CurrentUserInfo.db_nickname)){
@@ -497,11 +519,6 @@ public class Page5FragProfile extends Fragment {
 
 
 
-
-
-
-
-
     //로그 아웃 버튼 눌렀을 시
     public View.OnClickListener LogoutListener= new View.OnClickListener() {
         @Override
@@ -511,6 +528,42 @@ public class Page5FragProfile extends Fragment {
                 public void onCompleteLogout() {redirectLoginActivity();}
              });
 
+        }
+    };
+    //광고 보기 버튼 눌렀을 시
+    public View.OnClickListener adverListener= new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            //광고 보여주기
+            rewardedAd.show(getActivity(), rewardedAdCallback);
+        }
+    };
+
+    //보상형 광고 로드
+    RewardedAdLoadCallback adLoadCallback = new RewardedAdLoadCallback(){
+        @Override
+        public void onRewardedAdLoaded() {
+            super.onRewardedAdLoaded();
+        }
+
+        @Override
+        public void onRewardedAdFailedToLoad(int i) {
+            super.onRewardedAdFailedToLoad(i);
+            Toast.makeText(getActivity(), "로드 실패",Toast.LENGTH_SHORT).show();
+        }
+    };
+    //보상형 광고 리스너 생성하기
+    RewardedAdCallback rewardedAdCallback = new RewardedAdCallback() {
+        @Override
+        public void onUserEarnedReward(@NonNull RewardItem rewardItem) {
+            //사용자가 기존시간 이상 동영상을 시청하여 보상을 받을 때 자동 실행
+            //파라미터로 전달된 rewardItem객체가 보상값을 가지고 있음.
+
+//            //보상타입
+//            String type = rewardItem.getType();
+//            //보상수량
+//            int num = rewardItem.getAmount();
+//            Toast.makeText(getActivity(),type+" : "+num, Toast.LENGTH_SHORT).show();
         }
     };
 

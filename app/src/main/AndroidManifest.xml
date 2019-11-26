@@ -49,7 +49,9 @@
         <uses-library
             android:name="org.apache.http.legacy"
             android:required="false" />
-
+        <meta-data
+            android:name="com.google.android.gms.ads.APPLICATION_ID"
+            android:value="ca-app-pub-3964115173779256~9707241509" />
         <meta-data
             android:name="com.kakao.sdk.AppKey"
             android:value="@string/kakao_app_key" />

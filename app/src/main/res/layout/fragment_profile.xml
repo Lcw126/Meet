@@ -127,10 +127,17 @@
         android:text="프로필 수정"
         android:layout_below="@id/tv_page5Local"/>
     <Button
-        android:id="@+id/click_LogOut"
+    android:id="@+id/click_LogOut"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:layout_alignParentBottom="true"
+    android:text="로그아웃"/>
+    <Button
+        android:id="@+id/click_adver"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:text="로그아웃"/>
+        android:layout_alignParentRight="true"
+        android:text="광고보기"/>
 
 </RelativeLayout>
